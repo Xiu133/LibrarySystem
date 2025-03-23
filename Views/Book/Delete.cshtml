@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "刪除書籍";
+}
+
+<div class="overlay"></div>
+
+<div class="borrow-container mt-4">
+    <div class="borrow-card shadow-lg">
+        <div class="card-header bg-danger text-white">
+            <h2 class="mb-0">❌ 刪除書籍</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>書名</th>
+                        <th>作者</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@book.Title</td>
+                            <td>@book.Author</td>
+                            <td>
+                                <form asp-controller="Book" asp-action="DeleteConfirm" method="post">
+                                    <input type="hidden" name="id" value="@book.Id" />
+                                    <button type="submit" class="btn btn-danger">❌ 刪除</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

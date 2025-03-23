@@ -1,0 +1,64 @@
+﻿@using Library.ViewModel
+@model List<BorrowRecordViewModel>
+<div class="overlay"></div>
+
+<div class="borrow-container mt-5">
+    <h2 class="text-center mb-4">還書管理</h2>
+
+    <!-- 查詢表單 -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            <form method="get" action="@Url.Action("Index")" class="input-group">
+                <input type="text" name="userName" id="searchBox" class="form-control" placeholder="請輸入帳號名稱" required />
+                <button type="submit" class="btn btn-primary">查詢</button>
+            </form>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">返回首頁</a>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <!-- 顯示借閱紀錄 -->
+    @if (Model?.Any() == true)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>書名</th>
+                    <th>作者</th>
+                    <th>借閱日期</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Author</td>
+                        <td>@item.BorrowDate</td>
+                        <td>
+                            <form method="post" action="@Url.Action("ReturnBook")">
+                                <input type="hidden" name="borrowRecordId" value="@item.BorrowRecordId" />
+                                <input type="hidden" name="userName" value="@ViewBag.UserName" />
+                                <button type="submit" class="btn btn-danger">歸還</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center">沒有找到任何借閱紀錄。</p>
+    }
+</div>

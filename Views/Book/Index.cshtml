@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>書籍搜尋與瀏覽</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>📖 書籍搜尋與瀏覽</h1>
+        <input type="text" id="searchBox" placeholder="🔍 輸入書名或作者..." onkeyup="searchBooks()">             
+        <div class="book-list" id="bookList">
+            @foreach (var book in Model)
+            {
+                <a href="@Url.Action("Detail", "Book", new { id = book.Id })" class="book-item">
+                    <img src="@book.ImageFileName" alt="書籍封面">
+                    <p>作者：@book.Author</p>
+                </a>
+            }
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    // 監聽鍵盤按鍵事件
+    document.getElementById('searchBox').addEventListener('keydown', function (event) {
+        // 當按下 Enter 鍵 (鍵碼 13)
+        if (event.key === 'Enter') {
+            searchBookByTitleOrAuthor(); // 執行搜尋
+        }
+    });
+
+    function searchBookByTitleOrAuthor() {
+        let query = document.getElementById('searchBox').value.trim();
+
+        if (!query) return;
+
+        // 呼叫後端搜尋 API
+        fetch(`/Book/Search?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(books => {
+                if (books.length === 0) {
+                    alert("❌ 查無此書籍");
+                } else {
+                    window.location.href = `/Book/Detail/${books[0].id}`;
+                }
+            })
+            .catch(error => console.error("搜尋時發生錯誤:", error));
+    }
+</script>

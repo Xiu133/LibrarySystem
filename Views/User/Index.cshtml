@@ -1,0 +1,27 @@
+﻿ @model Library.Views.User.IndexModel
+
+
+@{
+    <div class="overlay"></div>
+
+    <div class="user-container">
+        <h2>📚 書香世家</h2>
+        <p>請選擇您的功能：</p>
+
+        <div class="button-group">
+
+            <a asp-controller="Book" asp-action="Index" class="btn-option">
+                瀏覽書籍
+            </a>
+            <a asp-controller="BorrowRecord" asp-action="Index" class="btn-option">
+                借閱紀錄
+            </a>
+            <a asp-controller="Borrow" asp-action="Index" class="btn-option">
+                我要借書
+            </a>
+            <a asp-controller="Account" asp-action="Logout" class="btn-option">
+                登出
+            </a>
+        </div>
+    </div>
+}

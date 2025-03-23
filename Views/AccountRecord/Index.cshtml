@@ -1,0 +1,58 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "帳號紀錄";
+}
+<div class="overlay"></div>
+
+<div class="borrow-container">
+    <h2>帳號的借書還書紀錄</h2>
+
+    <form method="get" action="@Url.Action("Index")">
+        <input type="text" name="userName" id="searchBox" placeholder="請輸入帳號名稱" required />
+        <button type="submit" class="btn btn-primary">查詢</button>
+    </form>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <p style="color: red;">@ViewBag.ErrorMessage</p>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>書籍名稱</th>
+                    <th>借閱日期</th>
+                    <th>歸還日期</th>
+                    <th>狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>@record.BookTitle</td>
+                        <td>@record.BorrowRecord.BorrowDate.ToString("yyyy-MM-dd")</td>
+                        <td>@(record.BorrowRecord.ReturnDate?.ToString("yyyy-MM-dd") ?? "未歸還")</td>
+                        <td>
+                            @if (record.BorrowRecord.ReturnDate == null)
+                            {
+                                <span class="badge badge-danger">未歸還</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">已歸還</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>請輸入帳號名稱進行查詢。</p>
+    }
+</div>

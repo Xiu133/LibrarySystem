@@ -1,0 +1,163 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "借書頁面";
+}
+<div class="overlay"></div>
+
+<div class="borrow-container mt-4">
+    <div class="borrow-card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">📚 借書頁面</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>書名</th>
+                        <th>作者</th>
+                        <th>庫存</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@book.Title</td>
+                            <td>@book.Author</td>
+                            <td>
+                                @if (book.Quantity > 0)
+                                {
+                                    <span class="badge bg-success">可借閱</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">無庫存</span>
+                                }
+                            </td>
+                            <td>
+                                @if (book.Quantity > 0)
+                                {
+                                    <form asp-controller="Borrow" asp-action="Borrow" method="post">
+                                        <input type="hidden" name="bookId" value="@book.Id" />
+                                        @*                                         <input type="hidden" name="userId" value="@ViewBag.UserId" />
+ *@                                        <button type="submit" class="btn btn-primary borrow-btn" data-book-id="@book.Id">
+                                            📖 借閱
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">無法借閱</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="mt-3 text-center">
+                <h4>已選 <span id="borrow-count">0</span>/3 本</h4>
+            </div>
+
+            <!-- 確認借閱按鈕 -->
+            <div class="text-center mt-3">
+                <form id="confirmBorrowForm" asp-controller="Borrow" asp-action="ConfirmBorrow" method="post">
+                    <input type="hidden" name="userId" value="@ViewBag.UserId" />
+                    <input type="hidden" id="selectedBooks" name="selectedBooks" />
+                    <button type="submit" id="confirmBorrowBtn" class="btn btn-success btn-lg px-4 btn-admin" disabled>
+                        ✅ 確認借閱
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+        let borrowCount = 0; // 目前已借數量
+        const maxBorrow = 3; // 最大可借數量
+        const borrowBtns = document.querySelectorAll(".borrow-btn");
+        const borrowCountSpan = document.getElementById("borrow-count");
+        const confirmBorrowBtn = document.getElementById("confirmBorrowBtn");
+        const selectedBooksInput = document.getElementById("selectedBooks");
+
+        let selectedBooks = [];
+
+
+        // 監聽借閱按鈕
+        borrowBtns.forEach(btn => {
+            btn.addEventListener("click", function () {
+                const bookId = this.getAttribute("data-book-id");
+
+                if (!selectedBooks.includes(bookId)) {
+                    if (borrowCount < maxBorrow) {
+                        borrowCount++;
+                        selectedBooks.push(bookId);
+                        this.classList.remove("btn-primary");
+                        this.classList.add("btn-secondary");
+                        this.innerHTML = "✅ 已選";
+                        this.disabled = true;
+                    }
+                }
+
+                updateUI();
+            });
+        });
+
+        function updateUI() {
+            borrowCountSpan.innerText = borrowCount;
+
+            // 當達到最大借閱數量時，禁用其他按鈕
+            if (borrowCount >= maxBorrow) {
+                borrowBtns.forEach(btn => {
+                    if (!btn.disabled) {
+                        btn.disabled = true;
+                    }
+                });
+            }
+
+            confirmBorrowBtn.disabled = borrowCount === 0;
+            selectedBooksInput.value = selectedBooks.join(",");
+              console.log("更新後的 selectedBooksInput.value:", selectedBooksInput.value);
+        }
+
+           $("#confirmBorrowBtn").click(function (e) {
+                e.preventDefault();
+
+                let selectedBooks = $("#selectedBooks").val().trim();
+                console.log("selectedBooks 原始值:", selectedBooks);
+
+                if (!selectedBooks.trim()) {// 這裡使用 trim() 避免空字串問題
+                    alert("請選擇要借閱的書籍！");
+                    return;
+                }
+
+                let selectedBooksArray = selectedBooks.split(",").map(function(item) {
+                return parseInt(item, 10); // 轉換為數字
+                }).filter(num => !isNaN(num));;
+
+                    console.log("發送的 JSON:", JSON.stringify(selectedBooksArray));
+
+
+            $.ajax({
+                url: "/Borrow/ConfirmBorrow",
+                type: "POST",
+                contentType: "application/json",
+                  // data: JSON.stringify({ selectedBooksArray }),
+                  data: JSON.stringify({ selectBooks: selectedBooksArray }),
+                success: function (response) {
+                    console.log("後端回應:", response);
+                    if (response.success) {
+                        alert(response.message);
+                        location.href = "/User/Index"; // 借閱成功後重新載入頁面
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            });
+        });
+    });
+</script>

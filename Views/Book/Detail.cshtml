@@ -1,0 +1,53 @@
+﻿@model Library.Models.Book;
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.Title - 詳細資訊</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="row g-0">
+                        <!-- 左側圖片區域 -->
+                        <div class="col-md-5 d-flex align-items-center">
+                            <img src="@Model.ImageFileName" class="img-fluid rounded-start" alt="@Model.Title">
+                        </div>
+                        <!-- 右側書籍資訊 -->
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h1 class="card-title text-primary fw-bold">@Model.Title</h1>
+                                <h5 class="text-muted">📖 作者：@Model.Author</h5>
+
+                                <hr>
+
+                                <p class="card-text">
+                                    <strong>書籍介紹：</strong> <br>
+                                    @Model.Description
+                                </p>
+
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a href="@Url.Action("Index", "Book")" class="btn btn-outline-primary">
+                                        🔙 返回書籍列表
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

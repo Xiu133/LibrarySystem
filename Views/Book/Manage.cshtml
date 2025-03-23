@@ -1,0 +1,22 @@
+﻿
+@model Library.Views.Book.ManageModel
+<div class="overlay"></div>
+
+<div class="user-container">
+    <h2>📚 管理者模式</h2>
+
+    <div class="button-group">
+        <a asp-controller="Book" asp-action="Create" class="btn-option">
+            新增書籍
+        </a>
+        <a asp-controller="Book" asp-action="Edit" class="btn-option">
+            編輯書籍
+        </a>
+        <a asp-controller="Book" asp-action="Delete" class="btn-option">
+            刪除書籍
+        </a>      
+        <a asp-controller="Admin" asp-action="Index" class="btn-option">
+            返回
+        </a>
+    </div>
+</div>

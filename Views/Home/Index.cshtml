@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "登入";
+}
+<div class="overlay"></div>
+
+<div class="login-container">
+    <h2>📖 歡迎來到書香世家</h2>
+    <p>請選擇您的登入身份：</p>
+
+    <a asp-controller="Account" asp-action="Login" class="btn btn-login btn-member">
+        📚 會員登入
+    </a>
+    <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="/Admin/Dashboard" class="btn btn-login btn-admin">
+        🔑 管理者登入
+    </a>
+    <a asp-controller="Account" asp-action="Register" class="btn btn-login btn-register">
+        📝 註冊會員
+    </a>
+</div>
+

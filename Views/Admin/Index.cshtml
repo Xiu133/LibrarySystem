@@ -1,0 +1,30 @@
+﻿@model Library.Views.Admin.IndexModel
+
+<div class="overlay"></div>
+
+<div class="user-container">
+    <h2>📚 管理者模式</h2>
+    <p>請選擇您的功能：</p>
+
+    <div class="button-group">
+        <a asp-controller="Book" asp-action="Manage" class="btn-option">
+            管理書庫
+        </a>
+
+        <a asp-controller="Book" asp-action="Index" class="btn-option">
+            瀏覽書庫
+        </a>
+        
+        <a asp-controller="AccountRecord" asp-action="Index" class="btn-option">
+            帳號紀錄
+        </a> 
+
+        <a asp-controller="ReturnBook" asp-action="Index" class="btn-option">
+            我要還書
+        </a>
+
+        <a asp-controller="Account" asp-action="Logout" class="btn-option">
+            登出
+        </a>
+    </div>
+</div>
