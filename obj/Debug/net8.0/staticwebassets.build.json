@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/TQwcfU5aP6Sshyz/kVwpPZeZgBiUxi97HMu5ZkA/g8=",
+  "Hash": "8QpmmmJp3ZIi4L6mpSpOlowleFwWHG8b1mvNAd3pFdU=",
   "Source": "Library",
   "BasePath": "_content/Library",
   "Mode": "Default",
@@ -1333,8 +1333,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "mokz4g58t4",
-      "Integrity": "ipi7Aq12WzShWu9+S4yNvysT/bwx8fdOHarbDM1GU20=",
+      "Fingerprint": "jp7tyy4rpx",
+      "Integrity": "R/YvNPBEKwEKTnGEjIEqNSTLal1XO/UihuBuOLRGtlU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -1380,6 +1380,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\1984.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\3.png",
+      "SourceId": "Library",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library",
+      "RelativePath": "image/3#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "odikd43kxy",
+      "Integrity": "DIcprl3gtoIC0HFP0c7mU3exj/YNHV4PAKXdkZDUv1Q=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\3.png"
     },
     {
       "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\background.jpg",
@@ -1529,6 +1550,27 @@
       "OriginalItemSpec": "wwwroot\\image\\百年孤寂.jpg"
     },
     {
+      "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\自卑與超越.jpg",
+      "SourceId": "Library",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library",
+      "RelativePath": "image/自卑與超越#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kve2fh8u5k",
+      "Integrity": "0ArgxRLGTydPFz3UgmeSTwnAqSuK7df8mAGDsikpbc0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\自卑與超越.jpg"
+    },
+    {
       "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\西線無戰事.jpg",
       "SourceId": "Library",
       "SourceType": "Discovered",
@@ -1564,8 +1606,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "2myw6rfdch",
-      "Integrity": "xkbEvnvVRYeqqKS9t/rA1gYWav9R8A7C5SzI8ahD/r4=",
+      "Fingerprint": "pwyxz9q8dr",
+      "Integrity": "B2oEReZb3n+SDBVM7ae7jQPvQ90pDOTHMs8w+myETmo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\快樂的死.jpg"
@@ -3158,7 +3200,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5688"
+          "Value": "5714"
         },
         {
           "Name": "Content-Type",
@@ -3166,11 +3208,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ipi7Aq12WzShWu9+S4yNvysT/bwx8fdOHarbDM1GU20=\""
+          "Value": "\"R/YvNPBEKwEKTnGEjIEqNSTLal1XO/UihuBuOLRGtlU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 18 Mar 2025 10:07:32 GMT"
+          "Value": "Fri, 11 Apr 2025 13:51:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3180,12 +3222,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-ipi7Aq12WzShWu9+S4yNvysT/bwx8fdOHarbDM1GU20="
+          "Value": "sha256-R/YvNPBEKwEKTnGEjIEqNSTLal1XO/UihuBuOLRGtlU="
         }
       ]
     },
     {
-      "Route": "css/site.mokz4g58t4.css",
+      "Route": "css/site.jp7tyy4rpx.css",
       "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3195,7 +3237,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5688"
+          "Value": "5714"
         },
         {
           "Name": "Content-Type",
@@ -3203,11 +3245,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"ipi7Aq12WzShWu9+S4yNvysT/bwx8fdOHarbDM1GU20=\""
+          "Value": "\"R/YvNPBEKwEKTnGEjIEqNSTLal1XO/UihuBuOLRGtlU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 18 Mar 2025 10:07:32 GMT"
+          "Value": "Fri, 11 Apr 2025 13:51:45 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3217,7 +3259,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "mokz4g58t4"
+          "Value": "jp7tyy4rpx"
         },
         {
           "Name": "label",
@@ -3225,7 +3267,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-ipi7Aq12WzShWu9+S4yNvysT/bwx8fdOHarbDM1GU20="
+          "Value": "sha256-R/YvNPBEKwEKTnGEjIEqNSTLal1XO/UihuBuOLRGtlU="
         }
       ]
     },
@@ -5614,6 +5656,88 @@
       ]
     },
     {
+      "Route": "image/3.odikd43kxy.png",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "463138"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DIcprl3gtoIC0HFP0c7mU3exj/YNHV4PAKXdkZDUv1Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 13 Apr 2025 13:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "odikd43kxy"
+        },
+        {
+          "Name": "label",
+          "Value": "image/3.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-DIcprl3gtoIC0HFP0c7mU3exj/YNHV4PAKXdkZDUv1Q="
+        }
+      ]
+    },
+    {
+      "Route": "image/3.png",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "463138"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DIcprl3gtoIC0HFP0c7mU3exj/YNHV4PAKXdkZDUv1Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 13 Apr 2025 13:03:50 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-DIcprl3gtoIC0HFP0c7mU3exj/YNHV4PAKXdkZDUv1Q="
+        }
+      ]
+    },
+    {
       "Route": "image/background.1hgvsmvr3o.jpg",
       "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\background.jpg",
       "Selectors": [],
@@ -6188,6 +6312,88 @@
       ]
     },
     {
+      "Route": "image/自卑與超越.jpg",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\自卑與超越.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0ArgxRLGTydPFz3UgmeSTwnAqSuK7df8mAGDsikpbc0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 07 Apr 2025 20:26:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-0ArgxRLGTydPFz3UgmeSTwnAqSuK7df8mAGDsikpbc0="
+        }
+      ]
+    },
+    {
+      "Route": "image/自卑與超越.kve2fh8u5k.jpg",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\自卑與超越.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6780"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"0ArgxRLGTydPFz3UgmeSTwnAqSuK7df8mAGDsikpbc0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 07 Apr 2025 20:26:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kve2fh8u5k"
+        },
+        {
+          "Name": "label",
+          "Value": "image/自卑與超越.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-0ArgxRLGTydPFz3UgmeSTwnAqSuK7df8mAGDsikpbc0="
+        }
+      ]
+    },
+    {
       "Route": "image/西線無戰事.2uy2fpac2c.jpg",
       "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\西線無戰事.jpg",
       "Selectors": [],
@@ -6270,51 +6476,6 @@
       ]
     },
     {
-      "Route": "image/快樂的死.2myw6rfdch.jpg",
-      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\快樂的死.jpg",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5186"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/jpeg"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"xkbEvnvVRYeqqKS9t/rA1gYWav9R8A7C5SzI8ahD/r4=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 06 Mar 2025 19:06:02 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "2myw6rfdch"
-        },
-        {
-          "Name": "label",
-          "Value": "image/快樂的死.jpg"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-xkbEvnvVRYeqqKS9t/rA1gYWav9R8A7C5SzI8ahD/r4="
-        }
-      ]
-    },
-    {
       "Route": "image/快樂的死.jpg",
       "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\快樂的死.jpg",
       "Selectors": [],
@@ -6325,7 +6486,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5186"
+          "Value": "5436"
         },
         {
           "Name": "Content-Type",
@@ -6333,11 +6494,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"xkbEvnvVRYeqqKS9t/rA1gYWav9R8A7C5SzI8ahD/r4=\""
+          "Value": "\"B2oEReZb3n+SDBVM7ae7jQPvQ90pDOTHMs8w+myETmo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 06 Mar 2025 19:06:02 GMT"
+          "Value": "Sun, 13 Apr 2025 13:32:29 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6347,7 +6508,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-xkbEvnvVRYeqqKS9t/rA1gYWav9R8A7C5SzI8ahD/r4="
+          "Value": "sha256-B2oEReZb3n+SDBVM7ae7jQPvQ90pDOTHMs8w+myETmo="
+        }
+      ]
+    },
+    {
+      "Route": "image/快樂的死.pwyxz9q8dr.jpg",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\快樂的死.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5436"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"B2oEReZb3n+SDBVM7ae7jQPvQ90pDOTHMs8w+myETmo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 13 Apr 2025 13:32:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "pwyxz9q8dr"
+        },
+        {
+          "Name": "label",
+          "Value": "image/快樂的死.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-B2oEReZb3n+SDBVM7ae7jQPvQ90pDOTHMs8w+myETmo="
         }
       ]
     },

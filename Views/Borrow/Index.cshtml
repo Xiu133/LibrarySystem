@@ -10,6 +10,14 @@
         <div class="card-header bg-primary text-white">
             <h2 class="mb-0">📚 借書頁面</h2>
         </div>
+
+        <div class="p-3 bg-light">
+            <form class="d-flex justify-content-center">
+                <input type="text" id="searchInput" class="form-control w-50" placeholder="🔍 搜尋書籍名稱或作者..." oninput="searchBooks()">
+            </form>
+        </div>
+
+
         <div class="card-body">
             <table class="table table-hover text-center align-middle">
                 <thead class="table-dark">
@@ -17,9 +25,10 @@
                         <th>書名</th>
                         <th>作者</th>
                         <th>庫存</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="bookTableBody">
                     @foreach (var book in Model)
                     {
                         <tr>
@@ -70,14 +79,18 @@
                     </button>
                 </form>
             </div>
+
+            <div class="text-center mt-3">
+                <a href="/User/Index" class="btn btn-primary">🏠 返回首頁</a>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
-        let borrowCount = 0; // 目前已借數量
+               document.addEventListener("DOMContentLoaded", function () {
+        let borrowCount = 0; // 目前已選書籍數量
         const maxBorrow = 3; // 最大可借數量
         const borrowBtns = document.querySelectorAll(".borrow-btn");
         const borrowCountSpan = document.getElementById("borrow-count");
@@ -86,20 +99,28 @@
 
         let selectedBooks = [];
 
-
         // 監聽借閱按鈕
         borrowBtns.forEach(btn => {
-            btn.addEventListener("click", function () {
+            btn.addEventListener("click", function (event) {
+                  event.preventDefault();
+
                 const bookId = this.getAttribute("data-book-id");
 
-                if (!selectedBooks.includes(bookId)) {
+                if (selectedBooks.includes(bookId)) {
+                    // 取消選擇
+                    borrowCount--;
+                    selectedBooks = selectedBooks.filter(id => id !== bookId);
+                    this.classList.remove("btn-secondary");
+                    this.classList.add("btn-primary");
+                    this.innerHTML = "📖 借閱";
+                } else {
+                    // 選擇書籍
                     if (borrowCount < maxBorrow) {
                         borrowCount++;
                         selectedBooks.push(bookId);
                         this.classList.remove("btn-primary");
                         this.classList.add("btn-secondary");
                         this.innerHTML = "✅ 已選";
-                        this.disabled = true;
                     }
                 }
 
@@ -110,54 +131,146 @@
         function updateUI() {
             borrowCountSpan.innerText = borrowCount;
 
-            // 當達到最大借閱數量時，禁用其他按鈕
-            if (borrowCount >= maxBorrow) {
-                borrowBtns.forEach(btn => {
-                    if (!btn.disabled) {
-                        btn.disabled = true;
-                    }
-                });
-            }
+            // 當達到最大借閱數量時，禁用未選擇的按鈕
+            borrowBtns.forEach(btn => {
+                const bookId = btn.getAttribute("data-book-id");
+                btn.disabled = borrowCount >= maxBorrow && !selectedBooks.includes(bookId);
+            });
 
             confirmBorrowBtn.disabled = borrowCount === 0;
             selectedBooksInput.value = selectedBooks.join(",");
-              console.log("更新後的 selectedBooksInput.value:", selectedBooksInput.value);
+            console.log("更新後的 selectedBooksInput.value:", selectedBooksInput.value);
         }
 
-           $("#confirmBorrowBtn").click(function (e) {
-                e.preventDefault();
+        $("#confirmBorrowBtn").click(function (e) {
+            e.preventDefault();
 
-                let selectedBooks = $("#selectedBooks").val().trim();
-                console.log("selectedBooks 原始值:", selectedBooks);
+            let selectedBooks = $("#selectedBooks").val().trim();
+            console.log("selectedBooks 原始值:", selectedBooks);
 
-                if (!selectedBooks.trim()) {// 這裡使用 trim() 避免空字串問題
-                    alert("請選擇要借閱的書籍！");
-                    return;
-                }
+            if (!selectedBooks) {
+                alert("請選擇要借閱的書籍！");
+                return;
+            }
 
-                let selectedBooksArray = selectedBooks.split(",").map(function(item) {
-                return parseInt(item, 10); // 轉換為數字
-                }).filter(num => !isNaN(num));;
+            let selectedBooksArray = selectedBooks.split(",").map(item => parseInt(item, 10)).filter(num => !isNaN(num));
 
-                    console.log("發送的 JSON:", JSON.stringify(selectedBooksArray));
-
+            console.log("發送的 JSON:", JSON.stringify(selectedBooksArray));
 
             $.ajax({
                 url: "/Borrow/ConfirmBorrow",
                 type: "POST",
                 contentType: "application/json",
-                  // data: JSON.stringify({ selectedBooksArray }),
-                  data: JSON.stringify({ selectBooks: selectedBooksArray }),
+                data: JSON.stringify({ selectBooks: selectedBooksArray }),
                 success: function (response) {
                     console.log("後端回應:", response);
                     if (response.success) {
                         alert(response.message);
-                        location.href = "/User/Index"; // 借閱成功後重新載入頁面
+                        location.href = "/User/Index"; // 借閱成功後跳轉
                     } else {
                         alert(response.message);
                     }
                 }
             });
         });
+    }); 
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const bookTableBody = document.getElementById("bookTableBody");
+
+        searchInput.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                let query = searchInput.value.trim();
+                if (query) {
+                    searchBooks(query);
+                }
+            }
+        });
+
+        function searchBooks(query) {
+            fetch(`/Book/BorrowSearch?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(books => {
+                    bookTableBody.innerHTML = ""; // 清空原本內容
+
+                    if (books.length === 0) {
+                        bookTableBody.innerHTML = `<tr><td colspan="4" class="text-danger">❌ 查無此書籍</td></tr>`;
+                        return;
+                    }
+
+                    books.forEach(book => {
+                        const canBorrow = book.quantity > 0;
+                        const row = document.createElement("tr");
+
+                        row.innerHTML = `
+                            <td class="fw-bold">${book.title}</td>
+                            <td>${book.author}</td>
+                            <td>${canBorrow
+                                ? `<span class="badge bg-success">可借閱</span>`
+                                : `<span class="badge bg-danger">無庫存</span>`}
+                            </td>
+                            <td>
+                                ${canBorrow
+                                    ? `<button class="btn btn-primary borrow-btn" data-book-id="${book.id}">📖 借閱</button>`
+                                    : `<span class="text-muted">無法借閱</span>`}
+                            </td>
+                        `;
+                        bookTableBody.appendChild(row);
+                    });
+
+                    bindBorrowButtons(); // 重新綁定新的按鈕事件
+                })
+                .catch(err => {
+                    console.error("搜尋錯誤:", err);
+                });
+        }
+
+        function bindBorrowButtons() {
+            const borrowBtns = document.querySelectorAll(".borrow-btn");
+            borrowBtns.forEach(btn => {
+                btn.addEventListener("click", function () {
+                    const bookId = this.getAttribute("data-book-id");
+
+                    if (selectedBooks.includes(bookId)) {
+                        // 取消選擇
+                        borrowCount--;
+                        selectedBooks = selectedBooks.filter(id => id !== bookId);
+                        this.classList.remove("btn-secondary");
+                        this.classList.add("btn-primary");
+                        this.innerHTML = "📖 借閱";
+                    } else {
+                        if (borrowCount < 3) {
+                            borrowCount++;
+                            selectedBooks.push(bookId);
+                            this.classList.remove("btn-primary");
+                            this.classList.add("btn-secondary");
+                            this.innerHTML = "✅ 已選";
+                        }
+                    }
+
+                    updateUI();
+                });
+            });
+        }
+
+        // 這些變數也需保留在外層
+        let borrowCount = 0;
+        let selectedBooks = [];
+        const borrowCountSpan = document.getElementById("borrow-count");
+        const confirmBorrowBtn = document.getElementById("confirmBorrowBtn");
+        const selectedBooksInput = document.getElementById("selectedBooks");
+
+        function updateUI() {
+            borrowCountSpan.innerText = borrowCount;
+            document.querySelectorAll(".borrow-btn").forEach(btn => {
+                const bookId = btn.getAttribute("data-book-id");
+                btn.disabled = borrowCount >= 3 && !selectedBooks.includes(bookId);
+            });
+            confirmBorrowBtn.disabled = borrowCount === 0;
+            selectedBooksInput.value = selectedBooks.join(",");
+        }
     });
 </script>

@@ -1,0 +1,46 @@
+﻿@model List<Library.Models.User>
+
+@{
+    ViewData["Title"] = "帳號管理";
+}
+<div class="overlay"></div>
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center text-primary">帳號管理</h2>
+
+        <table class="table table-hover table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>帳號</th>
+                    <th>角色</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Where(u => u.Role != "Admin"))
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>
+                            <span class="badge badge-primary" style="color: black;">User</span>
+                        </td>
+                        <td>
+                            <form asp-controller="Account" asp-action="PromoteToAdmin" method="post">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    <i class="fas fa-user-shield"></i> 升級為管理者
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center mt-4">
+            <a href="/Admin/Index" class="btn btn-primary">🏠 返回首頁</a>
+        </div>
+    </div>
+</div>
+

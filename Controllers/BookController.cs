@@ -2,7 +2,9 @@
 using Library.Data;
 using Library.Interface;
 using Library.Models;
+using Library.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
@@ -71,7 +73,20 @@ namespace Library.Controllers
                     return View(book);
                 }
 
-                _dbContext.books.Add(book);
+                var existingBook = _dbContext.books
+             .FirstOrDefault(b => b.Title == book.Title && b.Author == book.Author);
+
+                if (existingBook != null)
+                {
+                    existingBook.Quantity += book.Quantity;
+                    existingBook.ImageFileName = book.ImageFileName;
+                    _dbContext.Update(existingBook);
+                }
+                else
+                {
+                    _dbContext.books.Add(book);
+                }
+
                 _dbContext.SaveChanges();
 
                 return RedirectToAction("Index", "Admin");
@@ -158,6 +173,42 @@ namespace Library.Controllers
             }
 
             return View(book);
+        }
+
+        public IActionResult SearchResult(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return View(new List<Book>());
+            }
+
+            var books = _dbContext.books
+                .Where(b => b.Title.Contains(query) || b.Author.Contains(query))
+                .Select(b => new BookViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Author = b.Author,
+                    PublishedYear = b.PublishedYear
+                })
+                .ToList();
+
+            return View(books);
+        }
+
+        public IActionResult BorrowSearch(string query)
+        {
+            var books = _dbContext.books
+                .Where(b => b.Title.Contains(query) || b.Author.Contains(query))
+                .Select(b => new {
+                id = b.Id,
+                title = b.Title,
+                author = b.Author,
+                quantity = b.Quantity
+        })
+            .ToList();
+
+            return Json(books);
         }
     }
 }

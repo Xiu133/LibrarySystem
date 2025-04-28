@@ -9,11 +9,7 @@
     <div class="button-group">
         <a asp-controller="Book" asp-action="Manage" class="btn-option">
             管理書庫
-        </a>
-
-        <a asp-controller="Book" asp-action="Index" class="btn-option">
-            瀏覽書庫
-        </a>
+        </a>     
         
         <a asp-controller="AccountRecord" asp-action="Index" class="btn-option">
             帳號紀錄
@@ -23,8 +19,14 @@
             我要還書
         </a>
 
+        <a asp-controller="Set" asp-action="Index" class="btn-option">
+            更多操作
+        </a>
+
         <a asp-controller="Account" asp-action="Logout" class="btn-option">
             登出
         </a>
     </div>
 </div>
+
+

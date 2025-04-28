@@ -19,7 +19,7 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 var connectionString = builder.Configuration.GetConnectionString("MysqlConn");
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireDigit = false;
     options.Password.RequiredLength = 4;
@@ -32,7 +32,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+    options.ExpireTimeSpan = TimeSpan.FromDays(7);
     options.SlidingExpiration = true;
     options.LogoutPath = "/Home/Index"; 
     options.LoginPath = "/Home/Index";
@@ -45,7 +45,6 @@ builder.Services.AddDbContext<LibraryIdentityDbContext>(option =>
     option.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<LibraryIdentityDbContext>();
 builder.Services.AddDbContext<LibrarydbContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
@@ -55,14 +54,19 @@ builder.Services.AddDbContext<LibrarydbContext>(options =>
 
 var app = builder.Build();
 
-
-
-
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     await RoleSeeder.EnsureRolesAsync(services);
+    await AdminSeeder.CreateAdminAccount(services); 
 }
+
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+//    await RoleSeeder.EnsureRolesAsync(services);
+//}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

@@ -195,11 +195,13 @@ form {
 }
 
 .book-list {
+    margin: 50px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* 3 本書一排 */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     gap: 15px;
     justify-content: center;
     padding: 20px;
+    margin-top: 375px;
 }
 
 .book-item {

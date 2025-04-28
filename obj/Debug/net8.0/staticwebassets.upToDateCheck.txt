@@ -1,6 +1,7 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\image\1984.jpg
+wwwroot\image\3.png
 wwwroot\image\background.jpg
 wwwroot\image\人間失格.jpg
 wwwroot\image\三四郎.jpg
@@ -8,6 +9,7 @@ wwwroot\image\大亨小傳.jpg
 wwwroot\image\少爺.jpg
 wwwroot\image\心.jpg
 wwwroot\image\百年孤寂.jpg
+wwwroot\image\自卑與超越.jpg
 wwwroot\image\西線無戰事.jpg
 wwwroot\image\快樂的死.jpg
 wwwroot\image\我們.jpg

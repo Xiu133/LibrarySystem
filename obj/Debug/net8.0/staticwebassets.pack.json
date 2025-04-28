@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\image\\1984.jpg"
     },
     {
+      "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\3.png",
+      "PackagePath": "staticwebassets\\image\\3.png"
+    },
+    {
       "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\background.jpg",
       "PackagePath": "staticwebassets\\image\\background.jpg"
     },
@@ -87,6 +91,10 @@
     {
       "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\美麗新世界.jpg",
       "PackagePath": "staticwebassets\\image\\美麗新世界.jpg"
+    },
+    {
+      "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\自卑與超越.jpg",
+      "PackagePath": "staticwebassets\\image\\自卑與超越.jpg"
     },
     {
       "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\華氏451.jpg",

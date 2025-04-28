@@ -26,7 +26,9 @@
                         <div class="col-md-7">
                             <div class="card-body">
                                 <h1 class="card-title text-primary fw-bold">@Model.Title</h1>
-                                <h5 class="text-muted">📖 作者：@Model.Author</h5>
+                                <h5 class="text-muted">📖 作者：@Model.Author
+                                    <span class="badge bg-success ms-3">📦 庫存：@Model.Quantity</span>
+                                </h5>
 
                                 <hr>
 
@@ -34,11 +36,18 @@
                                     <strong>書籍介紹：</strong> <br>
                                     @Model.Description
                                 </p>
+                                @{
+                                    string homeUrl = User.IsInRole("Admin")
+                                    ? Url.Action("Index", "Admin") ?? "#"
+                                    : Url.Action("Index", "User") ?? "#";
 
-                                <div class="d-flex justify-content-between mt-4">
+                                }
+                                <div class="d-flex justify-content-between">
                                     <a href="@Url.Action("Index", "Book")" class="btn btn-outline-primary">
                                         🔙 返回書籍列表
                                     </a>
+
+									<a href="@homeUrl" class="btn btn-primary">🏠 返回首頁</a>
                                 </div>
                             </div>
                         </div>

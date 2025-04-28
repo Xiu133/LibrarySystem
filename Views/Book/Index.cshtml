@@ -10,7 +10,8 @@
 
     <div class="container">
         <h1>📖 書籍搜尋與瀏覽</h1>
-        <input type="text" id="searchBox" placeholder="🔍 輸入書名或作者..." onkeyup="searchBooks()">             
+        <input type="text" id="searchBox" placeholder="🔍 輸入書名或作者..." onkeyup="searchBooks()">  
+        
         <div class="book-list" id="bookList">
             @foreach (var book in Model)
             {
@@ -20,32 +21,62 @@
                 </a>
             }
         </div>
+        @{
+            string homeUrl = User.IsInRole("Admin")
+            ? Url.Action("Index", "Admin") ?? "#"
+            : Url.Action("Index", "User") ?? "#";
+
+        }
+        <div class="d-flex justify-content-center mt-4">
+            <a href="@homeUrl" class="btn btn-primary">🏠 返回首頁</a>
+        </div>
     </div>
 </body>
 </html>
 
-<script>
-    // 監聽鍵盤按鍵事件
-    document.getElementById('searchBox').addEventListener('keydown', function (event) {
-        // 當按下 Enter 鍵 (鍵碼 13)
-        if (event.key === 'Enter') {
-            searchBookByTitleOrAuthor(); // 執行搜尋
-        }
-    });
 
-    function searchBookByTitleOrAuthor() {
+<script>
+            document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById('searchBox').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                let query = document.getElementById('searchBox').value.trim();
+                if (query) {
+                    window.location.href = `/Book/SearchResult?query=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+    });      
+        function searchBookByTitleOrAuthor() {
         let query = document.getElementById('searchBox').value.trim();
 
         if (!query) return;
 
-        // 呼叫後端搜尋 API
         fetch(`/Book/Search?query=${encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(books => {
+                let bookList = document.getElementById('bookList');
+                bookList.innerHTML = ''; // 清空原本的書籍列表
+
                 if (books.length === 0) {
                     alert("❌ 查無此書籍");
                 } else {
-                    window.location.href = `/Book/Detail/${books[0].id}`;
+                    books.forEach(book => {
+                        let bookItem = document.createElement('a');
+                        bookItem.href = `/Book/Detail/${book.id}`;
+                        bookItem.classList.add('book-item');
+
+                        let img = document.createElement('img');
+                        img.src = book.imageFileName;
+                        img.alt = "書籍封面";
+
+                        let p = document.createElement('p');
+                        p.textContent = `作者：${book.author}`;
+
+                        bookItem.appendChild(img);
+                        bookItem.appendChild(p);
+                        bookList.appendChild(bookItem);
+                    });
+                    
                 }
             })
             .catch(error => console.error("搜尋時發生錯誤:", error));

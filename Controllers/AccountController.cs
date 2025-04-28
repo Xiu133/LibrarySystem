@@ -1,17 +1,22 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Library.Data;
+using Library.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SignInManager<IdentityUser> _SignInManager;
-        private readonly UserManager<IdentityUser> _UserManager;
+        private readonly SignInManager<User> _SignInManager;
+        private readonly UserManager<User> _UserManager;
+        private readonly LibrarydbContext _context;
 
-        public AccountController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager , LibrarydbContext context)
         {
             _SignInManager = signInManager;
             _UserManager = userManager;
+            _context = context;
         }
 
         public IActionResult Login() //留
@@ -57,7 +62,7 @@ namespace Library.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password)
         {
-            var user = new IdentityUser { UserName = username };
+            var user = new User { UserName = username , Role="User" };
             var result = await _UserManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
@@ -76,6 +81,34 @@ namespace Library.Controllers
         {
             await _SignInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
-        }       
+        }   
+        
+
+        public IActionResult Manage()
+        {
+            var users = _context.Users.Select(u => new User
+            {
+                Id = u.Id,
+                UserName = u.UserName,
+                Role = u.Role
+            }).ToList();
+
+            return View(users);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PromoteToAdmin(string userid)
+        {
+            var user = await _UserManager.FindByIdAsync(userid);
+            if (user != null && !(await _UserManager.IsInRoleAsync(user, "Admin"))) 
+            {
+                await _UserManager.AddToRoleAsync(user, "Admin");
+                await _UserManager.RemoveFromRoleAsync(user, "User"); 
+
+                user.Role = "Admin";
+                await _UserManager.UpdateAsync(user);
+            }
+            return RedirectToAction("Index", "Admin");
+        }
     }
 }

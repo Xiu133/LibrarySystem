@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.Data
 {
-    public class LibrarydbContext : IdentityDbContext<IdentityUser>
+    public class LibrarydbContext : IdentityDbContext<User>
     {
         public LibrarydbContext(DbContextOptions<LibrarydbContext> options) : base(options)
         {

@@ -246,4 +246,5 @@ C:\Users\USER\source\repos\Library\Library\obj\Debug\net8.0\refint\Library.dll
 C:\Users\USER\source\repos\Library\Library\obj\Debug\net8.0\Library.pdb
 C:\Users\USER\source\repos\Library\Library\obj\Debug\net8.0\Library.genruntimeconfig.cache
 C:\Users\USER\source\repos\Library\Library\obj\Debug\net8.0\ref\Library.dll
+C:\Users\USER\source\repos\Library\Library\obj\Debug\net8.0\Library.sourcelink.json
 C:\Users\USER\source\repos\Library\Library\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

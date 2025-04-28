@@ -1,0 +1,22 @@
+﻿
+@model Library.Views.Set.IndexModel
+
+@{
+    <div class="overlay"></div>
+
+    <div class="user-container">
+        <h2>📚 書香世家</h2>
+        <p>請選擇您的功能：</p>
+
+        <div class="button-group">
+
+            <a asp-controller="Account" asp-action="Manage" class="btn-option">
+                帳號升級
+            </a>     
+            
+            <a asp-controller="Admin" asp-action="Index" class="btn-option">
+                返回首頁
+            </a>
+        </div>
+    </div>
+}
