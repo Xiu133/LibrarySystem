@@ -17,12 +17,7 @@ namespace Library.Repository
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
         {
             return await _context.books.Where(b => !b.IsDelete).ToListAsync();
-        }
-
-        //public async Task<IEnumerable<Book>> GetAllBooksAsync()
-        //{
-        //    return await _context.books.ToListAsync();
-        //}
+        }      
 
         public async Task AddBookAsync(Book book)
         {

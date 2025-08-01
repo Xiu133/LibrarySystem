@@ -108,6 +108,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"yvm1an27xr"},{"Name":"integrity","Value":"sha256-HhD13Og9zpgnduxChgY0vQgKqtZgbfxvIEJFioDF8HA="},{"Name":"label","Value":"_content/Library/image/\u5077\u66F8\u8CCA.jpg"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"10600"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022HhD13Og9zpgnduxChgY0vQgKqtZgbfxvIEJFioDF8HA=\u0022"},{"Name":"Last-Modified","Value":"Thu, 06 Mar 2025 19:01:47 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Library/image/六弄咖啡館.d2jpuq1wpc.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\六弄咖啡館.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"d2jpuq1wpc"},{"Name":"integrity","Value":"sha256-xcIHEndaZh0u6iTIKbeI\u002BOkLj\u002Bq\u002ByOkOI96zjPRoS9c="},{"Name":"label","Value":"_content/Library/image/\u516D\u5F04\u5496\u5561\u9928.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"4081"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022xcIHEndaZh0u6iTIKbeI\u002BOkLj\u002Bq\u002ByOkOI96zjPRoS9c=\u0022"},{"Name":"Last-Modified","Value":"Sat, 26 Jul 2025 16:26:48 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Library/image/六弄咖啡館.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\六弄咖啡館.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xcIHEndaZh0u6iTIKbeI\u002BOkLj\u002Bq\u002ByOkOI96zjPRoS9c="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"4081"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022xcIHEndaZh0u6iTIKbeI\u002BOkLj\u002Bq\u002ByOkOI96zjPRoS9c=\u0022"},{"Name":"Last-Modified","Value":"Sat, 26 Jul 2025 16:26:48 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/Library/image/動物農莊.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\動物農莊.jpg'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

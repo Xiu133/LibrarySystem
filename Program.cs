@@ -33,7 +33,10 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.ExpireTimeSpan = TimeSpan.FromDays(7);
-    options.SlidingExpiration = true;
+    options.SlidingExpiration = false;
+    options.Cookie.IsEssential = true;
+    options.Cookie.HttpOnly = true;
+
     options.LogoutPath = "/Home/Index"; 
     options.LoginPath = "/Home/Index";
     options.AccessDeniedPath = "/Home/Index";
@@ -50,7 +53,10 @@ builder.Services.AddDbContext<LibrarydbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
- 
+//builder.WebHost.ConfigureKestrel(serverOptions =>
+//{
+//    serverOptions.ListenAnyIP(8080); 
+//});
 
 var app = builder.Build();
 

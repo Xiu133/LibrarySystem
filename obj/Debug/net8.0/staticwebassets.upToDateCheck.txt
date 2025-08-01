@@ -6,6 +6,7 @@ wwwroot\image\background.jpg
 wwwroot\image\人間失格.jpg
 wwwroot\image\三四郎.jpg
 wwwroot\image\大亨小傳.jpg
+wwwroot\image\六弄咖啡館.jpg
 wwwroot\image\少爺.jpg
 wwwroot\image\心.jpg
 wwwroot\image\百年孤寂.jpg

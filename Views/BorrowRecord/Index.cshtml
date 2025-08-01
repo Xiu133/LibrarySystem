@@ -17,7 +17,8 @@
                 <tr>
                     <th>書名</th>
                     <th>借閱日期</th>
-                    <th>狀態</th>
+                     <th>歸還日期</th>
+                     <th>狀態</th>
                 </tr>
             </thead> 
             <tbody>
@@ -26,6 +27,7 @@
                     <tr>
                         <td>@record.BookTitle</td>
                         <td>@record.BorrowRecord.BorrowDate.ToString("yyyy-MM-dd")</td>
+                        <td>@(record.BorrowRecord.ReturnDate?.ToString("yyyy-MM-dd") ?? "未歸還")</td>
                         <td>
                             @if (record.ReturnDate == null)
                             {

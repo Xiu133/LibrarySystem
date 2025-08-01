@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8QpmmmJp3ZIi4L6mpSpOlowleFwWHG8b1mvNAd3pFdU=",
+  "Hash": "zGw9IA59GezXIQLOEI6sHMG1DwDwgW5xD/yHMwz6ZE0=",
   "Source": "Library",
   "BasePath": "_content/Library",
   "Mode": "Default",
@@ -1485,6 +1485,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\大亨小傳.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\六弄咖啡館.jpg",
+      "SourceId": "Library",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library",
+      "RelativePath": "image/六弄咖啡館#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "d2jpuq1wpc",
+      "Integrity": "xcIHEndaZh0u6iTIKbeI+OkLj+q+yOkOI96zjPRoS9c=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\六弄咖啡館.jpg"
     },
     {
       "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\少爺.jpg",
@@ -6062,6 +6083,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-4BV2N6Omzp6i8SUJrpCVkIhd1vl9gqeRvazLlUEJhEs="
+        }
+      ]
+    },
+    {
+      "Route": "image/六弄咖啡館.d2jpuq1wpc.jpg",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\六弄咖啡館.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4081"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xcIHEndaZh0u6iTIKbeI+OkLj+q+yOkOI96zjPRoS9c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 26 Jul 2025 16:26:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "d2jpuq1wpc"
+        },
+        {
+          "Name": "label",
+          "Value": "image/六弄咖啡館.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xcIHEndaZh0u6iTIKbeI+OkLj+q+yOkOI96zjPRoS9c="
+        }
+      ]
+    },
+    {
+      "Route": "image/六弄咖啡館.jpg",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\image\\六弄咖啡館.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4081"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xcIHEndaZh0u6iTIKbeI+OkLj+q+yOkOI96zjPRoS9c=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 26 Jul 2025 16:26:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xcIHEndaZh0u6iTIKbeI+OkLj+q+yOkOI96zjPRoS9c="
         }
       ]
     },

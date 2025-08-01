@@ -34,7 +34,7 @@ namespace Library.Controllers
                 return View();
             }
 
-            var result = await _SignInManager.PasswordSignInAsync(username, password, true, false);
+            var result = await _SignInManager.PasswordSignInAsync(username, password, false, false); 
             if (result.Succeeded)
             {
                 var roles = await _UserManager.GetRolesAsync(user);
