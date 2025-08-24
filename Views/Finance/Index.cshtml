@@ -1,0 +1,25 @@
+﻿@model Library.Views.Book.ManageModel
+<div class="overlay"></div>
+
+<div class="user-container">
+    <h2>📚 管理者模式</h2>
+
+    <div class="button-group">
+
+        <a asp-controller="Income" asp-action="Index" class="btn-option">
+            收款
+        </a>
+
+        <a asp-controller="FinanceTotal" asp-action="Index" class="btn-option">
+            財務圓餅圖
+        </a>
+
+        <a asp-controller="IncomeRecord" asp-action="Index" class="btn-option">
+            收款紀錄
+        </a>
+
+        <a asp-controller="Admin" asp-action="Index" class="btn-option">
+            返回
+        </a>
+    </div>
+</div>

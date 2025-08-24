@@ -5,6 +5,18 @@
       "PackagePath": "staticwebassets\\Library.va0zziu0wb.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\FinanceTotal.css",
+      "PackagePath": "staticwebassets\\css\\FinanceTotal.css"
+    },
+    {
+      "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\Notify.css",
+      "PackagePath": "staticwebassets\\css\\Notify.css"
+    },
+    {
+      "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\PopularBook.css",
+      "PackagePath": "staticwebassets\\css\\PopularBook.css"
+    },
+    {
       "Id": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

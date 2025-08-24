@@ -1,4 +1,6 @@
-﻿namespace Library.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Library.Models
 {
     public class Book
     {
@@ -9,7 +11,10 @@
         public int PublishedYear { get; set; }
         public int Quantity { get; set; } = 1;
         public string ImageFileName { get; set; } = string.Empty;
-
         public bool IsDelete { get; set; } = false;
+
+        [Timestamp]
+        public required byte[] RowVersion { get; set; }
+
     }
 }

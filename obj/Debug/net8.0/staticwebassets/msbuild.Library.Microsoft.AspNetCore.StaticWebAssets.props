@@ -1,5 +1,59 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\FinanceTotal.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Library</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Library</BasePath>
+      <RelativePath>css/FinanceTotal.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>kcy2v0yny8</Fingerprint>
+      <Integrity>ZHlG7VcWTz8bYlLyvr4Xb+RYcfduoxgZq6jdsMHRKG4=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\FinanceTotal.css'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\Notify.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Library</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Library</BasePath>
+      <RelativePath>css/Notify.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>7x5oszejrh</Fingerprint>
+      <Integrity>+9sDQQJIZfJLX0Wcqyq7crkINc1IY32UGUwe0Rybt9E=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\Notify.css'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\PopularBook.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Library</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Library</BasePath>
+      <RelativePath>css/PopularBook.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>r5px1i216c</Fingerprint>
+      <Integrity>YXmc9h/If6v65KYnCxOz3MHBLgUlH9SqiYCM2iYZh08=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\PopularBook.css'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))">
       <SourceType>Package</SourceType>
       <SourceId>Library</SourceId>
@@ -50,7 +104,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>766ia4o9ja</Fingerprint>
       <Integrity>v4ns8tjbKZwte4LEPqXBe3yRDzD0hRn7zxanlUDYHJY=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\1984.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -86,7 +140,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>1hgvsmvr3o</Fingerprint>
       <Integrity>2za7H87/61LAaEGQiGi6LoH8sxWJ8CD2Un+8yKK8U54=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\background.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -104,7 +158,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>opuvnppvh8</Fingerprint>
       <Integrity>xIcutZ7O8bWC6rltpXcWPftkW14dazsm4Xhu1XLTX1k=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\三四郎.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -122,7 +176,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>znexu1xzhk</Fingerprint>
       <Integrity>fxq4D8M1cAoP26w+2vtnCeev0y08DpYEFQn8E9HME78=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\人間失格.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -140,7 +194,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>bnqbls9n8w</Fingerprint>
       <Integrity>p9CTnXCRdw49D6meD4Jal3YC7xA5rzwurW3MRYSbZXo=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\假面的告白.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -158,7 +212,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>yvm1an27xr</Fingerprint>
       <Integrity>HhD13Og9zpgnduxChgY0vQgKqtZgbfxvIEJFioDF8HA=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\偷書賊.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -176,7 +230,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>d2jpuq1wpc</Fingerprint>
       <Integrity>xcIHEndaZh0u6iTIKbeI+OkLj+q+yOkOI96zjPRoS9c=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\六弄咖啡館.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -194,7 +248,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>ywesmdwlpo</Fingerprint>
       <Integrity>flsXyegFuvrUTTSTg7PPMj6thueQLZaOFEmSHzMKevc=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\動物農莊.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -212,7 +266,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>ot9h5pyv12</Fingerprint>
       <Integrity>BKtG8bSb/Lalib7CkuPu895x49r5FTvgujWeQnNlWwo=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\夜未央.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -230,7 +284,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>ctcxzqw6pr</Fingerprint>
       <Integrity>4BV2N6Omzp6i8SUJrpCVkIhd1vl9gqeRvazLlUEJhEs=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\大亨小傳.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -248,7 +302,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>wcrf1qnfks</Fingerprint>
       <Integrity>QLHtvt1b6rdsZEJr7Iro6C31O/va84wc2lrUO5RWn5s=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\少爺.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -266,7 +320,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>uuw9q0onj5</Fingerprint>
       <Integrity>lqgpnfVCXQcSWBYQMDjSqqnB08axB8x4EiCwUl23cLY=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\心.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -284,7 +338,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>pwyxz9q8dr</Fingerprint>
       <Integrity>B2oEReZb3n+SDBVM7ae7jQPvQ90pDOTHMs8w+myETmo=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\快樂的死.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -302,7 +356,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>1ietmbanue</Fingerprint>
       <Integrity>V889mJMvKjrV56yGW0V2BZxlN2wUvk2xJo8qbpY1/jc=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\我們.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -320,7 +374,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>s6pr3h9hf2</Fingerprint>
       <Integrity>RE8GBUB63xJDwCAH35IBijM9jeWvVNB8ezogtTe8pi8=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\放逐與王國.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -338,7 +392,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>l8bl6btzzr</Fingerprint>
       <Integrity>JY5Ersfh+LF0N4l2TOgzrpZjWVZPkftzBXa0726zKcs=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\春雪.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -356,7 +410,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>xmb1hoy1x3</Fingerprint>
       <Integrity>151Qc/xjf76GF/CrI3Ytqjt0bznIVFkqcu7q+pxH8VE=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\潘朵拉的盒子.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -374,7 +428,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>x38v081joj</Fingerprint>
       <Integrity>zSpNxRmLlRgkFhwF4quWRZV5vsEx8phxtK0jhpw+Bqc=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\百年孤寂.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -392,7 +446,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>v61vl0a4kw</Fingerprint>
       <Integrity>x+xjeJ6BbjodFcrMwG8pj5CDARmzCx8+sN+xgDZEhCo=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\第六病房.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -410,7 +464,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>btigohoohd</Fingerprint>
       <Integrity>wcBTWHsn0xH0GDEcydeXeS/akWtBIxsLyeJa3JrxuAU=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\美麗新世界.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -428,7 +482,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>kve2fh8u5k</Fingerprint>
       <Integrity>0ArgxRLGTydPFz3UgmeSTwnAqSuK7df8mAGDsikpbc0=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\自卑與超越.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -446,7 +500,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>giy11f5f9o</Fingerprint>
       <Integrity>+LHEzOrvqdA5BDX6L32yIf6JnAx+q9EsEj3aj209k18=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\華氏451.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -464,7 +518,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>uo03y9l6ab</Fingerprint>
       <Integrity>PhxRiZutPaICO0fCvHExoeQRkrpynpqTt25E3dKqZnk=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\蒼蠅王.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -482,7 +536,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>1126s9cfm7</Fingerprint>
       <Integrity>O9DxbXLEz879s57W9XiSO0kANI1YQsW0jouRfGWDZx0=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\薛西佛斯的神話.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -500,7 +554,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>2uy2fpac2c</Fingerprint>
       <Integrity>JtBfYqLkccvAiepfS5qI7mX3JPA1coVx3UhFA7wV6RA=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\西線無戰事.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -518,7 +572,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>z0fmku3zfq</Fingerprint>
       <Integrity>k7G2nrNW1XVgG+UBDo97eDBvt5iGeFxBK9QrRniXPnk=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\追風箏的孩子.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -536,7 +590,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>sm6wef3of9</Fingerprint>
       <Integrity>lIPTZql1awh8VzyCpWXs4sFqot63Cl6tr5FCbLE6Jbs=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\過於喧囂的孤獨.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -554,7 +608,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>jo6aonkgfn</Fingerprint>
       <Integrity>ratA2/BCUqDoTFJEx0wHLD4nsJV7tj/EP0S/RCP+NmI=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\金閣寺.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
@@ -572,7 +626,7 @@
       <AssetTraitValue></AssetTraitValue>
       <Fingerprint>n45auvy6kd</Fingerprint>
       <Integrity>d5Lv39sS7LVS5hrW6eiBlAizvSwrZWpcMJZThj2COtQ=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\image\鼠疫.jpg'))</OriginalItemSpec>
     </StaticWebAsset>

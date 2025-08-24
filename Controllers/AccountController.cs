@@ -1,4 +1,5 @@
-﻿using Library.Data;
+﻿using System.Data;
+using Library.Data;
 using Library.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -41,12 +42,12 @@ namespace Library.Controllers
 
                 if (roles.Contains("Admin"))
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Index", "Admin", new { area = "" });
                 }
 
                 else
                 {
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("Index", "User", new { area = "" });
                 }
             }
 
@@ -81,8 +82,10 @@ namespace Library.Controllers
         {
             await _SignInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
-        }   
-        
+
+            //return Redirect("/Library/Home/Index");
+        }
+
 
         public IActionResult Manage()
         {

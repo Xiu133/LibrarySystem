@@ -1,0 +1,31 @@
+﻿.card-chart {
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    background-color: #ffffff;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .card-chart:hover {
+        transform: scale(1.01);
+    }
+
+.chart-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#incomePieChart {
+    width: 300px;
+    aspect-ratio: 1 / 1; /* 寬高比例 1:1，保持正圓 */
+    max-width: 100%;
+    max-height: 100%;
+}

@@ -1,0 +1,94 @@
+﻿@model Library.Models.IncomeRecord
+
+@{
+    ViewData["Title"] = "收款表單";
+    var userConfirmed = ViewBag.UserConfirmed as bool? ?? false;
+    var userName = ViewBag.UserName as string;
+    var error = ViewBag.Error as string;
+}
+<div class="overlay"></div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg border-0 mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">🔍 使用者確認</h4>
+                </div>
+
+                <div class="card-body bg-light">
+                    <form asp-action="Income" method="get">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">請輸入使用者帳號</label>
+                            <input type="text" name="userName" class="form-control" value="@userName" required />
+                            @if (!string.IsNullOrEmpty(error))
+                            {
+                                <span class="text-danger">@error</span>
+                            }
+                        </div>
+                        <button type="submit" class="btn btn-success">✅ 確認帳號</button>
+                    </form>
+                </div>
+            </div>
+
+            @if (userConfirmed)
+            {
+                <div class="card shadow border-0">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">💰 收款表單</h4>
+                    </div>
+
+                    <div class="card-body bg-light">
+                        <form asp-action="RecordPayment" asp-controller="Income" method="post">
+                            <input type="hidden" name="userName" value="@userName" />
+
+                            <div class="mb-3">
+                                <label asp-for="Reason" class="form-label">收款事由</label>
+                                <select asp-for="Reason" class="form-select" required>
+                                    <option value="">-- 請選擇事由 --</option>
+                                    <option>損壞賠償</option>
+                                    <option>遺失賠償</option>
+                                    <option>其他</option>
+                                </select>
+                                <span asp-validation-for="Reason" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Money" class="form-label">金額</label>
+                                <input asp-for="Money" class="form-control" placeholder="請輸入金額" required />
+                                <span asp-validation-for="Money" class="text-danger"></span>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-warning btn-lg px-4">💰 送出收款</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+<script>
+        function updateUI() {
+        borrowCountSpan.innerText = borrowCount;
+        document.querySelectorAll(".borrow-btn").forEach(btn => {
+            const bookId = btn.getAttribute("data-book-id");
+            btn.disabled = borrowCount >= maxBorrow && !selectedBooks.includes(bookId);
+        });
+        confirmBorrowBtn.disabled = borrowCount === 0;
+
+        selectedBooksInput.value = selectedBooks.join(",");
+        document.getElementById("paymentBooks").value = selectedBooks.join(",");
+    }
+
+</script>

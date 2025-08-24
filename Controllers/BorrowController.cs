@@ -1,16 +1,22 @@
-﻿using Library.Data;
+﻿using System.Security.Claims;
+using Library.Data;
 using Library.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
     public class BorrowController : Controller
     {
         private readonly LibrarydbContext _dbContext;
+        public readonly UserManager<User> _userManager;
 
-        public BorrowController(LibrarydbContext dbContext)
+
+        public BorrowController(LibrarydbContext dbContext, UserManager<User> userManager)
         {
             _dbContext = dbContext;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -21,51 +27,61 @@ namespace Library.Controllers
         }
 
         [HttpPost]
-        public IActionResult Borrow(int bookId)
+        public async Task<IActionResult> Borrow(int bookId)
         {
-            var userName = User?.Identity?.Name;
-            if (string.IsNullOrEmpty(userName))
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-            var book = _dbContext.books.Find(bookId);
-            if (book == null)
+            try
             {
-                ModelState.AddModelError("", "書籍不存在。");
+                var userName = User?.Identity?.Name;
+                if (string.IsNullOrEmpty(userName))
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                var book = await _dbContext.books.FirstOrDefaultAsync(b => b.Id == bookId);
+                if (book == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                if (book.Quantity <= 0)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                var alreadyBorrowed = _dbContext.BorrowRecords
+                                                .Any(br => br.BookId == bookId && br.UserName == userName && br.ReturnDate == null);
+                if (alreadyBorrowed)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                // 借書
+                book.Quantity--;
+
+                var record = new BorrowRecord
+                {
+                    BookId = bookId,
+                    UserName = userName,
+                    BorrowDate = DateTime.Now
+                };
+
+                _dbContext.BorrowRecords.Add(record);
+
+                await _dbContext.SaveChangesAsync(); // 這裡會檢查 RowVersion
+                await transaction.CommitAsync();
+
                 return RedirectToAction("Index");
             }
-
-            var alreadyBorrowed = _dbContext.BorrowRecords
-                                             .Any(br => br.BookId == bookId && br.UserName == userName && br.ReturnDate == null);
-            if (alreadyBorrowed)
+            catch (DbUpdateConcurrencyException)
             {
-                ModelState.AddModelError("", "您已經借過此書籍，尚未歸還。");
+                await transaction.RollbackAsync();
+                TempData["ErrorMessage"] = "借書失敗，該書可能被其他人借走。";
                 return RedirectToAction("Index");
             }
-
-            if (book.Quantity <= 0)
-            {
-                ModelState.AddModelError("", $"書籍 {bookId} 數量不足，無法借閱。");
-                return RedirectToAction("Index");
-            }
-
-            
-
-            var record = new BorrowRecord
-            {
-                BookId = bookId,
-                UserName = userName,
-                BorrowDate = DateTime.Now,
-                ReturnDate = null
-            };
-
-            _dbContext.BorrowRecords.Add(record);
-            book.Quantity--;
-            _dbContext.SaveChanges();
-
-            return RedirectToAction("Index");
         }
+
 
 
 
@@ -95,26 +111,33 @@ namespace Library.Controllers
         }
 
         [HttpPost]
-        public IActionResult ConfirmBorrow([FromBody] BorrowRequest request)
+        public async Task<IActionResult> ConfirmBorrow([FromBody] BorrowRequest request)
         {
-            if (request == null || request.SelectBooks == null || !request.SelectBooks.Any())
-            {
-                return Json(new { success = false, message = "請選擇要借閱的書籍。" });
-            }
+            using var transaction = await _dbContext.Database.BeginTransactionAsync();
 
-            var userId = User.Identity?.Name;
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                return Json(new { success = false, message = "請先登入！" });
-            }
-
-            List<object> borrowedBooks = new List<object>();
-
-            foreach (var bookId in request.SelectBooks)
-            {
-                var book = _dbContext.books.Find(bookId);
-                if (book != null && book.Quantity > 0)
+                //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                //if (string.IsNullOrEmpty(userId))
+                //{
+                //    return Json(new { success = false, message = "請先登入！" });
+                //}
+                var userId = User.Identity?.Name;
+                if (string.IsNullOrEmpty(userId))
                 {
+                    return Json(new { success = false, message = "請先登入！" });
+                }
+
+                List<object> borrowedBooks = new();
+
+                foreach (var bookId in request.SelectBooks)
+                {
+                    var book = await _dbContext.books.FirstOrDefaultAsync(b => b.Id == bookId);
+                    if (book == null || book.Quantity <= 0)
+                    {
+                        return Json(new { success = false, message = $"{book?.Title ?? "此書"} 無庫存，無法借閱。" });
+                    }
+
                     book.Quantity--;
 
                     var borrowRecord = new BorrowRecord
@@ -123,7 +146,6 @@ namespace Library.Controllers
                         BookId = bookId,
                         BorrowDate = DateTime.Now
                     };
-
                     _dbContext.BorrowRecords.Add(borrowRecord);
 
                     borrowedBooks.Add(new
@@ -133,15 +155,18 @@ namespace Library.Controllers
                         Status = "借閱中"
                     });
                 }
-                else
-                {
-                    return Json(new { success = false, message = $"{book?.Title} 無庫存，無法借閱。" });
-                }
+
+                await _dbContext.SaveChangesAsync(); // 檢查 RowVersion
+                await transaction.CommitAsync();
+
+                return Json(new { success = true, message = "📖 借閱成功！", borrowedBooks });
             }
-
-            _dbContext.SaveChanges();
-
-            return Json(new { success = true, message = "📖 借閱成功！", borrowedBooks });
+            catch (DbUpdateConcurrencyException)
+            {
+                await transaction.RollbackAsync();
+                return Json(new { success = false, message = "借書失敗，可能已被其他人借走。" });
+            }
         }
+
     }
 }

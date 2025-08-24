@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Library.ViewModel;
 
 namespace Library.Data
 {
@@ -31,5 +32,9 @@ namespace Library.Data
         public DbSet<Book> books { get; set; }
         public DbSet<BorrowRecord> BorrowRecords { get; set; }
         public DbSet<User> users { get; set; }
+        public DbSet<BorrowRule> BorrowRule {  get; set; }
+        public DbSet<ReserveRecord> reserveRecords { get; set; }
+        public DbSet<IncomeRecord> incomeRecords { get; set; }
+        public DbSet<Notify> notifies { get; set; }
     }
 }

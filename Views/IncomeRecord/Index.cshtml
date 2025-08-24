@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Library.Models.IncomeRecord>
+
+@{
+    ViewData["Title"] = "收款紀錄";
+}
+<div class="overlay"></div>
+
+<div class="borrow-container">
+    <h2>收款紀錄</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>帳號</th>
+                    <th>事由</th>
+                    <th>金額</th>
+                    <th>繳納時間</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>@record.UserName</td>
+                        <td>@record.Reason</td>
+                        <td>@record.Money</td>
+                    <td>@record.PaymentDate.ToString("yyyy-MM-dd HH:mm")</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    <div class="text-center mt-4">
+        <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">返回首頁</a>
+    </div>
+</div>

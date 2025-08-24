@@ -1,0 +1,51 @@
+﻿.ranking-badge {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.75rem;
+}
+
+.ranking-1 {
+    background: linear-gradient(to right, #ffcc00, #ff9900);
+    color: #fff;
+}
+
+.ranking-2 {
+    background: linear-gradient(to right, #cccccc, #999999);
+    color: #fff;
+}
+
+.ranking-3 {
+    background: linear-gradient(to right, #cd7f32, #b87333);
+    color: #fff;
+}
+
+.ranking-default {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.ranking-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #343a40;
+}
+
+.table thead th {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 600;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+    text-align: center;
+}

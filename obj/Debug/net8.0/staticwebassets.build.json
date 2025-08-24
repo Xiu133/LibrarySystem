@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zGw9IA59GezXIQLOEI6sHMG1DwDwgW5xD/yHMwz6ZE0=",
+  "Hash": "L1Dk3k/JSlN2KAkSuwEkh3HRyWlypfbOs5Nxvvf0dK8=",
   "Source": "Library",
   "BasePath": "_content/Library",
   "Mode": "Default",
@@ -1319,6 +1319,69 @@
       "OriginalItemSpec": "C:\\Users\\USER\\source\\repos\\Library\\Library\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Library.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\FinanceTotal.css",
+      "SourceId": "Library",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library",
+      "RelativePath": "css/FinanceTotal#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kcy2v0yny8",
+      "Integrity": "ZHlG7VcWTz8bYlLyvr4Xb+RYcfduoxgZq6jdsMHRKG4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\FinanceTotal.css"
+    },
+    {
+      "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\Notify.css",
+      "SourceId": "Library",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library",
+      "RelativePath": "css/Notify#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "7x5oszejrh",
+      "Integrity": "+9sDQQJIZfJLX0Wcqyq7crkINc1IY32UGUwe0Rybt9E=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Notify.css"
+    },
+    {
+      "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\PopularBook.css",
+      "SourceId": "Library",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\",
+      "BasePath": "_content/Library",
+      "RelativePath": "css/PopularBook#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "r5px1i216c",
+      "Integrity": "YXmc9h/If6v65KYnCxOz3MHBLgUlH9SqiYCM2iYZh08=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\PopularBook.css"
+    },
+    {
       "Identity": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\site.css",
       "SourceId": "Library",
       "SourceType": "Discovered",
@@ -1377,7 +1440,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "766ia4o9ja",
       "Integrity": "v4ns8tjbKZwte4LEPqXBe3yRDzD0hRn7zxanlUDYHJY=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\1984.jpg"
     },
@@ -1419,7 +1482,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "1hgvsmvr3o",
       "Integrity": "2za7H87/61LAaEGQiGi6LoH8sxWJ8CD2Un+8yKK8U54=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\background.jpg"
     },
@@ -1440,7 +1503,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "znexu1xzhk",
       "Integrity": "fxq4D8M1cAoP26w+2vtnCeev0y08DpYEFQn8E9HME78=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\人間失格.jpg"
     },
@@ -1461,7 +1524,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "opuvnppvh8",
       "Integrity": "xIcutZ7O8bWC6rltpXcWPftkW14dazsm4Xhu1XLTX1k=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\三四郎.jpg"
     },
@@ -1482,7 +1545,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "ctcxzqw6pr",
       "Integrity": "4BV2N6Omzp6i8SUJrpCVkIhd1vl9gqeRvazLlUEJhEs=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\大亨小傳.jpg"
     },
@@ -1503,7 +1566,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "d2jpuq1wpc",
       "Integrity": "xcIHEndaZh0u6iTIKbeI+OkLj+q+yOkOI96zjPRoS9c=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\六弄咖啡館.jpg"
     },
@@ -1524,7 +1587,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "wcrf1qnfks",
       "Integrity": "QLHtvt1b6rdsZEJr7Iro6C31O/va84wc2lrUO5RWn5s=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\少爺.jpg"
     },
@@ -1545,7 +1608,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "uuw9q0onj5",
       "Integrity": "lqgpnfVCXQcSWBYQMDjSqqnB08axB8x4EiCwUl23cLY=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\心.jpg"
     },
@@ -1566,7 +1629,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "x38v081joj",
       "Integrity": "zSpNxRmLlRgkFhwF4quWRZV5vsEx8phxtK0jhpw+Bqc=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\百年孤寂.jpg"
     },
@@ -1587,7 +1650,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "kve2fh8u5k",
       "Integrity": "0ArgxRLGTydPFz3UgmeSTwnAqSuK7df8mAGDsikpbc0=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\自卑與超越.jpg"
     },
@@ -1608,7 +1671,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "2uy2fpac2c",
       "Integrity": "JtBfYqLkccvAiepfS5qI7mX3JPA1coVx3UhFA7wV6RA=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\西線無戰事.jpg"
     },
@@ -1629,7 +1692,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "pwyxz9q8dr",
       "Integrity": "B2oEReZb3n+SDBVM7ae7jQPvQ90pDOTHMs8w+myETmo=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\快樂的死.jpg"
     },
@@ -1650,7 +1713,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "1ietmbanue",
       "Integrity": "V889mJMvKjrV56yGW0V2BZxlN2wUvk2xJo8qbpY1/jc=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\我們.jpg"
     },
@@ -1671,7 +1734,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "ot9h5pyv12",
       "Integrity": "BKtG8bSb/Lalib7CkuPu895x49r5FTvgujWeQnNlWwo=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\夜未央.jpg"
     },
@@ -1692,7 +1755,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "s6pr3h9hf2",
       "Integrity": "RE8GBUB63xJDwCAH35IBijM9jeWvVNB8ezogtTe8pi8=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\放逐與王國.jpg"
     },
@@ -1713,7 +1776,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "jo6aonkgfn",
       "Integrity": "ratA2/BCUqDoTFJEx0wHLD4nsJV7tj/EP0S/RCP+NmI=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\金閣寺.jpg"
     },
@@ -1734,7 +1797,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "l8bl6btzzr",
       "Integrity": "JY5Ersfh+LF0N4l2TOgzrpZjWVZPkftzBXa0726zKcs=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\春雪.jpg"
     },
@@ -1755,7 +1818,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "btigohoohd",
       "Integrity": "wcBTWHsn0xH0GDEcydeXeS/akWtBIxsLyeJa3JrxuAU=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\美麗新世界.jpg"
     },
@@ -1776,7 +1839,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "z0fmku3zfq",
       "Integrity": "k7G2nrNW1XVgG+UBDo97eDBvt5iGeFxBK9QrRniXPnk=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\追風箏的孩子.jpg"
     },
@@ -1797,7 +1860,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "bnqbls9n8w",
       "Integrity": "p9CTnXCRdw49D6meD4Jal3YC7xA5rzwurW3MRYSbZXo=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\假面的告白.jpg"
     },
@@ -1818,7 +1881,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "yvm1an27xr",
       "Integrity": "HhD13Og9zpgnduxChgY0vQgKqtZgbfxvIEJFioDF8HA=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\偷書賊.jpg"
     },
@@ -1839,7 +1902,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "ywesmdwlpo",
       "Integrity": "flsXyegFuvrUTTSTg7PPMj6thueQLZaOFEmSHzMKevc=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\動物農莊.jpg"
     },
@@ -1860,7 +1923,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "v61vl0a4kw",
       "Integrity": "x+xjeJ6BbjodFcrMwG8pj5CDARmzCx8+sN+xgDZEhCo=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\第六病房.jpg"
     },
@@ -1881,7 +1944,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "giy11f5f9o",
       "Integrity": "+LHEzOrvqdA5BDX6L32yIf6JnAx+q9EsEj3aj209k18=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\華氏451.jpg"
     },
@@ -1902,7 +1965,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "sm6wef3of9",
       "Integrity": "lIPTZql1awh8VzyCpWXs4sFqot63Cl6tr5FCbLE6Jbs=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\過於喧囂的孤獨.jpg"
     },
@@ -1923,7 +1986,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "n45auvy6kd",
       "Integrity": "d5Lv39sS7LVS5hrW6eiBlAizvSwrZWpcMJZThj2COtQ=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\鼠疫.jpg"
     },
@@ -1944,7 +2007,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "uo03y9l6ab",
       "Integrity": "PhxRiZutPaICO0fCvHExoeQRkrpynpqTt25E3dKqZnk=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\蒼蠅王.jpg"
     },
@@ -1965,7 +2028,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "xmb1hoy1x3",
       "Integrity": "151Qc/xjf76GF/CrI3Ytqjt0bznIVFkqcu7q+pxH8VE=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\潘朵拉的盒子.jpg"
     },
@@ -1986,7 +2049,7 @@
       "AssetTraitValue": "",
       "Fingerprint": "1126s9cfm7",
       "Integrity": "O9DxbXLEz879s57W9XiSO0kANI1YQsW0jouRfGWDZx0=",
-      "CopyToOutputDirectory": "Never",
+      "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\image\\薛西佛斯的神話.jpg"
     },
@@ -3211,6 +3274,252 @@
   ],
   "Endpoints": [
     {
+      "Route": "css/FinanceTotal.css",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\FinanceTotal.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "622"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZHlG7VcWTz8bYlLyvr4Xb+RYcfduoxgZq6jdsMHRKG4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 04 Aug 2025 17:37:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZHlG7VcWTz8bYlLyvr4Xb+RYcfduoxgZq6jdsMHRKG4="
+        }
+      ]
+    },
+    {
+      "Route": "css/FinanceTotal.kcy2v0yny8.css",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\FinanceTotal.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "622"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ZHlG7VcWTz8bYlLyvr4Xb+RYcfduoxgZq6jdsMHRKG4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 04 Aug 2025 17:37:13 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kcy2v0yny8"
+        },
+        {
+          "Name": "label",
+          "Value": "css/FinanceTotal.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ZHlG7VcWTz8bYlLyvr4Xb+RYcfduoxgZq6jdsMHRKG4="
+        }
+      ]
+    },
+    {
+      "Route": "css/Notify.7x5oszejrh.css",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\Notify.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "406"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+9sDQQJIZfJLX0Wcqyq7crkINc1IY32UGUwe0Rybt9E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 04 Aug 2025 19:11:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "7x5oszejrh"
+        },
+        {
+          "Name": "label",
+          "Value": "css/Notify.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+9sDQQJIZfJLX0Wcqyq7crkINc1IY32UGUwe0Rybt9E="
+        }
+      ]
+    },
+    {
+      "Route": "css/Notify.css",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\Notify.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "406"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+9sDQQJIZfJLX0Wcqyq7crkINc1IY32UGUwe0Rybt9E=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 04 Aug 2025 19:11:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+9sDQQJIZfJLX0Wcqyq7crkINc1IY32UGUwe0Rybt9E="
+        }
+      ]
+    },
+    {
+      "Route": "css/PopularBook.css",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\PopularBook.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "941"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"YXmc9h/If6v65KYnCxOz3MHBLgUlH9SqiYCM2iYZh08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 03 Aug 2025 15:20:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-YXmc9h/If6v65KYnCxOz3MHBLgUlH9SqiYCM2iYZh08="
+        }
+      ]
+    },
+    {
+      "Route": "css/PopularBook.r5px1i216c.css",
+      "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\PopularBook.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "941"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"YXmc9h/If6v65KYnCxOz3MHBLgUlH9SqiYCM2iYZh08=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 03 Aug 2025 15:20:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "r5px1i216c"
+        },
+        {
+          "Name": "label",
+          "Value": "css/PopularBook.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-YXmc9h/If6v65KYnCxOz3MHBLgUlH9SqiYCM2iYZh08="
+        }
+      ]
+    },
+    {
       "Route": "css/site.css",
       "AssetFile": "C:\\Users\\USER\\source\\repos\\Library\\Library\\wwwroot\\css\\site.css",
       "Selectors": [],
@@ -3233,7 +3542,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 11 Apr 2025 13:51:45 GMT"
+          "Value": "Wed, 20 Aug 2025 08:42:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3270,7 +3579,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 11 Apr 2025 13:51:45 GMT"
+          "Value": "Wed, 20 Aug 2025 08:42:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -12833,7 +13142,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 16 Mar 2025 12:50:04 GMT"
+          "Value": "Fri, 01 Aug 2025 20:15:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -12870,7 +13179,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 16 Mar 2025 12:50:04 GMT"
+          "Value": "Fri, 01 Aug 2025 20:15:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -12907,7 +13216,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 16 Mar 2025 12:50:04 GMT"
+          "Value": "Fri, 01 Aug 2025 20:15:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -12952,7 +13261,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sun, 16 Mar 2025 12:50:04 GMT"
+          "Value": "Fri, 01 Aug 2025 20:15:49 GMT"
         },
         {
           "Name": "Cache-Control",

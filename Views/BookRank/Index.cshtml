@@ -1,0 +1,47 @@
+﻿@model List<Library.ViewModel.PopularBookViewModel>
+
+@{
+    ViewData["Title"] = "📚 借書排行榜";
+}
+
+<link rel="stylesheet" href="~/css/PopularBook.css" />
+
+<div class="container mt-5">
+    <div class="ranking-card">
+        <div class="ranking-title text-center">📊 借閱排行榜 Top 10</div>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>🏆 排名</th>
+                    <th>📖 書名</th>
+                    <th>✍️ 作者</th>
+                    <th>📈 被借次數</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var rankClass = i switch
+                    {
+                        0 => "ranking-1",
+                        1 => "ranking-2",
+                        2 => "ranking-3",
+                        _ => "ranking-default"
+                    };
+
+                    <tr>
+                        <td>
+                            <span class="ranking-badge @rankClass">#@(i + 1)</span>
+                        </td>
+                        <td>@Model[i].Title</td>
+                        <td>@Model[i].Author</td>
+                        <td><strong>@Model[i].BorrowCount</strong></td>
+                    </tr>
+                }
+            </tbody>         
+        </table>
+		<div class="text-center mt-3">
+			<a href="/User/Index" class="btn btn-primary">🏠 返回首頁</a>
+		</div>
+    </div>
+</div>

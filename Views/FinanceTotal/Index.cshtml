@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "財務收入分析";
+}
+
+<link href="~/css/FinanceTotal.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <div class="card-chart">
+        <h2 class="chart-title text-center">📊 財務收入圓餅圖</h2>
+        <div class="chart-container">
+             <canvas id="incomePieChart"></canvas>
+         </div>
+		<div class="text-center mt-3">
+			<a href="/Admin/Index" class="btn btn-primary">🏠 返回首頁</a>
+		</div>
+    </div>
+</div>
+
+
+
+<!-- 載入 Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    fetch('/FinanceTotal/GetIncomeData')
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(item => item.reason);
+            const values = data.map(item => item.total);
+
+            const ctx = document.getElementById('incomePieChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: [
+                            '#FF6384', '#36A2EB', '#FFCE56', '#B39DDB', '#4DB6AC'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#444',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '收入來源統計',
+                            font: {
+                                size: 18
+                            }
+                        }
+                    }
+                }
+            });
+        });
+</script>
+

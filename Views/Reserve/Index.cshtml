@@ -1,0 +1,219 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "預約頁面";
+}
+<div class="overlay"></div>
+
+<div class="borrow-container mt-4">
+    <div class="borrow-card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">📚 預約頁面</h2>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-hover text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>書名</th>
+                        <th>作者</th>
+                        <th>庫存</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="bookTableBody">
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@book.Title</td>
+                            <td>@book.Author</td>
+                            <td>
+                                @if (book.Quantity > 0)
+                                {
+                                    <span class="badge bg-success">可借閱</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">無庫存</span>
+                                }
+                            </td>
+                            <td>
+                                @if (book.Quantity == 0)
+                                {
+                                    <form asp-controller="Reserve" asp-action="Reserve" method="post">
+                                        <input type="hidden" name="bookId" value="@book.Id" />
+                                        <button type="submit" class="btn btn-primary borrow-btn" data-book-id="@book.Id">
+                                            預約
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">尚有庫存</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <h4>已選 <span id="borrow-count">0</span>/<span id="max-books">1</span> 本</h4>
+
+            <div class="text-center mt-3">
+                <form id="confirmBorrowForm" asp-controller="Reserve" asp-action="ConfirmReserve" method="post">
+                    <input type="hidden" name="userId" value="@ViewBag.UserId" />
+                    <input type="hidden" id="selectedBooks" name="selectedBooks" />
+                    <button type="submit" id="confirmBorrowBtn" class="btn btn-success btn-lg px-4 btn-admin" disabled>
+                        ✅ 確認預約
+                    </button>
+                </form>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="/User/Index" class="btn btn-primary">🏠 返回首頁</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let reserveCount = 0;
+        const maxReserve = 1;
+        let selectedBooks = [];
+
+        const reserveCountSpan = document.getElementById("borrow-count"); // 仍然共用
+        const maxBooksSpan = document.getElementById("max-books");
+        const confirmReserveBtn = document.getElementById("confirmBorrowBtn");
+        const selectedBooksInput = document.getElementById("selectedBooks");
+
+        maxBooksSpan.innerText = maxReserve;
+
+        initReserveButtons(); // 初始綁定預約按鈕
+
+        function initReserveButtons() {
+            const reserveBtns = document.querySelectorAll(".borrow-btn");
+
+            reserveBtns.forEach(btn => {
+                btn.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const bookId = this.getAttribute("data-book-id");
+
+                    if (selectedBooks.includes(bookId)) {
+                        reserveCount = 0;
+                        selectedBooks = [];
+                        this.classList.remove("btn-secondary");
+                        this.classList.add("btn-primary");
+                        this.innerHTML = "📘 預約";
+                    } else {
+                        if (reserveCount < maxReserve) {
+                            reserveCount = 1;
+                            selectedBooks = [bookId];
+
+                            // 清空其他選取按鈕狀態
+                            document.querySelectorAll(".borrow-btn").forEach(otherBtn => {
+                                otherBtn.classList.remove("btn-secondary");
+                                otherBtn.classList.add("btn-primary");
+                                otherBtn.innerHTML = "📘 預約";
+                            });
+
+                            this.classList.remove("btn-primary");
+                            this.classList.add("btn-secondary");
+                            this.innerHTML = "✅ 已預約";
+                        }
+                    }
+
+                    updateUI();
+                });
+            });
+
+            confirmReserveBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const selectedBooksArray = selectedBooks.map(id => parseInt(id)).filter(num => !isNaN(num));
+
+                if (selectedBooksArray.length !== 1) {
+                    alert("請選擇一本書進行預約！");
+                    return;
+                }
+
+                $.ajax({
+                    url: "/Reserve/ConfirmReserve",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ selectBooks: selectedBooksArray }),
+                    success: function (response) {
+                        if (response.success) {
+                            alert(response.message);
+                            location.href = "/User/Index";
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                });
+            });
+        }
+
+        function updateUI() {
+            reserveCountSpan.innerText = reserveCount;
+            document.querySelectorAll(".borrow-btn").forEach(btn => {
+                const bookId = btn.getAttribute("data-book-id");
+                btn.disabled = reserveCount >= maxReserve && !selectedBooks.includes(bookId);
+            });
+            confirmReserveBtn.disabled = reserveCount === 0;
+            selectedBooksInput.value = selectedBooks.join(",");
+        }
+
+        // -------------------------------
+        // 🔍 搜尋邏輯（維持原本的搜尋功能）
+        const searchInput = document.getElementById("searchInput");
+        const bookTableBody = document.getElementById("bookTableBody");
+
+        searchInput.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                let query = searchInput.value.trim();
+                if (query) {
+                    searchBooks(query);
+                }
+            }
+        });
+
+        function searchBooks(query) {
+            fetch(`/Book/BorrowSearch?query=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(books => {
+                    bookTableBody.innerHTML = "";
+
+                    if (books.length === 0) {
+                        bookTableBody.innerHTML = `<tr><td colspan="4" class="text-danger">❌ 查無此書籍</td></tr>`;
+                        return;
+                    }
+
+                    books.forEach(book => {
+                        const isBorrowed = book.quantity === 0;
+                        const row = document.createElement("tr");
+
+                        row.innerHTML = `
+                            <td class="fw-bold">${book.title}</td>
+                            <td>${book.author}</td>
+                            <td>${isBorrowed
+                                ? `<span class="badge bg-danger">已借出</span>`
+                                : `<span class="badge bg-success">可借閱</span>`}</td>
+                            <td>
+                                ${isBorrowed
+                                    ? `<button class="btn btn-primary borrow-btn" data-book-id="${book.id}">📘 預約</button>`
+                                    : `<span class="text-muted">無法預約</span>`}
+                            </td>
+                        `;
+                        bookTableBody.appendChild(row);
+                    });
+
+                    initReserveButtons(); // 重新綁定預約按鈕
+                })
+                .catch(err => {
+                    console.error("搜尋錯誤:", err);
+                });
+        }
+    });
+</script>

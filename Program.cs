@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
-//builder.Services.AddScoped<BookRepository>();
+
 
 
 
@@ -30,6 +30,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddEntityFrameworkStores<LibrarydbContext>()
     .AddDefaultTokenProviders();
 
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.ExpireTimeSpan = TimeSpan.FromDays(7);
@@ -37,9 +38,11 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.IsEssential = true;
     options.Cookie.HttpOnly = true;
 
-    options.LogoutPath = "/Home/Index"; 
+    //options.Cookie.Path = "/Library";
+
+    options.LogoutPath = "/Home/Index";
     options.LoginPath = "/Home/Index";
-    options.AccessDeniedPath = "/Home/Index";
+    //options.AccessDeniedPath = "/Home/Index";
 });
 
 
@@ -53,10 +56,7 @@ builder.Services.AddDbContext<LibrarydbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
-//builder.WebHost.ConfigureKestrel(serverOptions =>
-//{
-//    serverOptions.ListenAnyIP(8080); 
-//});
+
 
 var app = builder.Build();
 
@@ -68,12 +68,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-//    await RoleSeeder.EnsureRolesAsync(services);
-//}
-// Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -88,6 +83,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

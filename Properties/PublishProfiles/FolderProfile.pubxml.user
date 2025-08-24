@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Publish\Library</_PublishTargetUrl>
+    <History>True|2025-08-19T19:35:38.1483194Z||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="wwwroot/image/1984.jpg">
+      <publishTime>03/07/2025 03:04:33</publishTime>
+    </File>
+    <File Include="wwwroot/image/3.png">
+      <publishTime>04/13/2025 21:03:50</publishTime>
+    </File>
+    <File Include="wwwroot/image/background.jpg">
+      <publishTime>03/06/2025 19:19:31</publishTime>
+    </File>
+    <File Include="wwwroot/image/三四郎.jpg">
+      <publishTime>03/18/2025 19:47:23</publishTime>
+    </File>
+    <File Include="wwwroot/image/人間失格.jpg">
+      <publishTime>03/19/2025 17:45:40</publishTime>
+    </File>
+    <File Include="wwwroot/image/假面的告白.jpg">
+      <publishTime>03/23/2025 05:17:10</publishTime>
+    </File>
+    <File Include="wwwroot/image/偷書賊.jpg">
+      <publishTime>03/07/2025 03:01:47</publishTime>
+    </File>
+    <File Include="wwwroot/image/六弄咖啡館.jpg">
+      <publishTime>07/27/2025 00:26:48</publishTime>
+    </File>
+    <File Include="wwwroot/image/動物農莊.jpg">
+      <publishTime>03/07/2025 03:04:45</publishTime>
+    </File>
+    <File Include="wwwroot/image/夜未央.jpg">
+      <publishTime>03/07/2025 03:01:05</publishTime>
+    </File>
+    <File Include="wwwroot/image/大亨小傳.jpg">
+      <publishTime>03/19/2025 01:15:11</publishTime>
+    </File>
+    <File Include="wwwroot/image/少爺.jpg">
+      <publishTime>03/18/2025 19:45:22</publishTime>
+    </File>
+    <File Include="wwwroot/image/心.jpg">
+      <publishTime>03/18/2025 19:53:18</publishTime>
+    </File>
+    <File Include="wwwroot/image/快樂的死.jpg">
+      <publishTime>04/13/2025 21:32:29</publishTime>
+    </File>
+    <File Include="wwwroot/image/我們.jpg">
+      <publishTime>03/07/2025 03:04:18</publishTime>
+    </File>
+    <File Include="wwwroot/image/放逐與王國.jpg">
+      <publishTime>03/07/2025 03:02:42</publishTime>
+    </File>
+    <File Include="wwwroot/image/春雪.jpg">
+      <publishTime>03/07/2025 03:02:32</publishTime>
+    </File>
+    <File Include="wwwroot/image/潘朵拉的盒子.jpg">
+      <publishTime>03/07/2025 03:00:30</publishTime>
+    </File>
+    <File Include="wwwroot/image/百年孤寂.jpg">
+      <publishTime>03/07/2025 03:02:54</publishTime>
+    </File>
+    <File Include="wwwroot/image/第六病房.jpg">
+      <publishTime>03/07/2025 03:03:26</publishTime>
+    </File>
+    <File Include="wwwroot/image/美麗新世界.jpg">
+      <publishTime>03/07/2025 03:04:05</publishTime>
+    </File>
+    <File Include="wwwroot/image/自卑與超越.jpg">
+      <publishTime>04/08/2025 04:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/image/華氏451.jpg">
+      <publishTime>03/07/2025 03:03:53</publishTime>
+    </File>
+    <File Include="wwwroot/image/蒼蠅王.jpg">
+      <publishTime>03/07/2025 03:03:40</publishTime>
+    </File>
+    <File Include="wwwroot/image/薛西佛斯的神話.jpg">
+      <publishTime>03/07/2025 03:04:58</publishTime>
+    </File>
+    <File Include="wwwroot/image/西線無戰事.jpg">
+      <publishTime>03/07/2025 03:03:17</publishTime>
+    </File>
+    <File Include="wwwroot/image/追風箏的孩子.jpg">
+      <publishTime>03/07/2025 03:01:57</publishTime>
+    </File>
+    <File Include="wwwroot/image/過於喧囂的孤獨.jpg">
+      <publishTime>03/07/2025 03:03:08</publishTime>
+    </File>
+    <File Include="wwwroot/image/金閣寺.jpg">
+      <publishTime>03/19/2025 17:47:33</publishTime>
+    </File>
+    <File Include="wwwroot/image/鼠疫.jpg">
+      <publishTime>03/07/2025 03:05:50</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

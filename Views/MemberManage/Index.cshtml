@@ -1,0 +1,24 @@
+﻿@model Library.Views.Book.ManageModel
+<div class="overlay"></div>
+
+<div class="user-container">
+    <h2>📚 管理者模式</h2>
+
+    <div class="button-group">
+        <a asp-controller="BorrowRule" asp-action="Index" class="btn-option">
+            借閱權限
+        </a>
+
+        <a asp-controller="Account" asp-action="Register" class="btn-option">
+            註冊
+        </a>
+
+        <a asp-controller="AccountRecord" asp-action="Index" class="btn-option">
+            帳號紀錄
+        </a>
+
+        <a asp-controller="Admin" asp-action="Index" class="btn-option">
+            返回
+        </a>
+    </div>
+</div>
