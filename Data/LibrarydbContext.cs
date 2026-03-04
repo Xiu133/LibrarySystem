@@ -1,4 +1,4 @@
-﻿using Library.Models;
+using Library.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +18,13 @@ namespace Library.Data
             {
                 try
                 {
-                    await action(); 
-                    await transaction.CommitAsync(); 
+                    await action();
+                    await transaction.CommitAsync();
                 }
                 catch (Exception)
                 {
-                    await transaction.RollbackAsync(); 
-                    throw; 
+                    await transaction.RollbackAsync();
+                    throw;
                 }
             }
         }
@@ -36,5 +36,9 @@ namespace Library.Data
         public DbSet<ReserveRecord> reserveRecords { get; set; }
         public DbSet<IncomeRecord> incomeRecords { get; set; }
         public DbSet<Notify> notifies { get; set; }
+        public DbSet<BookCategory> bookCategories { get; set; }
+        public DbSet<Fine> fines { get; set; }
+        public DbSet<Expense> expenses { get; set; }
+        public DbSet<SystemConfig> systemConfigs { get; set; }
     }
 }

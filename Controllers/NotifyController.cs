@@ -1,30 +1,24 @@
-﻿using Library.Data;
-using Library.Models;
-using Microsoft.AspNetCore.Identity;
+using Library.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
     public class NotifyController : Controller
     {
-        private readonly LibrarydbContext _context;
-        private readonly UserManager<User> _userManager;
+        private readonly INotifyService _notifyService;
 
-        public NotifyController(LibrarydbContext context, UserManager<User> userManager)
+        public NotifyController(INotifyService notifyService)
         {
-            _context = context;
-            _userManager = userManager;
+            _notifyService = notifyService;
         }
 
         public async Task<IActionResult> Index()
         {
             var userName = User?.Identity?.Name;
-            var notifications = await _context.notifies
-                .Where(n => n.UserName == userName)
-                .OrderByDescending(n => n.CreatedAt)
-                .ToListAsync();
+            if (string.IsNullOrEmpty(userName))
+                return View(Enumerable.Empty<object>());
 
+            var notifications = await _notifyService.GetNotificationsForUserAsync(userName);
             return View(notifications);
         }
     }

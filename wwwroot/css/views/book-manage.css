@@ -1,0 +1,8 @@
+.manage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.manage-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: all 0.2s; }
+.manage-card:hover { box-shadow: var(--shadow-md); }
+.manage-card img { width: 100%; height: 180px; object-fit: cover; background: var(--surface); }
+.manage-card-body { padding: 14px; }
+.manage-card-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+.manage-card-author { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
+.manage-card-actions { display: flex; gap: 6px; }

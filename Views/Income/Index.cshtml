@@ -1,94 +1,63 @@
-﻿@model Library.Models.IncomeRecord
-
 @{
-    ViewData["Title"] = "收款表單";
-    var userConfirmed = ViewBag.UserConfirmed as bool? ?? false;
-    var userName = ViewBag.UserName as string;
-    var error = ViewBag.Error as string;
+    ViewData["Title"] = "收款作業";
 }
-<div class="overlay"></div>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/income-income.css" asp-append-version="true" />
+}
 
-            <div class="card shadow-lg border-0 mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">🔍 使用者確認</h4>
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">收款作業</div>
+            <div class="page-subtitle">確認會員並記錄收款</div>
+        </div>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-outline">← 返回後台</a>
+    </div>
+
+    <div class="income-layout">
+        <div class="step-card">
+            <div class="step-title">Step 1 — 確認會員</div>
+            <div class="form-group">
+                <label class="form-label">會員帳號</label>
+                <div style="display:flex;gap:8px">
+                    <input type="text" v-model="userName" class="form-control"
+                           placeholder="請輸入會員帳號" @@keyup.enter="confirmUser" />
+                    <button type="button" class="btn btn-primary" style="white-space:nowrap"
+                            @@click="confirmUser" :disabled="loading">確認</button>
                 </div>
-
-                <div class="card-body bg-light">
-                    <form asp-action="Income" method="get">
-                        <div class="mb-3">
-                            <label for="userName" class="form-label">請輸入使用者帳號</label>
-                            <input type="text" name="userName" class="form-control" value="@userName" required />
-                            @if (!string.IsNullOrEmpty(error))
-                            {
-                                <span class="text-danger">@error</span>
-                            }
-                        </div>
-                        <button type="submit" class="btn btn-success">✅ 確認帳號</button>
-                    </form>
-                </div>
+                <div v-if="error" style="color:var(--danger);font-size:0.85rem;margin-top:6px">{{ error }}</div>
             </div>
+        </div>
 
-            @if (userConfirmed)
-            {
-                <div class="card shadow border-0">
-                    <div class="card-header bg-success text-white">
-                        <h4 class="mb-0">💰 收款表單</h4>
-                    </div>
-
-                    <div class="card-body bg-light">
-                        <form asp-action="RecordPayment" asp-controller="Income" method="post">
-                            <input type="hidden" name="userName" value="@userName" />
-
-                            <div class="mb-3">
-                                <label asp-for="Reason" class="form-label">收款事由</label>
-                                <select asp-for="Reason" class="form-select" required>
-                                    <option value="">-- 請選擇事由 --</option>
-                                    <option>損壞賠償</option>
-                                    <option>遺失賠償</option>
-                                    <option>其他</option>
-                                </select>
-                                <span asp-validation-for="Reason" class="text-danger"></span>
-                            </div>
-
-                            <div class="mb-3">
-                                <label asp-for="Money" class="form-label">金額</label>
-                                <input asp-for="Money" class="form-control" placeholder="請輸入金額" required />
-                                <span asp-validation-for="Money" class="text-danger"></span>
-                            </div>
-
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-warning btn-lg px-4">💰 送出收款</button>
-                            </div>
-                        </form>
-                    </div>
+        <div class="step-card" v-show="confirmed">
+            <div class="step-title">Step 2 — 收款資料</div>
+            <div class="user-confirmed-box">
+                <div class="user-confirmed-icon">✅</div>
+                <div class="user-confirmed-name">{{ userName }}</div>
+            </div>
+            <form asp-action="RecordPayment" asp-controller="Income" method="post">
+                <input type="hidden" name="userName" :value="userName" />
+                <div class="form-group">
+                    <label class="form-label">收款事由</label>
+                    <select name="Reason" class="form-control" required>
+                        <option value="">請選擇</option>
+                        <option>損壞賠償</option>
+                        <option>遺失賠償</option>
+                        <option>逾期罰款</option>
+                        <option>其他</option>
+                    </select>
                 </div>
-            }
+                <div class="form-group">
+                    <label class="form-label">金額（NT$）</label>
+                    <input type="number" name="Money" class="form-control" placeholder="0" min="1" step="0.01" required />
+                </div>
+                <button type="submit" class="btn btn-accent w-full">確認收款</button>
+            </form>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script src="~/js/views/income-index.js" asp-append-version="true"></script>
 }
-
-
-<script>
-        function updateUI() {
-        borrowCountSpan.innerText = borrowCount;
-        document.querySelectorAll(".borrow-btn").forEach(btn => {
-            const bookId = btn.getAttribute("data-book-id");
-            btn.disabled = borrowCount >= maxBorrow && !selectedBooks.includes(bookId);
-        });
-        confirmBorrowBtn.disabled = borrowCount === 0;
-
-        selectedBooksInput.value = selectedBooks.join(",");
-        document.getElementById("paymentBooks").value = selectedBooks.join(",");
-    }
-
-</script>

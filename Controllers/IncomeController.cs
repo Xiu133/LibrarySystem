@@ -17,11 +17,16 @@ namespace Library.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
+        [HttpGet]
+        public IActionResult ConfirmUser(string userName)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserName == userName);
+            if (user == null)
+                return Json(new { success = false, message = "查無此會員" });
+            return Json(new { success = true });
+        }
 
         [HttpGet]
         public IActionResult Income(string userName)
@@ -47,7 +52,7 @@ namespace Library.Controllers
             {
                 UserName = userName,
                 Reason = Reason,
-                Money = Money,
+                Money = decimal.TryParse(Money, out var moneyVal) ? moneyVal : 0m,
                 PaymentDate = DateTime.Now
             };
 

@@ -1,0 +1,69 @@
+@using Library.Models
+@model IEnumerable<BookCategory>
+@{
+    ViewData["Title"] = "書籍分類";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/category-index.css" asp-append-version="true" />
+}
+
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">書籍分類</div>
+            <div class="page-subtitle">管理圖書館書籍分類</div>
+        </div>
+    </div>
+
+    <div class="category-layout">
+        <div class="category-form-card">
+            <div style="font-weight:600;font-size:1rem;margin-bottom:20px">新增分類</div>
+            <div class="form-group">
+                <label class="form-label">分類名稱</label>
+                <input v-model="form.name" class="form-control" placeholder="請輸入分類名稱" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">說明（選填）</label>
+                <input v-model="form.description" class="form-control" placeholder="分類說明" />
+            </div>
+            <button class="btn btn-primary w-full" @@click="create" :disabled="loading">
+                {{ loading ? '新增中...' : '新增分類' }}
+            </button>
+            <div v-if="message" class="alert mt-2" :class="success ? 'alert-success' : 'alert-danger'">{{ message }}</div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">分類列表（@Model.Count() 個）</span>
+            </div>
+            @if (!Model.Any())
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">🗂️</div>
+                    <div class="empty-state-text">尚無分類</div>
+                    <div class="empty-state-sub">從左側新增第一個分類</div>
+                </div>
+            }
+            @foreach (var c in Model)
+            {
+                <div class="category-item">
+                    <div>
+                        <div class="category-name">@c.Name</div>
+                        @if (!string.IsNullOrEmpty(c.Description))
+                        {
+                            <div class="category-desc">@c.Description</div>
+                        }
+                    </div>
+                    <div class="category-actions">
+                        <button class="btn btn-danger btn-xs" @@click="deleteCategory(@c.Id, '@c.Name.Replace("'", "\\'")') ">刪除</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/views/category-index.js" asp-append-version="true"></script>
+}

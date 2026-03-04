@@ -1,0 +1,7 @@
+.income-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; max-width: 900px; }
+.step-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
+.step-title { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+.user-confirmed-box { display: flex; align-items: center; gap: 10px; background: #d1fae5; border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 16px; }
+.user-confirmed-icon { font-size: 1.2rem; }
+.user-confirmed-name { font-weight: 600; color: #065f46; }
+@media (max-width: 768px) { .income-layout { grid-template-columns: 1fr; } }

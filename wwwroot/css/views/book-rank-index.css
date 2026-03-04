@@ -1,0 +1,7 @@
+.rank-num { font-size: 1.1rem; font-weight: 700; color: var(--text-light); width: 50px; text-align: center; }
+.rank-gold { color: #f59e0b !important; font-size: 1.3rem !important; }
+.rank-silver { color: #9ca3af !important; }
+.rank-bronze { color: #cd7f32 !important; }
+.rank-bar-wrap { display: flex; align-items: center; gap: 10px; }
+.rank-bar { height: 6px; border-radius: 3px; background: var(--primary); min-width: 4px; transition: width 0.8s ease; }
+.rank-bar-count { font-size: 0.8rem; color: var(--text-muted); min-width: 50px; }

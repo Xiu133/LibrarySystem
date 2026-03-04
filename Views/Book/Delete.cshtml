@@ -1,45 +1,50 @@
-﻿@model IEnumerable<Book>
-
+@using Library.Models
+@model IEnumerable<Book>
 @{
     ViewData["Title"] = "刪除書籍";
 }
 
-<div class="overlay"></div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/book-delete.css" asp-append-version="true" />
+}
 
-<div class="borrow-container mt-4">
-    <div class="borrow-card shadow-lg">
-        <div class="card-header bg-danger text-white">
-            <h2 class="mb-0">❌ 刪除書籍</h2>
-        </div>
-        <div class="card-body">
-            <table class="table table-hover text-center align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>書名</th>
-                        <th>作者</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var book in Model)
-                    {
-                        <tr>
-                            <td class="fw-bold">@book.Title</td>
-                            <td>@book.Author</td>
-                            <td>
-                                <form asp-controller="Book" asp-action="DeleteConfirm" method="post">
-                                    <input type="hidden" name="id" value="@book.Id" />
-                                    <button type="submit" class="btn btn-danger">❌ 刪除</button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="mt-4 d-flex justify-content-center gap-3">
-                <a href="/Book/Manage" class="btn btn-primary">返回</a>
-            </div>
-        </div>
+<div class="page-header">
+    <div>
+        <div class="page-title">刪除書籍</div>
+        <div class="page-subtitle">謹慎操作，刪除後無法復原</div>
     </div>
+    <a asp-action="Manage" class="btn btn-outline">← 返回</a>
 </div>
 
+<div class="delete-warning">⚠️ 刪除書籍將移除所有相關記錄，此操作無法復原</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>書名</th>
+                    <th>作者</th>
+                    <th>庫存</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td class="fw-medium">@book.Title</td>
+                        <td class="text-muted">@book.Author</td>
+                        <td>@book.Quantity</td>
+                        <td>
+                            <form asp-controller="Book" asp-action="DeleteConfirm" method="post" onsubmit="return confirm('確定刪除《@book.Title》？')">
+                                <input type="hidden" name="id" value="@book.Id" />
+                                <button type="submit" class="btn btn-danger btn-xs">刪除</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

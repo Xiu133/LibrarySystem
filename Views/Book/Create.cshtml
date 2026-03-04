@@ -1,55 +1,74 @@
-﻿@model Library.Models.Book;
+@model Library.Models.Book
 @{
-	ViewData["Title"] = "新增書籍";
+    ViewData["Title"] = "新增書籍";
 }
-<div class="book-body">
-    <div class="book-container">
-        <h2>新增書籍</h2>
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label>ID</label>
-                <input type="text" class="form-control" value="@ViewBag.NewBookId" readonly />
-            </div>
 
-            <div class="form-group">
-                <label for="Title">書名</label>
-                <input asp-for="Title" class="form-control" required />
-            </div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/book-create.css" asp-append-version="true" />
+}
 
-            <div class="form-group">
-                <label for="Author">作者</label>
-                <input asp-for="Author" class="form-control" required />
-            </div>
-
-            <div class="form-group">
-                <label for="Description">簡短描述</label>
-                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="PublishedYear">出版年份</label>
-                <input asp-for="PublishedYear" type="number" class="form-control" required />
-            </div>
-
-            <div class="form-group mb-4">
-                <label for="Quantity">數量</label>
-                <input asp-for="Quantity" type="number" class="form-control" required />
-            </div>
-
-            <div class="form-group mb-4">
-                <label for="ImageFile">上傳封面圖片</label>
-                <input type="file" name="ImageFile" class="form-control-file" accept="image/*" required />
-            </div>
-
-            <div class="text-center mt-5">
-                <button type="submit" class="btn btn-success">新增書籍</button>
-            </div>
-        </form>
-
-        <div class="mt-4 d-flex justify-content-center gap-3">
-            <a href="/Book/Manage" class="btn btn-primary">返回</a>
-        </div>
+<div class="page-header">
+    <div>
+        <div class="page-title">新增書籍</div>
+        <div class="page-subtitle">新增館藏書籍資料</div>
     </div>
+    <a asp-action="Manage" class="btn btn-outline">← 返回</a>
 </div>
 
+<div class="form-card">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">書名 *</label>
+                <input asp-for="Title" class="form-control" placeholder="請輸入書名" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label">作者 *</label>
+                <input asp-for="Author" class="form-control" placeholder="請輸入作者" required />
+            </div>
+        </div>
 
+        <div class="form-group">
+            <label class="form-label">簡介</label>
+            <textarea asp-for="Description" class="form-control" rows="3" placeholder="書籍簡介..."></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">出版年份 *</label>
+                <input asp-for="PublishedYear" type="number" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label">數量 *</label>
+                <input asp-for="Quantity" type="number" class="form-control" min="1" required />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">ISBN</label>
+                <input asp-for="ISBN" class="form-control" placeholder="ISBN-13" />
+            </div>
+            <div class="form-group">
+                <label class="form-label">存放位置</label>
+                <input asp-for="Location" class="form-control" placeholder="書架位置" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">封面圖片 *</label>
+            <div class="file-upload" onclick="document.getElementById('imgInput').click()">
+                <div style="font-size:1.5rem;margin-bottom:6px">🖼️</div>
+                <div style="font-size:0.875rem;color:var(--text-muted)">點擊上傳封面圖片</div>
+                <div id="fileName" style="font-size:0.8rem;color:var(--text-muted);margin-top:4px"></div>
+            </div>
+            <input type="file" id="imgInput" name="ImageFile" accept="image/*" required style="display:none"
+                   onchange="document.getElementById('fileName').textContent = this.files[0]?.name || ''" />
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:24px">
+            <button type="submit" class="btn btn-accent">新增書籍</button>
+            <a asp-action="Manage" class="btn btn-outline">取消</a>
+        </div>
+    </form>
+</div>

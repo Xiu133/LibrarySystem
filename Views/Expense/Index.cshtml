@@ -1,0 +1,112 @@
+@using Library.Models
+@model IEnumerable<Expense>
+@{
+    ViewData["Title"] = "費用管理";
+    var totalAmount = Model.Sum(e => e.Amount);
+    var thisMonth = Model.Where(e => e.ExpenseDate.Month == DateTime.Now.Month && e.ExpenseDate.Year == DateTime.Now.Year).Sum(e => e.Amount);
+    var categoryCount = Model.Select(e => e.Category).Distinct().Count();
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/expense-index.css" asp-append-version="true" />
+}
+
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">費用管理</div>
+            <div class="page-subtitle">記錄與追蹤圖書館支出</div>
+        </div>
+    </div>
+
+    <div class="expense-summary">
+        <div class="summary-card">
+            <div class="summary-label">總支出</div>
+            <div class="summary-value" style="color:var(--danger)">NT$ @totalAmount.ToString("N0")</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-label">本月支出</div>
+            <div class="summary-value" style="color:var(--warning)">NT$ @thisMonth.ToString("N0")</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-label">費用類別數</div>
+            <div class="summary-value" style="color:var(--info)">@categoryCount</div>
+        </div>
+    </div>
+
+    <div class="expense-layout">
+        <div class="expense-form-card">
+            <div style="font-weight:600;font-size:1rem;margin-bottom:20px">新增費用</div>
+            <form asp-action="Create" method="post">
+                <div class="form-group">
+                    <label class="form-label">費用類別</label>
+                    <select name="category" class="form-control" required>
+                        <option value="">請選擇</option>
+                        <option>採購</option>
+                        <option>維護</option>
+                        <option>水電</option>
+                        <option>薪資</option>
+                        <option>其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">金額（NT$）</label>
+                    <input type="number" name="amount" class="form-control" placeholder="0" min="1" step="0.01" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">說明（選填）</label>
+                    <input type="text" name="description" class="form-control" placeholder="費用說明" />
+                </div>
+                <button type="submit" class="btn btn-primary w-full">新增費用</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">費用記錄（@Model.Count() 筆）</span>
+                <input v-model="search" class="search-input" placeholder="搜尋..." style="width:180px;padding:6px 12px;font-size:0.85rem" />
+            </div>
+            @if (!Model.Any())
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">💰</div>
+                    <div class="empty-state-text">尚無費用記錄</div>
+                    <div class="empty-state-sub">從左側新增第一筆費用</div>
+                </div>
+            }
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>類別</th>
+                            <th>金額</th>
+                            <th>說明</th>
+                            <th>日期</th>
+                            <th>記錄人</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var e in Model)
+                        {
+                            <tr v-show="!search || '@e.Category'.includes(search) || '@(e.Description ?? "")'.includes(search)">
+                                <td><span class="badge badge-info">@e.Category</span></td>
+                                <td class="fw-bold">NT$ @e.Amount.ToString("N0")</td>
+                                <td class="text-muted" style="font-size:0.85rem">@(e.Description ?? "-")</td>
+                                <td class="text-muted" style="font-size:0.85rem">@e.ExpenseDate.ToString("yyyy-MM-dd")</td>
+                                <td class="text-muted" style="font-size:0.85rem">@e.CreatedBy</td>
+                                <td>
+                                    <button class="btn btn-danger btn-xs" @@click="deleteExpense(@e.Id)">刪除</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/views/expense-index.js" asp-append-version="true"></script>
+}

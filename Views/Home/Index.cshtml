@@ -1,20 +1,48 @@
-﻿@{
-    ViewData["Title"] = "登入";
+@{
+    ViewData["Title"] = "書香世家";
+    Layout = "_Layout";
 }
-<div class="overlay"></div>
 
-<div class="login-container">
-    <h2>📖 歡迎來到書香世家</h2>
-    <p>請選擇您的登入身份：</p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/home-index.css" asp-append-version="true" />
+}
 
-    <a asp-controller="Account" asp-action="Login" class="btn btn-login btn-member">
-        📚 會員登入
-    </a>
-    <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="/Admin/Dashboard" class="btn btn-login btn-admin">
-        🔑 管理者登入
-    </a>
-    <a asp-controller="Account" asp-action="Register" class="btn btn-login btn-register">
-        📝 註冊會員
-    </a>
+<div class="home-hero">
+    <div class="hero-badge">
+        <span>✦</span> 書香世家圖書館管理系統
+    </div>
+    <div class="hero-icon">📚</div>
+    <h1 class="hero-title">探索知識的世界<br><span>從借閱開始</span></h1>
+    <p class="hero-sub">數位化圖書館管理，輕鬆借閱、預約、追蹤每一本好書</p>
+
+    <div class="hero-actions">
+        <a asp-controller="Account" asp-action="Login" class="btn-hero btn-hero-primary">立即登入</a>
+        <a asp-controller="Account" asp-action="Register" class="btn-hero btn-hero-ghost">免費註冊</a>
+    </div>
+
+    <div class="hero-features">
+        <div class="hero-feature">
+            <div class="hero-feature-icon">📖</div>
+            <div class="hero-feature-label">豐富館藏</div>
+            <div class="hero-feature-desc">數百本精選書籍</div>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-feature">
+            <div class="hero-feature-icon">🔖</div>
+            <div class="hero-feature-label">便利借閱</div>
+            <div class="hero-feature-desc">線上借還，簡單快速</div>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-feature">
+            <div class="hero-feature-icon">🔔</div>
+            <div class="hero-feature-label">預約服務</div>
+            <div class="hero-feature-desc">書籍到位即時通知</div>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-feature">
+            <div class="hero-feature-icon">🏆</div>
+            <div class="hero-feature-label">排行榜</div>
+            <div class="hero-feature-desc">發掘熱門好書</div>
+        </div>
+    </div>
 </div>
-

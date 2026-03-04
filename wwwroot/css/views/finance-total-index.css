@@ -1,0 +1,5 @@
+.finance-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+.chart-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
+.chart-title { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-bottom: 16px; }
+.chart-container { position: relative; height: 300px; }
+@media (max-width: 768px) { .finance-charts { grid-template-columns: 1fr; } }

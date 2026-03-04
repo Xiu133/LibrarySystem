@@ -1,24 +1,147 @@
-﻿@model Library.Views.Book.ManageModel
-<div class="overlay"></div>
+@using Library.Models
+@model IEnumerable<User>
+@{
+    ViewData["Title"] = "會員管理";
+}
 
-<div class="user-container">
-    <h2>📚 管理者模式</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/member-index.css" asp-append-version="true" />
+}
 
-    <div class="button-group">
-        <a asp-controller="BorrowRule" asp-action="Index" class="btn-option">
-            借閱權限
-        </a>
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">會員管理</div>
+            <div class="page-subtitle">管理 @Model.Count() 位圖書館會員</div>
+        </div>
+    </div>
 
-        <a asp-controller="Account" asp-action="Register" class="btn-option">
-            註冊
-        </a>
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">會員列表</span>
+            <input v-model="search" class="search-input" placeholder="搜尋會員..."
+                   style="width:200px;padding:7px 12px;font-size:0.85rem" />
+        </div>
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>會員</th>
+                        <th>Email</th>
+                        <th>電話</th>
+                        <th>角色</th>
+                        <th>狀態</th>
+                        <th>加入日期</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var m in Model)
+                    {
+                        <tr v-show="!search || '@m.UserName'.toLowerCase().includes(search.toLowerCase()) || ('@(m.Email ?? "")').toLowerCase().includes(search.toLowerCase())">
+                            <td>
+                                <div style="display:flex;align-items:center;gap:10px">
+                                    <div class="member-avatar">@(m.UserName?.Substring(0, Math.Min(2, m.UserName?.Length ?? 0)).ToUpper())</div>
+                                    <button class="member-name-btn" @@click="openModal('@m.UserName')">@m.UserName</button>
+                                </div>
+                            </td>
+                            <td class="text-muted" style="font-size:0.85rem">@m.Email</td>
+                            <td class="text-muted" style="font-size:0.85rem">@(m.PhoneNumber ?? "-")</td>
+                            <td>
+                                @if (m.Role == "Admin")
+                                {
+                                    <span class="badge badge-info">管理員</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-gray">會員</span>
+                                }
+                            </td>
+                            <td>
+                                @if (m.MemberStatus == "Active")
+                                {
+                                    <span class="badge badge-success">正常</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">停權</span>
+                                }
+                            </td>
+                            <td class="text-muted" style="font-size:0.85rem">@m.JoinDate.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                @if (m.MemberStatus == "Active")
+                                {
+                                    <button class="btn btn-warning btn-xs" @@click="suspend('@m.UserName')">停權</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-success btn-xs" @@click="activate('@m.UserName')">啟用</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <a asp-controller="AccountRecord" asp-action="Index" class="btn-option">
-            帳號紀錄
-        </a>
+    <div v-if="msg" class="alert mt-2" :class="ok ? 'alert-success' : 'alert-danger'">{{ msg }}</div>
 
-        <a asp-controller="Admin" asp-action="Index" class="btn-option">
-            返回
-        </a>
+    <!-- Member Detail Modal -->
+    <div class="modal-overlay" v-show="modal.open" @@click.self="closeModal">
+        <div class="modal-panel">
+            <div class="modal-header">
+                <span class="modal-title">會員詳情</span>
+                <button class="modal-close" @@click="closeModal">✕</button>
+            </div>
+            <div v-if="modal.loading" style="text-align:center;padding:40px;color:var(--text-muted)">載入中...</div>
+            <div v-else-if="modal.member">
+                <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+                    <div class="member-avatar" style="width:52px;height:52px;font-size:1.2rem">
+                        {{ modal.member.userName.substring(0,2).toUpperCase() }}
+                    </div>
+                    <div>
+                        <div style="font-size:1.1rem;font-weight:700">{{ modal.member.userName }}</div>
+                        <div style="font-size:0.85rem;color:var(--text-muted)">{{ modal.member.email }}</div>
+                    </div>
+                </div>
+                <div class="modal-grid">
+                    <div class="modal-field">
+                        <div class="modal-label">角色</div>
+                        <span class="badge" :class="modal.member.role === 'Admin' ? 'badge-info' : 'badge-gray'">
+                            {{ modal.member.role === 'Admin' ? '管理員' : '一般會員' }}
+                        </span>
+                    </div>
+                    <div class="modal-field">
+                        <div class="modal-label">狀態</div>
+                        <span class="badge" :class="modal.member.memberStatus === 'Active' ? 'badge-success' : 'badge-danger'">
+                            {{ modal.member.memberStatus === 'Active' ? '正常' : '停權' }}
+                        </span>
+                    </div>
+                    <div class="modal-field">
+                        <div class="modal-label">電話</div>
+                        <div>{{ modal.member.phoneNumber || '-' }}</div>
+                    </div>
+                    <div class="modal-field">
+                        <div class="modal-label">地址</div>
+                        <div>{{ modal.member.address || '-' }}</div>
+                    </div>
+                    <div class="modal-field">
+                        <div class="modal-label">加入日期</div>
+                        <div>{{ modal.member.joinDate }}</div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:20px">
+                    <button v-if="modal.member.memberStatus === 'Active'"
+                            class="btn btn-warning btn-sm" @@click="suspend(modal.member.userName)">停權</button>
+                    <button v-else class="btn btn-success btn-sm" @@click="activate(modal.member.userName)">啟用</button>
+                    <button class="btn btn-outline btn-sm" @@click="closeModal">關閉</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/views/member-index.js" asp-append-version="true"></script>
+}

@@ -1,219 +1,69 @@
-﻿@model IEnumerable<Book>
-
 @{
-    ViewData["Title"] = "預約頁面";
+    ViewData["Title"] = "預約書籍";
 }
-<div class="overlay"></div>
 
-<div class="borrow-container mt-4">
-    <div class="borrow-card shadow-lg">
-        <div class="card-header bg-primary text-white">
-            <h2 class="mb-0">📚 預約頁面</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/reserve-index.css" asp-append-version="true" />
+}
+
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">預約書籍</div>
+            <div class="page-subtitle">預約目前無法借閱的書籍，到貨時通知您</div>
+        </div>
+    </div>
+
+    <div class="reserve-layout">
+        <div>
+            <div class="search-bar">
+                <input v-model="query" class="search-input" placeholder="搜尋書名或作者..." @@input="search" />
+                <button class="btn btn-outline" @@click="loadAll">全部</button>
+            </div>
+            <div v-if="loading" class="empty-state">
+                <div class="empty-state-icon">⏳</div>
+                <div class="empty-state-text">載入中...</div>
+            </div>
+            <div v-else-if="books.length === 0" class="empty-state">
+                <div class="empty-state-icon">📚</div>
+                <div class="empty-state-text">找不到相關書籍</div>
+            </div>
+            <div v-else class="book-grid">
+                <div v-for="book in books" :key="book.id"
+                     class="book-item"
+                     :class="{selected: isSelected(book.id)}"
+                     @@click="toggleSelect(book)">
+                    <img :src="book.imageFileName" :alt="book.title" onerror="this.style.display='none'" style="background:var(--surface);width:100%;height:160px;object-fit:cover" />
+                    <div class="book-item-info">
+                        <div class="book-item-title">{{ book.title }}</div>
+                        <div class="book-item-author">{{ book.author }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="card-body">
-            <table class="table table-hover text-center align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>書名</th>
-                        <th>作者</th>
-                        <th>庫存</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody id="bookTableBody">
-                    @foreach (var book in Model)
-                    {
-                        <tr>
-                            <td class="fw-bold">@book.Title</td>
-                            <td>@book.Author</td>
-                            <td>
-                                @if (book.Quantity > 0)
-                                {
-                                    <span class="badge bg-success">可借閱</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-danger">無庫存</span>
-                                }
-                            </td>
-                            <td>
-                                @if (book.Quantity == 0)
-                                {
-                                    <form asp-controller="Reserve" asp-action="Reserve" method="post">
-                                        <input type="hidden" name="bookId" value="@book.Id" />
-                                        <button type="submit" class="btn btn-primary borrow-btn" data-book-id="@book.Id">
-                                            預約
-                                        </button>
-                                    </form>
-                                }
-                                else
-                                {
-                                    <span class="text-muted">尚有庫存</span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-            <h4>已選 <span id="borrow-count">0</span>/<span id="max-books">1</span> 本</h4>
-
-            <div class="text-center mt-3">
-                <form id="confirmBorrowForm" asp-controller="Reserve" asp-action="ConfirmReserve" method="post">
-                    <input type="hidden" name="userId" value="@ViewBag.UserId" />
-                    <input type="hidden" id="selectedBooks" name="selectedBooks" />
-                    <button type="submit" id="confirmBorrowBtn" class="btn btn-success btn-lg px-4 btn-admin" disabled>
-                        ✅ 確認預約
-                    </button>
-                </form>
+        <div class="cart-panel">
+            <div class="cart-title">📋 預約清單 <span class="badge badge-info">{{ selected.length }}</span></div>
+            <div v-if="selected.length === 0" class="cart-empty">
+                <div style="font-size:2rem;margin-bottom:8px">🔖</div>
+                <div>點擊書籍加入預約清單</div>
             </div>
-
-            <div class="text-center mt-3">
-                <a href="/User/Index" class="btn btn-primary">🏠 返回首頁</a>
+            <div v-else>
+                <div v-for="book in selected" :key="book.id" class="cart-item">
+                    <span style="font-size:0.85rem;flex:1">{{ book.title }}</span>
+                    <button class="remove-btn" @@click="remove(book.id)">✕</button>
+                </div>
             </div>
+            <div style="margin-top:16px">
+                <button class="btn btn-accent w-full" :disabled="selected.length === 0" @@click="confirm">
+                    確認預約{{ selected.length > 0 ? ' (' + selected.length + '本)' : '' }}
+                </button>
+            </div>
+            <div v-if="resultMsg" class="alert mt-2" :class="resultSuccess ? 'alert-success' : 'alert-danger'">{{ resultMsg }}</div>
         </div>
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let reserveCount = 0;
-        const maxReserve = 1;
-        let selectedBooks = [];
-
-        const reserveCountSpan = document.getElementById("borrow-count"); // 仍然共用
-        const maxBooksSpan = document.getElementById("max-books");
-        const confirmReserveBtn = document.getElementById("confirmBorrowBtn");
-        const selectedBooksInput = document.getElementById("selectedBooks");
-
-        maxBooksSpan.innerText = maxReserve;
-
-        initReserveButtons(); // 初始綁定預約按鈕
-
-        function initReserveButtons() {
-            const reserveBtns = document.querySelectorAll(".borrow-btn");
-
-            reserveBtns.forEach(btn => {
-                btn.addEventListener("click", function (event) {
-                    event.preventDefault();
-                    const bookId = this.getAttribute("data-book-id");
-
-                    if (selectedBooks.includes(bookId)) {
-                        reserveCount = 0;
-                        selectedBooks = [];
-                        this.classList.remove("btn-secondary");
-                        this.classList.add("btn-primary");
-                        this.innerHTML = "📘 預約";
-                    } else {
-                        if (reserveCount < maxReserve) {
-                            reserveCount = 1;
-                            selectedBooks = [bookId];
-
-                            // 清空其他選取按鈕狀態
-                            document.querySelectorAll(".borrow-btn").forEach(otherBtn => {
-                                otherBtn.classList.remove("btn-secondary");
-                                otherBtn.classList.add("btn-primary");
-                                otherBtn.innerHTML = "📘 預約";
-                            });
-
-                            this.classList.remove("btn-primary");
-                            this.classList.add("btn-secondary");
-                            this.innerHTML = "✅ 已預約";
-                        }
-                    }
-
-                    updateUI();
-                });
-            });
-
-            confirmReserveBtn.addEventListener("click", function (e) {
-                e.preventDefault();
-
-                const selectedBooksArray = selectedBooks.map(id => parseInt(id)).filter(num => !isNaN(num));
-
-                if (selectedBooksArray.length !== 1) {
-                    alert("請選擇一本書進行預約！");
-                    return;
-                }
-
-                $.ajax({
-                    url: "/Reserve/ConfirmReserve",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ selectBooks: selectedBooksArray }),
-                    success: function (response) {
-                        if (response.success) {
-                            alert(response.message);
-                            location.href = "/User/Index";
-                        } else {
-                            alert(response.message);
-                        }
-                    }
-                });
-            });
-        }
-
-        function updateUI() {
-            reserveCountSpan.innerText = reserveCount;
-            document.querySelectorAll(".borrow-btn").forEach(btn => {
-                const bookId = btn.getAttribute("data-book-id");
-                btn.disabled = reserveCount >= maxReserve && !selectedBooks.includes(bookId);
-            });
-            confirmReserveBtn.disabled = reserveCount === 0;
-            selectedBooksInput.value = selectedBooks.join(",");
-        }
-
-        // -------------------------------
-        // 🔍 搜尋邏輯（維持原本的搜尋功能）
-        const searchInput = document.getElementById("searchInput");
-        const bookTableBody = document.getElementById("bookTableBody");
-
-        searchInput.addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                let query = searchInput.value.trim();
-                if (query) {
-                    searchBooks(query);
-                }
-            }
-        });
-
-        function searchBooks(query) {
-            fetch(`/Book/BorrowSearch?query=${encodeURIComponent(query)}`)
-                .then(response => response.json())
-                .then(books => {
-                    bookTableBody.innerHTML = "";
-
-                    if (books.length === 0) {
-                        bookTableBody.innerHTML = `<tr><td colspan="4" class="text-danger">❌ 查無此書籍</td></tr>`;
-                        return;
-                    }
-
-                    books.forEach(book => {
-                        const isBorrowed = book.quantity === 0;
-                        const row = document.createElement("tr");
-
-                        row.innerHTML = `
-                            <td class="fw-bold">${book.title}</td>
-                            <td>${book.author}</td>
-                            <td>${isBorrowed
-                                ? `<span class="badge bg-danger">已借出</span>`
-                                : `<span class="badge bg-success">可借閱</span>`}</td>
-                            <td>
-                                ${isBorrowed
-                                    ? `<button class="btn btn-primary borrow-btn" data-book-id="${book.id}">📘 預約</button>`
-                                    : `<span class="text-muted">無法預約</span>`}
-                            </td>
-                        `;
-                        bookTableBody.appendChild(row);
-                    });
-
-                    initReserveButtons(); // 重新綁定預約按鈕
-                })
-                .catch(err => {
-                    console.error("搜尋錯誤:", err);
-                });
-        }
-    });
-</script>
+@section Scripts {
+    <script src="~/js/views/reserve-index.js" asp-append-version="true"></script>
+}

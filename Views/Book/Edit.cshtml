@@ -1,67 +1,85 @@
-﻿@model Library.Models.Book
+@model Library.Models.Book
 @{
     ViewData["Title"] = "編輯書籍";
 }
 
-<div class="book-body">
-    <div class="book-container">
-        <h2>編輯書籍</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/book-edit.css" asp-append-version="true" />
+}
 
-        <!-- 這是管理者輸入書名進行查詢的地方 -->
-        <form method="get" asp-action="Edit" >
-            <div class="form-group">
-                <label for="Title">書名</label>
-                <input type="text" class="form-control" name="Title" placeholder="輸入書名查詢" />
-            </div>
-            <div class="text-center mt-3">
-                <button type="submit" class="btn btn-primary">查詢</button>
-            </div>
-
-            <div class="mt-4 d-flex justify-content-center gap-3">
-                <a href="/Book/Manage" class="btn btn-primary">返回</a>
-            </div>
-        </form>
-
-        @if (Model != null)
-        {
-            <form asp-action="Edit" method="post" enctype="multipart/form-data">
-                <input type="hidden" asp-for="Id" />
- 
-                @* <div class="form-group">
-                    <label>ID</label>
-                    <input type="text" class="form-control" value="@Model.Id" readonly />
-                </div> *@
-
-                <div class="form-group">
-                    <label for="Title">書名</label>
-                    <input asp-for="Title" class="form-control" required />
-                </div>
-
-                <div class="form-group">
-                    <label for="Author">作者</label>
-                    <input asp-for="Author" class="form-control" required />
-                </div>
-
-                <div class="form-group">
-                    <label for="Description">簡短描述</label>
-                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="PublishedYear">出版年份</label>
-                    <input asp-for="PublishedYear" type="number" class="form-control" required />
-                </div>
-
-                <div class="form-group mb-4">
-                    <label for="Quantity">數量</label>
-                    <input asp-for="Quantity" type="number" class="form-control" required />
-                </div>
-
-                <div class="text-center mt-5">
-                    <button type="submit" class="btn btn-success">更新書籍</button>
-                </div>
-            </form>
-        }
+<div class="page-header">
+    <div>
+        <div class="page-title">編輯書籍</div>
+        <div class="page-subtitle">搜尋並更新書籍資料</div>
     </div>
+    <a asp-action="Manage" class="btn btn-outline">← 返回</a>
 </div>
 
+<div class="form-card">
+    <div class="search-section">
+        <form method="get" asp-action="Edit">
+            <label class="form-label">查詢書名</label>
+            <div style="display:flex;gap:8px">
+                <input type="text" name="Title" class="form-control" placeholder="輸入書名查詢..." value="@ViewBag.SearchTitle" />
+                <button type="submit" class="btn btn-primary">查詢</button>
+            </div>
+        </form>
+    </div>
+
+    @if (Model != null)
+    {
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="RowVersion" />
+            <input type="hidden" asp-for="ImageFileName" />
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">書名 *</label>
+                    <input asp-for="Title" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">作者 *</label>
+                    <input asp-for="Author" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">簡介</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">出版年份</label>
+                    <input asp-for="PublishedYear" type="number" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">數量</label>
+                    <input asp-for="Quantity" type="number" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">ISBN</label>
+                    <input asp-for="ISBN" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">存放位置</label>
+                    <input asp-for="Location" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">更換封面（選填）</label>
+                <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:24px">
+                <button type="submit" class="btn btn-primary">更新書籍</button>
+                <a asp-action="Manage" class="btn btn-outline">取消</a>
+            </div>
+        </form>
+    }
+</div>

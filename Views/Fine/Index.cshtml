@@ -1,0 +1,105 @@
+@using Library.ViewModels
+@model IEnumerable<FineViewModel>
+@{
+    ViewData["Title"] = "罰款管理";
+    var unpaid = Model.Where(f => !f.IsPaid).ToList();
+    var paid = Model.Where(f => f.IsPaid).ToList();
+    var totalUnpaid = unpaid.Sum(f => f.Amount);
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/fine-index.css" asp-append-version="true" />
+}
+
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">逾期罰款管理</div>
+            <div class="page-subtitle">追蹤並管理借閱逾期罰款</div>
+        </div>
+        <div class="page-actions">
+            <form asp-action="Scan" method="post" style="display:inline">
+                <button class="btn btn-warning" type="submit">🔍 掃描逾期</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="fine-stats">
+        <div class="stat-card">
+            <div class="stat-label">未繳款件數</div>
+            <div class="stat-value" style="color:var(--danger)">@unpaid.Count</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">未繳款金額</div>
+            <div class="stat-value" style="color:var(--danger)">NT$ @totalUnpaid.ToString("N0")</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">已繳款件數</div>
+            <div class="stat-value" style="color:var(--success)">@paid.Count</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">罰款清單</span>
+            <div class="filter-btns">
+                <button class="btn btn-outline btn-xs" :class="{selected: filter==='all'}" @@click="filter='all'">全部</button>
+                <button class="btn btn-outline btn-xs" :class="{selected: filter==='unpaid'}" @@click="filter='unpaid'">未繳</button>
+                <button class="btn btn-outline btn-xs" :class="{selected: filter==='paid'}" @@click="filter='paid'">已繳</button>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>會員</th>
+                        <th>書籍</th>
+                        <th>借閱日</th>
+                        <th>到期日</th>
+                        <th>罰款金額</th>
+                        <th>狀態</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var f in Model)
+                    {
+                        <tr v-show="shouldShow('@f.IsPaid')">
+                            <td>@f.UserName</td>
+                            <td>@f.BookTitle</td>
+                            <td class="text-muted">@f.BorrowDate?.ToString("yyyy-MM-dd")</td>
+                            <td class="text-muted">@f.DueDate?.ToString("yyyy-MM-dd")</td>
+                            <td class="fw-bold">NT$ @f.Amount.ToString("N0")</td>
+                            <td>
+                                @if (f.IsPaid)
+                                {
+                                    <span class="badge badge-success">已繳</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">未繳</span>
+                                }
+                            </td>
+                            <td>
+                                @if (!f.IsPaid)
+                                {
+                                    <button class="btn btn-success btn-xs" @@click="markPaid(@f.Id)">標記繳清</button>
+                                }
+                                else
+                                {
+                                    <span class="text-muted" style="font-size:0.8rem">@f.PaidDate?.ToString("MM/dd")</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div v-if="message" class="alert mt-2" :class="success ? 'alert-success' : 'alert-danger'">{{ message }}</div>
+</div>
+
+@section Scripts {
+    <script src="~/js/views/fine-index.js" asp-append-version="true"></script>
+}

@@ -1,68 +1,37 @@
-﻿@{
-    ViewData["Title"] = "財務收入分析";
+@{
+    ViewData["Title"] = "財務分析";
 }
 
-<link href="~/css/FinanceTotal.css" rel="stylesheet" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/finance-total-index.css" asp-append-version="true" />
+}
 
-<div class="container mt-5">
-    <div class="card-chart">
-        <h2 class="chart-title text-center">📊 財務收入圓餅圖</h2>
-        <div class="chart-container">
-             <canvas id="incomePieChart"></canvas>
-         </div>
-		<div class="text-center mt-3">
-			<a href="/Admin/Index" class="btn btn-primary">🏠 返回首頁</a>
-		</div>
+<div class="page-header">
+    <div>
+        <div class="page-title">財務分析</div>
+        <div class="page-subtitle">收入來源與支出趨勢</div>
+    </div>
+    <div class="page-actions">
+        <a asp-controller="Income" asp-action="Index" class="btn btn-accent">收款</a>
+        <a asp-controller="Expense" asp-action="Index" class="btn btn-outline">費用管理</a>
     </div>
 </div>
 
+<div class="finance-charts">
+    <div class="chart-card">
+        <div class="chart-title">收入來源分析</div>
+        <div class="chart-container">
+            <canvas id="incomePieChart"></canvas>
+        </div>
+    </div>
+    <div class="chart-card">
+        <div class="chart-title">月度支出趨勢（近12個月）</div>
+        <div class="chart-container">
+            <canvas id="expenseBarChart"></canvas>
+        </div>
+    </div>
+</div>
 
-
-<!-- 載入 Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    fetch('/FinanceTotal/GetIncomeData')
-        .then(response => response.json())
-        .then(data => {
-            const labels = data.map(item => item.reason);
-            const values = data.map(item => item.total);
-
-            const ctx = document.getElementById('incomePieChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: [
-                            '#FF6384', '#36A2EB', '#FFCE56', '#B39DDB', '#4DB6AC'
-                        ],
-                        borderColor: '#ffffff',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: '#444',
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: '收入來源統計',
-                            font: {
-                                size: 18
-                            }
-                        }
-                    }
-                }
-            });
-        });
-</script>
-
+@section Scripts {
+    <script src="~/js/views/finance-total-index.js" asp-append-version="true"></script>
+}

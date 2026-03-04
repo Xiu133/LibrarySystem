@@ -1,62 +1,62 @@
-﻿@model Library.Models.Book;
+@model Library.Models.Book
+@{
+    ViewData["Title"] = Model.Title;
+}
 
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@Model.Title - 詳細資訊</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/book-detail.css" asp-append-version="true" />
+}
 
-</head>
-<body>
-    <div class="overlay"></div>
+<div style="margin-bottom:16px">
+    <a asp-action="Index" class="btn btn-outline btn-sm">← 返回書籍列表</a>
+</div>
 
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-lg border-0 rounded-4">
-                    <div class="row g-0">
-                        <!-- 左側圖片區域 -->
-                        <div class="col-md-5 d-flex align-items-center">
-                            <img src="@Model.ImageFileName" class="img-fluid rounded-start" alt="@Model.Title">
-                        </div>
-                        <!-- 右側書籍資訊 -->
-                        <div class="col-md-7">
-                            <div class="card-body">
-                                <h1 class="card-title text-primary fw-bold">@Model.Title</h1>
-                                <h5 class="text-muted">📖 作者：@Model.Author
-                                    <span class="badge bg-success ms-3">📦 庫存：@Model.Quantity</span>
-                                </h5>
+<div class="detail-layout">
+    <div>
+        <img src="@Model.ImageFileName" alt="@Model.Title" class="detail-cover"
+             onerror="this.style.background='var(--surface)';this.style.minHeight='360px'" />
+    </div>
+    <div class="card card-body">
+        <div class="detail-title">@Model.Title</div>
+        <div class="detail-author">✍️ @Model.Author</div>
+        <div class="detail-meta">
+            <span class="badge badge-gray">@Model.PublishedYear 年</span>
+            @if (Model.Quantity > 0)
+            {
+                <span class="badge badge-success">庫存 @Model.Quantity 本</span>
+            }
+            else
+            {
+                <span class="badge badge-danger">無庫存</span>
+            }
+            @if (!string.IsNullOrEmpty(Model.ISBN))
+            {
+                <span class="badge badge-gray">ISBN: @Model.ISBN</span>
+            }
+            @if (!string.IsNullOrEmpty(Model.Location) && Model.Location != "未分類")
+            {
+                <span class="badge badge-info">📍 @Model.Location</span>
+            }
+        </div>
 
-                                <hr>
+        @if (!string.IsNullOrEmpty(Model.Description))
+        {
+            <div class="detail-description">@Model.Description</div>
+        }
 
-                                <p class="card-text">
-                                    <strong>書籍介紹：</strong> <br>
-                                    @Model.Description
-                                </p>
-                                @{
-                                    string homeUrl = User.IsInRole("Admin")
-                                    ? Url.Action("Index", "Admin") ?? "#"
-                                    : Url.Action("Index", "User") ?? "#";
-
-                                }
-                                <div class="d-flex justify-content-between">
-                                    <a href="@Url.Action("Index", "Book")" class="btn btn-outline-primary">
-                                        🔙 返回書籍列表
-                                    </a>
-
-									<a href="@homeUrl" class="btn btn-primary">🏠 返回首頁</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap">
+            @if (Model.Quantity > 0)
+            {
+                <a asp-controller="Borrow" asp-action="Index" class="btn btn-accent">借閱此書</a>
+            }
+            else
+            {
+                <a asp-controller="Reserve" asp-action="Index" class="btn btn-outline">加入預約</a>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Edit" asp-route-Title="@Model.Title" class="btn btn-outline">編輯</a>
+            }
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>

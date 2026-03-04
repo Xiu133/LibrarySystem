@@ -1,0 +1,7 @@
+.detail-layout { display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: start; }
+.detail-cover { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow-md); object-fit: cover; aspect-ratio: 2/3; }
+.detail-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+.detail-author { font-size: 1rem; color: var(--text-muted); margin-bottom: 16px; }
+.detail-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.detail-description { font-size: 0.9rem; color: var(--text-primary); line-height: 1.8; border-top: 1px solid var(--border); padding-top: 20px; }
+@media (max-width: 768px) { .detail-layout { grid-template-columns: 1fr; } }

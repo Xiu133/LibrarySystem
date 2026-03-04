@@ -1,9 +1,6 @@
-﻿using System.Data;
-using Library.Data;
 using Library.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
@@ -11,16 +8,14 @@ namespace Library.Controllers
     {
         private readonly SignInManager<User> _SignInManager;
         private readonly UserManager<User> _UserManager;
-        private readonly LibrarydbContext _context;
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager , LibrarydbContext context)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _SignInManager = signInManager;
             _UserManager = userManager;
-            _context = context;
         }
 
-        public IActionResult Login() //留
+        public IActionResult Login()
         {
             return View();
         }
@@ -28,14 +23,14 @@ namespace Library.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
-            var user = await _UserManager.FindByNameAsync(username); // 查詢使用者
+            var user = await _UserManager.FindByNameAsync(username);
             if (user == null)
             {
                 ModelState.AddModelError("", "帳號不存在");
                 return View();
             }
 
-            var result = await _SignInManager.PasswordSignInAsync(username, password, false, false); 
+            var result = await _SignInManager.PasswordSignInAsync(username, password, false, false);
             if (result.Succeeded)
             {
                 var roles = await _UserManager.GetRolesAsync(user);
@@ -44,7 +39,6 @@ namespace Library.Controllers
                 {
                     return RedirectToAction("Index", "Admin", new { area = "" });
                 }
-
                 else
                 {
                     return RedirectToAction("Index", "User", new { area = "" });
@@ -55,7 +49,7 @@ namespace Library.Controllers
             return View();
         }
 
-        public IActionResult Register()//留
+        public IActionResult Register()
         {
             return View();
         }
@@ -63,7 +57,7 @@ namespace Library.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password)
         {
-            var user = new User { UserName = username , Role="User" };
+            var user = new User { UserName = username, Role = "User" };
             var result = await _UserManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
@@ -82,14 +76,11 @@ namespace Library.Controllers
         {
             await _SignInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
-
-            //return Redirect("/Library/Home/Index");
         }
 
-
-        public IActionResult Manage()
+        public async Task<IActionResult> Manage()
         {
-            var users = _context.Users.Select(u => new User
+            var users = _UserManager.Users.Select(u => new User
             {
                 Id = u.Id,
                 UserName = u.UserName,
@@ -103,10 +94,10 @@ namespace Library.Controllers
         public async Task<IActionResult> PromoteToAdmin(string userid)
         {
             var user = await _UserManager.FindByIdAsync(userid);
-            if (user != null && !(await _UserManager.IsInRoleAsync(user, "Admin"))) 
+            if (user != null && !(await _UserManager.IsInRoleAsync(user, "Admin")))
             {
                 await _UserManager.AddToRoleAsync(user, "Admin");
-                await _UserManager.RemoveFromRoleAsync(user, "User"); 
+                await _UserManager.RemoveFromRoleAsync(user, "User");
 
                 user.Role = "Admin";
                 await _UserManager.UpdateAsync(user);

@@ -1,24 +1,56 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LibrarySystem</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - 圖書館管理系統</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LibrarySystem.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    <header>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <span class="brand-icon">📚</span>
+                <span class="brand-text">圖書館管理系統</span>
+            </a>
+            <div class="navbar-right">
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <span class="nav-user">
+                        <span class="user-dot"></span>
+                        @User.Identity.Name
+                    </span>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="nav-link" asp-controller="Admin" asp-action="Index">管理後台</a>
+                    }
+                    <a class="nav-link" asp-controller="Account" asp-action="Logout">登出</a>
+                }
+                else
+                {
+                    <a class="nav-link" asp-controller="Account" asp-action="Login">登入</a>
+                    <a class="nav-btn" asp-controller="Account" asp-action="Register">註冊</a>
+                }
+            </div>
+        </div>
+    </nav>
+    <main class="page-wrapper">
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">@TempData["Message"]</div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        }
+        @RenderBody()
+    </main>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

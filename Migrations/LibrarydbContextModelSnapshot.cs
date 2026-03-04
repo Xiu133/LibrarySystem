@@ -29,8 +29,18 @@ namespace Library.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Condition")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ISBN")
                         .HasColumnType("longtext");
 
                     b.Property<string>("ImageFileName")
@@ -39,6 +49,10 @@ namespace Library.Migrations
 
                     b.Property<bool>("IsDelete")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("PublishedYear")
                         .HasColumnType("int");
@@ -57,7 +71,27 @@ namespace Library.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("books");
+                });
+
+            modelBuilder.Entity("Library.Models.BookCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("bookCategories");
                 });
 
             modelBuilder.Entity("Library.Models.BorrowRecord", b =>
@@ -71,6 +105,12 @@ namespace Library.Migrations
 
                     b.Property<DateTime>("BorrowDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("RenewCount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ReturnDate")
                         .HasColumnType("datetime(6)");
@@ -97,6 +137,12 @@ namespace Library.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("BorrowDays")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("FinePerDay")
+                        .HasColumnType("decimal(10,2)");
+
                     b.Property<int>("MaxBooks")
                         .HasColumnType("int");
 
@@ -109,15 +155,74 @@ namespace Library.Migrations
                     b.ToTable("BorrowRule");
                 });
 
+            modelBuilder.Entity("Library.Models.Expense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ExpenseDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("expenses");
+                });
+
+            modelBuilder.Entity("Library.Models.Fine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("BorrowRecordId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("PaidDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BorrowRecordId");
+
+                    b.ToTable("fines");
+                });
+
             modelBuilder.Entity("Library.Models.IncomeRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Money")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<decimal>("Money")
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime(6)");
@@ -193,6 +298,28 @@ namespace Library.Migrations
                     b.ToTable("reserveRecords");
                 });
 
+            modelBuilder.Entity("Library.Models.SystemConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("systemConfigs");
+                });
+
             modelBuilder.Entity("Library.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -200,6 +327,9 @@ namespace Library.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -212,11 +342,18 @@ namespace Library.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<DateTime>("JoinDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("MemberStatus")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -389,6 +526,15 @@ namespace Library.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Library.Models.Book", b =>
+                {
+                    b.HasOne("Library.Models.BookCategory", "Category")
+                        .WithMany("Books")
+                        .HasForeignKey("CategoryId");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Library.Models.BorrowRecord", b =>
                 {
                     b.HasOne("Library.Models.Book", "Book")
@@ -402,6 +548,17 @@ namespace Library.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Library.Models.Fine", b =>
+                {
+                    b.HasOne("Library.Models.BorrowRecord", "BorrowRecord")
+                        .WithMany()
+                        .HasForeignKey("BorrowRecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BorrowRecord");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -453,6 +610,11 @@ namespace Library.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Library.Models.BookCategory", b =>
+                {
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Library.Models.User", b =>

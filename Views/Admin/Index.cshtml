@@ -1,36 +1,116 @@
-﻿@model Library.Views.Admin.IndexModel
+﻿@using Library.ViewModels
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "管理後台";
+    var monthLabels = Model.MonthlyBorrows.Select(m => m.Month).ToArray();
+    var monthCounts = Model.MonthlyBorrows.Select(m => m.Count).ToArray();
+}
 
-<div class="overlay"></div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/admin-index.css" asp-append-version="true" />
+}
 
-<div class="user-container">
-    <h2>📚 管理者模式</h2>
-    <p>請選擇您的功能：</p>
-
-    <div class="button-group">
-        <a asp-controller="Book" asp-action="Manage" class="btn-option">
-            書庫管理
-        </a>
-
-		<a asp-controller="MemberManage" asp-action="Index" class="btn-option">
-			會員管理
-		</a>      
-
-        <a asp-controller="Finance" asp-action="Index" class="btn-option">
-            財務管理
-        </a>
-
-        <a asp-controller="ReturnBook" asp-action="Index" class="btn-option">
-			我要還書
-		</a>
-
-        <a asp-controller="Set" asp-action="Index" class="btn-option">
-            系統設定
-        </a>
-       
-        <a asp-controller="Account" asp-action="Logout" class="btn-option">
-            登出
-        </a>
+<div class="page-header">
+    <div>
+        <div class="page-title">管理後台</div>
+        <div class="page-subtitle">@DateTime.Now.ToString("yyyy年MM月dd日") 概覽</div>
+    </div>
+    <div class="page-actions">
+        <a asp-controller="Book" asp-action="Create" class="btn btn-accent">+ 新增書籍</a>
+        <a asp-controller="Fine" asp-action="Index" class="btn btn-outline">逾期罰款</a>
+        <a asp-controller="ReturnBook" asp-action="Index" class="btn btn-outline">還書</a>
     </div>
 </div>
 
+<div class="kpi-grid">
+    <div class="kpi-card">
+        <div class="kpi-label">書籍總數</div>
+        <div class="kpi-value">@Model.TotalBooks</div>
+        <div class="kpi-trend">館藏書籍</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">會員總數</div>
+        <div class="kpi-value">@Model.TotalMembers</div>
+        <div class="kpi-trend">已註冊</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">借閱中</div>
+        <div class="kpi-value warning">@Model.ActiveBorrows</div>
+        <div class="kpi-trend">本</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">逾期書籍</div>
+        <div class="kpi-value danger">@Model.OverdueCount</div>
+        <div class="kpi-trend">需要催還</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">未繳罰款</div>
+        <div class="kpi-value accent">@Model.UnpaidFines</div>
+        <div class="kpi-trend">件</div>
+    </div>
+    <div class="kpi-card">
+        <div class="kpi-label">總收入</div>
+        <div class="kpi-value success">@Model.TotalIncome.ToString("N0")</div>
+        <div class="kpi-trend">支出 @Model.TotalExpense.ToString("N0")</div>
+    </div>
+</div>
 
+<div class="dashboard-grid">
+    <div class="chart-card">
+        <div class="chart-title">借閱趨勢（近6個月）</div>
+        <canvas id="borrowChart" height="200"></canvas>
+    </div>
+    <div class="card">
+        <div class="card-header"><span class="card-title">最近活動</span></div>
+        <div style="padding: 0 20px 8px">
+            @if (Model.RecentActivities.Any())
+            {
+                <ul class="activity-list">
+                    @foreach (var a in Model.RecentActivities)
+                    {
+                        <li class="activity-item">
+                            <div class="activity-icon @(a.Action == "借閱" ? "borrow" : "return")">
+                                @(a.Action == "借閱" ? "📖" : "✅")
+                            </div>
+                            <div class="activity-meta">
+                                <div class="activity-user">@a.UserName</div>
+                                <div class="activity-book">@a.BookTitle</div>
+                                <div class="activity-date">@a.Date.ToString("MM/dd HH:mm") · @a.Action</div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="empty-state" style="padding:32px"><div class="empty-state-icon">📋</div><div class="empty-state-text">尚無活動</div></div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="grid-3 mt-3">
+    <a asp-controller="MemberManage" asp-action="Index" class="card" style="padding:20px;text-decoration:none;display:block;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:1.5rem;margin-bottom:8px">👥</div>
+        <div style="font-weight:600;margin-bottom:4px">會員管理</div>
+        <div style="font-size:0.8rem;color:var(--text-muted)">@Model.TotalMembers 位會員</div>
+    </a>
+    <a asp-controller="Category" asp-action="Index" class="card" style="padding:20px;text-decoration:none;display:block;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:1.5rem;margin-bottom:8px">🗂️</div>
+        <div style="font-weight:600;margin-bottom:4px">書籍分類</div>
+        <div style="font-size:0.8rem;color:var(--text-muted)">管理書籍分類</div>
+    </a>
+    <a asp-controller="Expense" asp-action="Index" class="card" style="padding:20px;text-decoration:none;display:block;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:1.5rem;margin-bottom:8px">💰</div>
+        <div style="font-weight:600;margin-bottom:4px">費用管理</div>
+        <div style="font-size:0.8rem;color:var(--text-muted)">支出追蹤</div>
+    </a>
+</div>
+
+@section Scripts {
+    <script>
+        const monthLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(monthLabels));
+        const monthCounts = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(monthCounts));
+    </script>
+    <script src="~/js/views/admin-index.js" asp-append-version="true"></script>
+}

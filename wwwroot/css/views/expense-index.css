@@ -1,0 +1,7 @@
+.expense-layout { display: grid; grid-template-columns: 360px 1fr; gap: 24px; align-items: start; }
+.expense-form-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; position: sticky; top: 80px; }
+.expense-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.summary-card { background: var(--card); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+.summary-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+.summary-value { font-size: 1.75rem; font-weight: 700; }
+@media (max-width: 900px) { .expense-layout { grid-template-columns: 1fr; } .expense-summary { grid-template-columns: 1fr; } }

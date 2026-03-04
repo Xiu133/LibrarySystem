@@ -1,22 +1,39 @@
-﻿@{
+@{
     ViewData["Title"] = "登入";
 }
 
-<div class="overlay"></div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/account-login.css" asp-append-version="true" />
+}
 
-<div class="login-container">
-    <h2>📖 歡迎來到書香世家</h2>
-    <p>請輸入您的帳號密碼：</p>
+<div class="login-card">
+    <div class="login-logo">📚</div>
+    <div class="login-title">圖書館管理系統</div>
+    <div class="login-subtitle">請登入您的帳號以繼續使用</div>
 
-    <form method="post" asp-controller="Account" asp-action="Login">
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+
+    <form asp-action="Login" method="post">
         <div class="form-group">
-            <label for="Username">帳號：</label>
-            <input type="text" class="form-control" id="Username" name="username" placeholder="請輸入帳號" required />
+            <label class="form-label">帳號</label>
+            <input type="text" name="username" class="form-control" placeholder="請輸入帳號" required autocomplete="username" />
         </div>
         <div class="form-group">
-            <label for="Password">密碼：</label>
-            <input type="password" class="form-control" id="Password" name="password" placeholder="請輸入密碼" required />
+            <label class="form-label">密碼</label>
+            <input type="password" name="password" class="form-control" placeholder="請輸入密碼" required autocomplete="current-password" />
         </div>
-        <button type="submit" class="btn btn-login btn-admin">登入</button>
+        <button type="submit" class="btn btn-accent w-full" style="margin-top:8px;padding:12px">登入</button>
     </form>
+
+    <div class="login-footer">
+        還沒有帳號？<a asp-action="Register">立即註冊</a>
+    </div>
 </div>

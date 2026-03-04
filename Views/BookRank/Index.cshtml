@@ -1,47 +1,55 @@
-﻿@model List<Library.ViewModel.PopularBookViewModel>
-
+@model List<Library.ViewModel.PopularBookViewModel>
 @{
-    ViewData["Title"] = "📚 借書排行榜";
+    ViewData["Title"] = "借閱排行";
+    var maxCount = Model.Any() ? Model.Max(b => b.BorrowCount) : 1;
 }
 
-<link rel="stylesheet" href="~/css/PopularBook.css" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/book-rank-index.css" asp-append-version="true" />
+}
 
-<div class="container mt-5">
-    <div class="ranking-card">
-        <div class="ranking-title text-center">📊 借閱排行榜 Top 10</div>
-        <table class="table table-hover table-bordered">
+<div class="page-header">
+    <div>
+        <div class="page-title">借閱排行榜</div>
+        <div class="page-subtitle">Top @Model.Count 最受歡迎書籍</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table class="data-table rank-table">
             <thead>
                 <tr>
-                    <th>🏆 排名</th>
-                    <th>📖 書名</th>
-                    <th>✍️ 作者</th>
-                    <th>📈 被借次數</th>
+                    <th style="width:60px">排名</th>
+                    <th>書名</th>
+                    <th>作者</th>
+                    <th>借閱次數</th>
                 </tr>
             </thead>
             <tbody>
                 @for (int i = 0; i < Model.Count; i++)
                 {
-                    var rankClass = i switch
-                    {
-                        0 => "ranking-1",
-                        1 => "ranking-2",
-                        2 => "ranking-3",
-                        _ => "ranking-default"
-                    };
-
+                    var book = Model[i];
+                    var rankClass = i == 0 ? "rank-gold" : i == 1 ? "rank-silver" : i == 2 ? "rank-bronze" : "";
                     <tr>
                         <td>
-                            <span class="ranking-badge @rankClass">#@(i + 1)</span>
+                            <span class="rank-num @rankClass">#@(i + 1)</span>
                         </td>
-                        <td>@Model[i].Title</td>
-                        <td>@Model[i].Author</td>
-                        <td><strong>@Model[i].BorrowCount</strong></td>
+                        <td class="fw-medium">@book.Title</td>
+                        <td class="text-muted">@book.Author</td>
+                        <td>
+                            <div class="rank-bar-wrap">
+                                <div class="rank-bar" data-count="@book.BorrowCount" data-max="@maxCount" style="width:0%"></div>
+                                <span class="rank-bar-count">@book.BorrowCount 次</span>
+                            </div>
+                        </td>
                     </tr>
                 }
-            </tbody>         
+            </tbody>
         </table>
-		<div class="text-center mt-3">
-			<a href="/User/Index" class="btn btn-primary">🏠 返回首頁</a>
-		</div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/views/book-rank-index.js" asp-append-version="true"></script>
+}

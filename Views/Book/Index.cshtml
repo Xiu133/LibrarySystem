@@ -1,84 +1,98 @@
-﻿<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>書籍搜尋與瀏覽</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+@using Library.Models
+@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "書籍瀏覽";
+    var booksJson = System.Text.Json.JsonSerializer.Serialize(Model.Select(b => new {
+        id = b.Id, title = b.Title, author = b.Author, imageFileName = b.ImageFileName, quantity = b.Quantity
+    }));
+    var isAdmin = User.IsInRole("Admin");
+}
 
-    <div class="container">
-        <h1>📖 書籍搜尋與瀏覽</h1>
-        <input type="text" id="searchBox" placeholder="🔍 輸入書名或作者..." onkeyup="searchBooks()">  
-        
-        <div class="book-list" id="bookList">
-            @foreach (var book in Model)
-            {
-                <a href="@Url.Action("Detail", "Book", new { id = book.Id })" class="book-item">
-                    <img src="@book.ImageFileName" alt="書籍封面">
-                    <p>作者：@book.Author</p>
-                </a>
-            }
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/book-index.css" asp-append-version="true" />
+}
+
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">書籍瀏覽</div>
+            <div class="page-subtitle">館藏 @Model.Count() 本書籍</div>
         </div>
-        @{
-            string homeUrl = User.IsInRole("Admin")
-            ? Url.Action("Index", "Admin") ?? "#"
-            : Url.Action("Index", "User") ?? "#";
-
+        @if (isAdmin)
+        {
+            <a asp-action="Create" class="btn btn-accent">+ 新增書籍</a>
         }
-        <div class="d-flex justify-content-center mt-4">
-            <a href="@homeUrl" class="btn btn-primary">🏠 返回首頁</a>
+    </div>
+
+    <div class="book-search-bar">
+        <input v-model="query" class="search-input" placeholder="搜尋書名或作者..." @@input="search" />
+        <button class="btn btn-outline" @@click="reset">全部</button>
+    </div>
+
+    <div v-if="loading" class="empty-state">
+        <div class="empty-state-icon">⏳</div>
+        <div class="empty-state-text">搜尋中...</div>
+    </div>
+    <div v-else-if="books.length === 0" class="empty-state">
+        <div class="empty-state-icon">📚</div>
+        <div class="empty-state-text">找不到相關書籍</div>
+    </div>
+    <div v-else class="book-grid">
+        <div v-for="book in books" :key="book.id" class="book-card" @@click="openDrawer(book.id)">
+            <img :src="book.imageFileName" :alt="book.title"
+                 onerror="this.style.background='var(--surface)';this.style.minHeight='220px'"
+                 style="width:100%;height:220px;object-fit:cover;display:block" />
+            <div class="book-card-body">
+                <div class="book-card-title">{{ book.title }}</div>
+                <div class="book-card-author">{{ book.author }}</div>
+                <div class="book-card-qty" :style="book.quantity > 0 ? 'color:var(--success)' : 'color:var(--danger)'">
+                    {{ book.quantity > 0 ? '庫存 ' + book.quantity + ' 本' : '無庫存' }}
+                </div>
+            </div>
         </div>
     </div>
-</body>
-</html>
 
+    <!-- Book Detail Drawer -->
+    <div class="drawer-overlay" :class="{open: drawerOpen}" @@click.self="closeDrawer">
+        <div class="drawer-panel" :class="{open: drawerOpen}">
+            <button class="drawer-close" @@click="closeDrawer">✕</button>
+            <div v-if="drawerLoading" class="drawer-loading">
+                <div class="empty-state-icon">⏳</div>
+                <div>載入中...</div>
+            </div>
+            <div v-else-if="drawerBook">
+                <img :src="drawerBook.imageFileName" :alt="drawerBook.title"
+                     class="drawer-cover"
+                     onerror="this.style.background='var(--surface)';this.style.minHeight='200px'" />
+                <div class="drawer-body">
+                    <div class="drawer-title">{{ drawerBook.title }}</div>
+                    <div class="drawer-author">✍️ {{ drawerBook.author }}</div>
+                    <div class="drawer-meta">
+                        <span class="badge badge-gray">{{ drawerBook.publishedYear }} 年</span>
+                        <span class="badge" :class="drawerBook.quantity > 0 ? 'badge-success' : 'badge-danger'">
+                            {{ drawerBook.quantity > 0 ? '庫存 ' + drawerBook.quantity + ' 本' : '無庫存' }}
+                        </span>
+                        <span v-if="drawerBook.isbn" class="badge badge-gray">ISBN: {{ drawerBook.isbn }}</span>
+                        <span v-if="drawerBook.location && drawerBook.location !== '未分類'" class="badge badge-info">
+                            📍 {{ drawerBook.location }}
+                        </span>
+                    </div>
+                    <div v-if="drawerBook.description" class="drawer-desc">{{ drawerBook.description }}</div>
+                    <div class="drawer-actions">
+                        <a v-if="drawerBook.quantity > 0" href="/Borrow" class="btn btn-accent">借閱此書</a>
+                        <a v-else href="/Reserve" class="btn btn-outline">加入預約</a>
+                        <a :href="'/Book/Detail/' + drawerBook.id" class="btn btn-outline">完整詳情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script>
-            document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById('searchBox').addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                let query = document.getElementById('searchBox').value.trim();
-                if (query) {
-                    window.location.href = `/Book/SearchResult?query=${encodeURIComponent(query)}`;
-                }
-            }
-        });
-    });      
-        function searchBookByTitleOrAuthor() {
-        let query = document.getElementById('searchBox').value.trim();
-
-        if (!query) return;
-
-        fetch(`/Book/Search?query=${encodeURIComponent(query)}`)
-            .then(response => response.json())
-            .then(books => {
-                let bookList = document.getElementById('bookList');
-                bookList.innerHTML = ''; // 清空原本的書籍列表
-
-                if (books.length === 0) {
-                    alert("❌ 查無此書籍");
-                } else {
-                    books.forEach(book => {
-                        let bookItem = document.createElement('a');
-                        bookItem.href = `/Book/Detail/${book.id}`;
-                        bookItem.classList.add('book-item');
-
-                        let img = document.createElement('img');
-                        img.src = book.imageFileName;
-                        img.alt = "書籍封面";
-
-                        let p = document.createElement('p');
-                        p.textContent = `作者：${book.author}`;
-
-                        bookItem.appendChild(img);
-                        bookItem.appendChild(p);
-                        bookList.appendChild(bookItem);
-                    });
-                    
-                }
-            })
-            .catch(error => console.error("搜尋時發生錯誤:", error));
-    }
-</script>
+@section Scripts {
+    <script>
+        const initialBooks = @Html.Raw(booksJson);
+        const isAdmin = @Html.Raw(isAdmin.ToString().ToLower());
+    </script>
+    <script src="~/js/views/book-index.js" asp-append-version="true"></script>
+}

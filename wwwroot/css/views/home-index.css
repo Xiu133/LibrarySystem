@@ -1,0 +1,130 @@
+/* ===== LANDING PAGE ===== */
+/* 突破 page-wrapper 的 padding/max-width，變全寬 */
+.home-hero {
+  min-height: calc(100vh - 60px);
+  background: linear-gradient(150deg, #1a1a2e 0%, #16213e 55%, #0f3460 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px 80px;
+  position: relative;
+  overflow: hidden;
+  /* 全寬突破術 */
+  margin-top: -32px;
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+}
+@media (max-width: 768px) { .home-hero { margin-top: -20px; } }
+.home-hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(233,69,96,0.12) 0%, transparent 70%);
+  top: -100px; right: -100px;
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.8rem; color: rgba(255,255,255,0.7);
+  margin-bottom: 28px;
+  letter-spacing: 0.04em;
+}
+.hero-icon { font-size: 3.5rem; margin-bottom: 20px; line-height: 1; }
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.hero-title span { color: var(--accent); }
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 44px;
+  max-width: 420px;
+  line-height: 1.7;
+}
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 72px; }
+.btn-hero {
+  padding: 14px 36px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-hero-primary { background: var(--accent); color: #fff; }
+.btn-hero-primary:hover { background: #c73652; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(233,69,96,0.4); }
+.btn-hero-ghost { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+.btn-hero-ghost:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+.hero-features { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
+.hero-feature { text-align: center; }
+.hero-feature-icon { font-size: 1.6rem; margin-bottom: 8px; }
+.hero-feature-label { font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.8); margin-bottom: 4px; }
+.hero-feature-desc { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+.hero-divider {
+  width: 1px; height: 60px;
+  background: rgba(255,255,255,0.1);
+  align-self: center;
+}
+
+/* ===== MEMBER DASHBOARD ===== */
+.user-greeting { margin-bottom: 32px; }
+.user-greeting-name { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+.user-greeting-sub { font-size: 0.9rem; color: var(--text-muted); }
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.feature-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-color, var(--primary));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.feature-card:hover::before { opacity: 1; }
+.feature-card-icon { font-size: 2rem; line-height: 1; }
+.feature-card-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+.feature-card-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+.feature-card-arrow {
+  position: absolute; right: 20px; bottom: 24px;
+  font-size: 0.9rem; color: var(--text-light);
+  transition: transform 0.2s, color 0.2s;
+}
+.feature-card:hover .feature-card-arrow { transform: translateX(4px); color: var(--text-muted); }
+
+@media (max-width: 700px) { .feature-grid { grid-template-columns: 1fr 1fr; } .hero-divider { display: none; } }
+@media (max-width: 480px) { .feature-grid { grid-template-columns: 1fr; } }

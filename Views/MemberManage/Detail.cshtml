@@ -1,0 +1,91 @@
+@using Library.Models
+@model User
+@{
+    ViewData["Title"] = "會員詳情 - " + Model.UserName;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/member-index.css" asp-append-version="true" />
+}
+
+<div class="page-header">
+    <div>
+        <div class="page-title">會員詳情</div>
+        <div class="page-subtitle">@Model.UserName 的帳號資訊</div>
+    </div>
+    <a asp-action="Index" class="btn btn-outline">← 返回列表</a>
+</div>
+
+<div style="max-width:680px">
+    <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+            <span class="card-title">基本資訊</span>
+            @if (Model.MemberStatus == "Active")
+            {
+                <span class="badge badge-success">正常</span>
+            }
+            else
+            {
+                <span class="badge badge-danger">停權</span>
+            }
+        </div>
+        <div style="padding:24px">
+            <div style="display:flex;align-items:center;gap:20px;margin-bottom:28px">
+                <div class="member-avatar" style="width:64px;height:64px;font-size:1.5rem">
+                    @Model.UserName.Substring(0, Math.Min(2, Model.UserName.Length)).ToUpper()
+                </div>
+                <div>
+                    <div style="font-size:1.25rem;font-weight:700">@Model.UserName</div>
+                    <div style="color:var(--text-muted);font-size:0.875rem">@Model.Email</div>
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);font-weight:500;margin-bottom:4px">角色</div>
+                    @if (Model.Role == "Admin")
+                    {
+                        <span class="badge badge-info">管理員</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-gray">一般會員</span>
+                    }
+                </div>
+                <div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);font-weight:500;margin-bottom:4px">加入日期</div>
+                    <div style="font-weight:500">@Model.JoinDate.ToString("yyyy-MM-dd")</div>
+                </div>
+                <div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);font-weight:500;margin-bottom:4px">電話</div>
+                    <div style="font-weight:500">@(Model.PhoneNumber ?? "-")</div>
+                </div>
+                <div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);font-weight:500;margin-bottom:4px">地址</div>
+                    <div style="font-weight:500">@(Model.Address ?? "-")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">帳號操作</span>
+        </div>
+        <div style="padding:24px;display:flex;gap:12px">
+            @if (Model.MemberStatus == "Active")
+            {
+                <form asp-action="Suspend" method="post" onsubmit="return confirm('確定要停權此會員嗎？')">
+                    <input type="hidden" name="userName" value="@Model.UserName" />
+                    <button type="submit" class="btn btn-warning">停權會員</button>
+                </form>
+            }
+            else
+            {
+                <form asp-action="Activate" method="post">
+                    <input type="hidden" name="userName" value="@Model.UserName" />
+                    <button type="submit" class="btn btn-success">啟用會員</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>

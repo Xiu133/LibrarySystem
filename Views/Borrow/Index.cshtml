@@ -1,231 +1,72 @@
-﻿@model IEnumerable<Book>
-
 @{
-    ViewData["Title"] = "借書頁面";
+    ViewData["Title"] = "借閱書籍";
 }
-<div class="overlay"></div>
 
-<div class="borrow-container mt-4">
-    <div class="borrow-card shadow-lg">
-        <div class="card-header bg-primary text-white">
-            <h2 class="mb-0">📚 借書頁面</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/borrow-index.css" asp-append-version="true" />
+}
+
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">借閱書籍</div>
+            <div class="page-subtitle">搜尋並選擇要借閱的書籍</div>
+        </div>
+    </div>
+
+    <div class="borrow-layout">
+        <div>
+            <div class="search-bar">
+                <input v-model="query" class="search-input" placeholder="搜尋書名或作者..." @@input="search" />
+                <button class="btn btn-outline" @@click="loadAll">全部</button>
+            </div>
+            <div v-if="loading" class="empty-state">
+                <div class="empty-state-icon">⏳</div>
+                <div class="empty-state-text">載入中...</div>
+            </div>
+            <div v-else-if="books.length === 0" class="empty-state">
+                <div class="empty-state-icon">📚</div>
+                <div class="empty-state-text">找不到相關書籍</div>
+            </div>
+            <div v-else class="book-list">
+                <div v-for="book in books" :key="book.id"
+                     class="book-item"
+                     :class="{selected: isSelected(book.id)}"
+                     @@click="toggleSelect(book)">
+                    <img :src="book.imageFileName" :alt="book.title" onerror="this.style.display='none'" style="background:var(--surface);width:100%;height:160px;object-fit:cover" />
+                    <div class="book-item-info">
+                        <div class="book-item-title">{{ book.title }}</div>
+                        <div class="book-item-author">{{ book.author }}</div>
+                        <div class="book-item-qty" :style="book.quantity > 0 ? 'color:var(--success)' : 'color:var(--danger)'">
+                            {{ book.quantity > 0 ? '可借 ' + book.quantity + ' 本' : '無庫存' }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="p-3 bg-light">
-            <form class="d-flex justify-content-center">
-                <input type="text" id="searchInput" class="form-control w-50" placeholder="🔍 搜尋書籍名稱或作者..."  oninput="searchBooks()" >
-            </form>
-        </div>
-       
-
-        <div class="card-body">
-            <table class="table table-hover text-center align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>書名</th>
-                        <th>作者</th>
-                        <th>庫存</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody id="bookTableBody">
-                    @foreach (var book in Model)
-                    {
-                        <tr>
-                            <td class="fw-bold">@book.Title</td>
-                            <td>@book.Author</td>
-                            <td>
-                                @if (book.Quantity > 0)
-                                {
-                                    <span class="badge bg-success">可借閱</span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-danger">無庫存</span>
-                                }
-                            </td>
-                            <td>
-                                @if (book.Quantity > 0)
-                                {
-                                    <button class="btn btn-primary borrow-btn" data-book-id="@book.Id">📖 借閱</button>                                
-                                }
-                                else
-                                {
-                                    <span class="text-muted">無法借閱</span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-            <h4>已選 <span id="borrow-count">0</span>/<span id="max-books">3</span> 本</h4>
-
-
-            <div class="text-center mt-3">
-                <form id="confirmBorrowForm" asp-controller="Borrow" asp-action="ConfirmBorrow" method="post">
-                    <input type="hidden" name="userId" value="@ViewBag.UserId" />
-                    <input type="hidden" id="selectedBooks" name="selectedBooks" />
-                    <button type="submit" id="confirmBorrowBtn" class="btn btn-success btn-lg px-4 btn-admin" disabled>
-                        ✅ 確認借閱
-                    </button>
-                </form>
+        <div class="cart-panel">
+            <div class="cart-title">📋 借閱清單 <span class="badge badge-info">{{ selected.length }}</span></div>
+            <div v-if="selected.length === 0" class="cart-empty">
+                <div style="font-size:2rem;margin-bottom:8px">📖</div>
+                <div>點擊書籍加入清單</div>
             </div>
-
-            <div class="text-center mt-3">
-                <a href="/User/Index" class="btn btn-primary">🏠 返回首頁</a>
+            <div v-else>
+                <div v-for="book in selected" :key="book.id" class="cart-item">
+                    <span style="font-size:0.85rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ book.title }}</span>
+                    <button class="remove-btn" @@click="removeSelected(book.id)">✕</button>
+                </div>
             </div>
+            <div class="cart-footer">
+                <button class="btn btn-accent w-full" :disabled="selected.length === 0" @@click="confirm">
+                    確認借閱{{ selected.length > 0 ? ' (' + selected.length + '本)' : '' }}
+                </button>
+            </div>
+            <div v-if="resultMsg" class="alert mt-2" :class="resultSuccess ? 'alert-success' : 'alert-danger'">{{ resultMsg }}</div>
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let borrowCount = 0;
-        let maxBorrow = 3;
-        let selectedBooks = [];
 
-        const maxBooksSpan = document.getElementById("max-books");
-        const borrowCountSpan = document.getElementById("borrow-count");
-        const confirmBorrowBtn = document.getElementById("confirmBorrowBtn");
-        const selectedBooksInput = document.getElementById("selectedBooks");
-        const searchInput = document.getElementById("searchInput");
-        const bookTableBody = document.getElementById("bookTableBody");
-
-        // ✅ 從後端取得使用者的借書規則
-        fetch("/BorrowRule/GetUserBorrowRule")
-            .then(res => res.json())
-            .then(data => {
-                maxBorrow = data.maxBooks;
-                borrowDays = data.borrowDays;
-                maxBooksSpan.innerText = maxBorrow;
-                initBorrowButtons();
-            })
-            .catch(err => {
-                console.error("取得借閱規則失敗", err);
-                initBorrowButtons(); // 即使失敗也初始化按鈕
-            });
-
-        // ✅ 借書按鈕初始化邏輯
-        function initBorrowButtons() {
-            bindBorrowButtons(document.querySelectorAll(".borrow-btn"));
-            confirmBorrowBtn.addEventListener("click", confirmBorrow);
-        }
-
-        // ✅ 綁定借書按鈕邏輯（初始化與搜尋都用）
-        function bindBorrowButtons( buttons ) {
-            buttons.forEach(btn => {
-                btn.addEventListener("click", function () {
-                    const bookId = this.getAttribute("data-book-id");
-
-                    if (selectedBooks.includes(bookId)) {
-                        borrowCount--;
-                        selectedBooks = selectedBooks.filter(id => id !== bookId);
-                        this.classList.remove("btn-secondary");
-                        this.classList.add("btn-primary");
-                        this.innerHTML = "📖 借閱";
-                    } else {
-                        if (borrowCount < maxBorrow) {
-                            borrowCount++;
-                            selectedBooks.push(bookId);
-                            this.classList.remove("btn-primary");
-                            this.classList.add("btn-secondary");
-                            this.innerHTML = "✅ 已選";
-                        } else {
-                            alert(`最多只能借 ${maxBorrow} 本書`);
-                        }
-                    }
-
-                    updateUI();
-                });
-            });
-        }
-
-        // ✅ 更新 UI 借閱數量與狀態
-        function updateUI() {
-            borrowCountSpan.innerText = borrowCount;
-            document.querySelectorAll(".borrow-btn").forEach(btn => {
-                const bookId = btn.getAttribute("data-book-id");
-                btn.disabled = borrowCount >= maxBorrow && !selectedBooks.includes(bookId);
-            });
-            confirmBorrowBtn.disabled = borrowCount === 0;
-            selectedBooksInput.value = selectedBooks.join(",");
-        }
-
-        // ✅ 確認借閱送出
-        function confirmBorrow(e) {
-            e.preventDefault();
-
-            let uniqueBooks = [...new Set(selectedBooks.map(id => parseInt(id)).filter(num => !isNaN(num)))];
-
-            if (uniqueBooks.length === 0) {
-                alert("請選擇要借閱的書籍！");
-                return;
-            }
-
-            $.ajax({
-                url: "/Borrow/ConfirmBorrow",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({ selectBooks: uniqueBooks }),
-                success: function (response) {
-                    if (response.success) {
-                        alert("📚 借閱成功！");
-                        window.location.href = "/User/Index";
-                    } else {
-                        alert("❌ " + response.message);
-                    }
-                },
-                error: function () {
-                    alert("❌ 發生錯誤，請稍後再試");
-                }
-            });
-        }
-
-        // ✅ 搜尋功能
-        searchInput.addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                let query = searchInput.value.trim();
-                if (query) {
-                    searchBooks(query);
-                }
-            }
-        });
-
-        function searchBooks(query) {
-            fetch(`/Book/BorrowSearch?query=${encodeURIComponent(query)}`)
-                .then(res => res.json())
-                .then(books => {
-                    bookTableBody.innerHTML = "";
-                    if (books.length === 0) {
-                        bookTableBody.innerHTML = `<tr><td colspan="4" class="text-danger">❌ 查無此書籍</td></tr>`;
-                        return;
-                    }
-
-                    books.forEach(book => {
-                        const canBorrow = book.quantity > 0;
-                        const row = document.createElement("tr");
-
-                        row.innerHTML = `
-                            <td class="fw-bold">${book.title}</td>
-                            <td>${book.author}</td>
-                            <td>${canBorrow ? `<span class="badge bg-success">可借閱</span>` : `<span class="badge bg-danger">無庫存</span>`}</td>
-                            <td>
-                                ${canBorrow
-                                    ? `<button class="btn btn-primary borrow-btn" data-book-id="${book.id}">📖 借閱</button>`
-                                    : `<span class="text-muted">無法借閱</span>`}
-                            </td>
-                        `;
-
-                        bookTableBody.appendChild(row);
-                    });
-
-                    bindBorrowButtons(document.querySelectorAll(".borrow-btn")); // 重新綁定
-                    updateUI(); // 保持借閱數一致
-                })
-                .catch(err => {
-                    console.error("搜尋錯誤", err);
-                });
-        }
-    });
-</script>
+@section Scripts {
+    <script src="~/js/views/borrow-index.js" asp-append-version="true"></script>
+}

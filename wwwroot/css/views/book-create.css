@@ -1,0 +1,3 @@
+.form-card { max-width: 640px; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px; }
+.file-upload { border: 2px dashed var(--border); border-radius: var(--radius-sm); padding: 20px; text-align: center; cursor: pointer; transition: border-color 0.2s; }
+.file-upload:hover { border-color: var(--primary); }

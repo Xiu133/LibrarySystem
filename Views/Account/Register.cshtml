@@ -1,22 +1,37 @@
-﻿@{
-    ViewData["Title"] = "登入";
+@{
+    ViewData["Title"] = "註冊";
 }
 
-<div class="overlay"></div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/account-register.css" asp-append-version="true" />
+}
 
-<div class="login-container">
-    <h2>📖 歡迎來到書香世家</h2>
-    <p>請輸入您的帳號密碼：</p>
+<div class="register-card">
+    <div class="register-title">📚 建立帳號</div>
 
-    <form method="post" asp-controller="Account" asp-action="Register">
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+
+    <form asp-action="Register" method="post">
         <div class="form-group">
-            <label for="Username">帳號：</label>
-            <input type="text" class="form-control" id="Username" name="username" placeholder="請輸入帳號" required />
+            <label class="form-label">帳號</label>
+            <input type="text" name="username" class="form-control" placeholder="請輸入帳號" required autocomplete="username" />
         </div>
         <div class="form-group">
-            <label for="Password">密碼：</label>
-            <input type="password" class="form-control" id="Password" name="password" placeholder="請輸入密碼" required />
+            <label class="form-label">密碼</label>
+            <input type="password" name="password" class="form-control" placeholder="至少 4 個字元" required autocomplete="new-password" />
         </div>
-        <button type="submit" class="btn btn-login btn-register">註冊</button>
+        <button type="submit" class="btn btn-primary w-full" style="margin-top:8px;padding:12px">建立帳號</button>
     </form>
+
+    <div style="text-align:center;margin-top:20px;font-size:0.85rem;color:var(--text-muted)">
+        已有帳號？<a asp-action="Login" style="color:var(--accent);text-decoration:none">立即登入</a>
+    </div>
 </div>

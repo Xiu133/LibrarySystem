@@ -1,30 +1,23 @@
-﻿using System.Web;
-using Library.Data;
-using Library.Interface;
 using Library.Models;
+using Library.Services.Interfaces;
 using Library.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
-using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers
 {
     public class BookController : Controller
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly LibrarydbContext _dbContext;
+        private readonly IBookService _bookService;
 
-        public BookController(IBookRepository bookRepository, LibrarydbContext dbContext)
+        public BookController(IBookService bookService)
         {
-            _bookRepository = bookRepository;
-            _dbContext = dbContext;
+            _bookService = bookService;
         }
-        //瀏覽
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var books = await _bookRepository.GetAllBooksAsync();
-
+            var books = await _bookService.GetAllBooksAsync();
             return View(books);
         }
 
@@ -35,180 +28,137 @@ namespace Library.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() //新增
+        public IActionResult Create()
         {
-            int newBookId = _dbContext.books.Any() ? _dbContext.books.Max(b => b.Id) + 1 : 1;
-            ViewBag.NewBookId = newBookId;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Book book)
+        public async Task<IActionResult> Create(Book book)
         {
-            var ImageFile = Request.Form.Files["ImageFile"]; // ✅ 手動取得檔案
+            var imageFile = Request.Form.Files["ImageFile"];
 
-            if (ModelState.IsValid)
+            if (imageFile == null || imageFile.Length == 0)
             {
-                if (ImageFile != null && ImageFile.Length > 0)
-                {
-                    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "image");
-                    if (!Directory.Exists(uploadsFolder))
-                    {
-                        Directory.CreateDirectory(uploadsFolder);
-                    }
-
-                    string originalFileName = Path.GetFileName(ImageFile.FileName);
-                    string filePath = Path.Combine(uploadsFolder, originalFileName);
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        ImageFile.CopyTo(fileStream);
-                    }
-
-                    book.ImageFileName = $"/image/{originalFileName}";
-                }
-                else
-                {
-                    ModelState.AddModelError("ImageFile", "請上傳圖片");
-                    return View(book);
-                }
-
-                var existingBook = _dbContext.books
-             .FirstOrDefault(b => b.Title == book.Title && b.Author == book.Author);
-
-                if (existingBook != null)
-                {
-                    existingBook.Quantity += book.Quantity;
-                    existingBook.ImageFileName = book.ImageFileName;
-                    _dbContext.Update(existingBook);
-                }
-                else
-                {
-                    _dbContext.books.Add(book);
-                }
-
-                _dbContext.SaveChanges();
-
-                return RedirectToAction("Index", "Admin");
+                ModelState.AddModelError("ImageFile", "請上傳圖片");
+                return View(book);
             }
 
-            return View(book);
-        }
+            if (!ModelState.IsValid)
+                return View(book);
 
-        [HttpGet]
-        public IActionResult Edit(string title)//編輯
-        {
-            if (string.IsNullOrEmpty(title))
-            {
-                return View();
-            }
-
-            var book = _bookRepository.GetBookByTitle(title); 
-            if (book == null) return NotFound(); 
-
-            return View(book); 
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit( Book book)//編輯頁面
-        {
-            if (book == null || book.Id == 0)
-            {
-                return NotFound();  // 防止 ID 為 0 或為空的情況
-            }
-
-            var existingBook = _bookRepository.GetBookById(book.Id);
-            if (existingBook == null) return NotFound(); 
-
-            if (ModelState.IsValid)
-            {
-                existingBook.Title = book.Title;
-                existingBook.Author = book.Author;
-                existingBook.Description = book.Description;
-                existingBook.PublishedYear = book.PublishedYear;
-                existingBook.Quantity = book.Quantity;
-
-                await _bookRepository.UpdateBookAsync(existingBook);
-                return RedirectToAction("Index", "Admin");
-            }
-            return View(book);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Delete() // 顯示刪除頁面
-        {
-            var book =  await _bookRepository.GetAllBooksAsync();
-            return View(book);
-        }
-
-        [HttpPost]
-        public IActionResult DeleteConfirm(int id)//刪除過程
-        {
-            var book =  _bookRepository.GetBookById(id);
-            if (book == null) return NotFound();
-
-            _bookRepository.SoftDeleteBookAsync(id);
+            await _bookService.CreateOrIncrementBookAsync(book, imageFile);
             return RedirectToAction("Index", "Admin");
         }
-        //搜尋功能
-        [HttpGet]
-        public async Task<IActionResult> Search(string? query) //回傳到 Views/Books/Search
-        {                                                      
-            var books = string.IsNullOrEmpty(query)
-                ? await _dbContext.books.ToListAsync()  // 若無搜尋條件，則回傳所有書籍
-                : await _dbContext.books
-            .Where(b => b.Title.Contains(query) || b.Author.Contains(query))
-            .ToListAsync();
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(string title)
+        {
+            if (string.IsNullOrEmpty(title))
+                return View();
+
+            var book = await _bookService.GetBookByTitleAsync(title);
+            if (book == null) return NotFound();
+
+            return View(book);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Book book)
+        {
+            if (book == null || book.Id == 0)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return View(book);
+
+            await _bookService.UpdateBookAsync(book);
+            return RedirectToAction("Index", "Admin");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete()
+        {
+            var books = await _bookService.GetAllBooksAsync();
+            return View(books);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            await _bookService.SoftDeleteBookAsync(id);
+            return RedirectToAction("Index", "Admin");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string? query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                var all = await _bookService.GetAllBooksAsync();
+                return Json(all);
+            }
+
+            var books = await _bookService.SearchBooksAsync(query);
             return Json(books);
         }
 
         [HttpGet]
-        public ActionResult Detail(int id) //介紹
+        public async Task<IActionResult> Detail(int id)
         {
-            var book = _bookRepository.GetBookById(id);
+            var book = await _bookService.GetBookByIdAsync(id);
             if (book == null)
-            {
                 return BadRequest("無效的書籍 ID");
-            }
 
             return View(book);
         }
 
-        public IActionResult SearchResult(string query)
+        public async Task<IActionResult> SearchResult(string query)
         {
             if (string.IsNullOrEmpty(query))
+                return View(new List<BookViewModel>());
+
+            var books = await _bookService.SearchBooksAsync(query);
+            var viewModels = books.Select(b => new BookViewModel
             {
-                return View(new List<Book>());
-            }
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author,
+                PublishedYear = b.PublishedYear
+            }).ToList();
 
-            var books = _dbContext.books
-                .Where(b => b.Title.Contains(query) || b.Author.Contains(query))
-                .Select(b => new BookViewModel
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    Author = b.Author,
-                    PublishedYear = b.PublishedYear
-                })
-                .ToList();
-
-            return View(books);
+            return View(viewModels);
         }
 
-        public IActionResult BorrowSearch(string query)
+        [HttpGet]
+        public async Task<IActionResult> GetDetail(int id)
         {
-            var books = _dbContext.books
-                .Where(b => b.Title.Contains(query) || b.Author.Contains(query))
-                .Select(b => new {
+            var book = await _bookService.GetBookByIdAsync(id);
+            if (book == null) return Json(null);
+            return Json(new
+            {
+                id = book.Id,
+                title = book.Title,
+                author = book.Author,
+                publishedYear = book.PublishedYear,
+                quantity = book.Quantity,
+                description = book.Description,
+                imageFileName = book.ImageFileName,
+                isbn = book.ISBN,
+                location = book.Location
+            });
+        }
+
+        public async Task<IActionResult> BorrowSearch(string query)
+        {
+            var books = await _bookService.SearchBooksAsync(query);
+            return Json(books.Select(b => new
+            {
                 id = b.Id,
                 title = b.Title,
                 author = b.Author,
                 quantity = b.Quantity
-        })
-            .ToList();
-
-            return Json(books);
+            }));
         }
     }
 }

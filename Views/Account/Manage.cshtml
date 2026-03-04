@@ -1,16 +1,24 @@
-﻿@model List<Library.Models.User>
-
+@model List<Library.Models.User>
 @{
     ViewData["Title"] = "帳號管理";
 }
-<div class="overlay"></div>
 
-<div class="container mt-4">
-    <div class="card shadow-lg p-4">
-        <h2 class="text-center text-primary">帳號管理</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/account-manage.css" asp-append-version="true" />
+}
 
-        <table class="table table-hover table-striped mt-3">
-            <thead class="table-dark">
+<div class="page-header">
+    <div>
+        <div class="page-title">帳號管理</div>
+        <div class="page-subtitle">管理用戶帳號權限</div>
+    </div>
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-outline">← 返回後台</a>
+</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
                 <tr>
                     <th>帳號</th>
                     <th>角色</th>
@@ -21,26 +29,17 @@
                 @foreach (var user in Model.Where(u => u.Role != "Admin"))
                 {
                     <tr>
-                        <td>@user.UserName</td>
-                        <td>
-                            <span class="badge badge-primary" style="color: black;">User</span>
-                        </td>
+                        <td class="fw-medium">@user.UserName</td>
+                        <td><span class="role-badge-user">會員</span></td>
                         <td>
                             <form asp-controller="Account" asp-action="PromoteToAdmin" method="post">
-                                <input type="hidden" name="userId" value="@user.Id" />
-                                <button type="submit" class="btn btn-success btn-sm">
-                                    <i class="fas fa-user-shield"></i> 升級為管理者
-                                </button>
+                                <input type="hidden" name="userid" value="@user.Id" />
+                                <button type="submit" class="btn btn-primary btn-xs">升級為管理員</button>
                             </form>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-
-        <div class="d-flex justify-content-center mt-4">
-            <a href="/Admin/Index" class="btn btn-primary">🏠 返回首頁</a>
-        </div>
     </div>
 </div>
-

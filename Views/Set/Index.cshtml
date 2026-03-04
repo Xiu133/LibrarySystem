@@ -1,22 +1,58 @@
-﻿
-@model Library.Views.Set.IndexModel
-
+@using Library.Models
+@model IEnumerable<SystemConfig>
 @{
-    <div class="overlay"></div>
+    ViewData["Title"] = "系統設定";
+}
 
-    <div class="user-container">
-        <h2>📚 書香世家</h2>
-        <p>請選擇您的功能：</p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/set-index.css" asp-append-version="true" />
+}
 
-        <div class="button-group">
-
-            <a asp-controller="Account" asp-action="Manage" class="btn-option">
-                帳號升級
-            </a>
-
-            <a asp-controller="Admin" asp-action="Index" class="btn-option">
-                返回
-            </a>
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">系統設定</div>
+            <div class="page-subtitle">管理圖書館系統參數</div>
         </div>
     </div>
+
+    <div class="config-grid">
+        @foreach (var c in Model)
+        {
+            <div class="config-item">
+                <div class="config-key">@c.Key</div>
+                <div v-if="editing[@c.Id] !== undefined">
+                    <input v-model="editing[@c.Id]" class="edit-input" @@keyup.enter="save('@c.Key', @c.Id)" />
+                    <div style="display:flex;gap:6px;margin-top:8px">
+                        <button class="btn btn-success btn-xs" @@click="save('@c.Key', @c.Id)">儲存</button>
+                        <button class="btn btn-outline btn-xs" @@click="cancelEdit(@c.Id)">取消</button>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="config-value">@c.Value</div>
+                    <div v-if="'@c.Description'" class="config-desc">@c.Description</div>
+                    <div class="config-actions">
+                        <button class="btn btn-outline btn-xs" @@click="startEdit(@c.Id, '@c.Value')">編輯</button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- 新增設定 -->
+        <div class="config-item">
+            <div class="config-key">新增設定</div>
+            <div class="form-group" style="margin-bottom:8px">
+                <input v-model="newKey" class="edit-input" placeholder="設定名稱 (Key)" />
+            </div>
+            <div class="form-group" style="margin-bottom:8px">
+                <input v-model="newValue" class="edit-input" placeholder="值 (Value)" />
+            </div>
+            <button class="btn btn-primary btn-xs" @@click="addNew">新增</button>
+        </div>
+    </div>
+    <div v-if="msg" class="alert mt-2" :class="ok ? 'alert-success' : 'alert-danger'">{{ msg }}</div>
+</div>
+
+@section Scripts {
+    <script src="~/js/views/set-index.js" asp-append-version="true"></script>
 }

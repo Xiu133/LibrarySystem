@@ -1,26 +1,37 @@
-﻿
-@model Library.Views.Book.ManageModel
-<div class="overlay"></div>
+@{
+    ViewData["Title"] = "書庫管理";
+}
 
-<div class="user-container">
-    <h2>📚 管理者模式</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/book-manage.css" asp-append-version="true" />
+}
 
-    <div class="button-group">
-        <a asp-controller="Book" asp-action="Index" class="btn-option">
-            瀏覽書庫
-        </a>
-
-        <a asp-controller="Book" asp-action="Create" class="btn-option">
-            新增書籍
-        </a>
-        <a asp-controller="Book" asp-action="Edit" class="btn-option">
-            編輯書籍
-        </a>
-        <a asp-controller="Book" asp-action="Delete" class="btn-option">
-            刪除書籍
-        </a>      
-        <a asp-controller="Admin" asp-action="Index" class="btn-option">
-            返回
-        </a>
+<div class="page-header">
+    <div>
+        <div class="page-title">書庫管理</div>
+        <div class="page-subtitle">管理館藏書籍</div>
     </div>
+    <div class="page-actions">
+        <a asp-action="Create" class="btn btn-accent">+ 新增書籍</a>
+        <a asp-action="Index" class="btn btn-outline">瀏覽書庫</a>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-outline">返回後台</a>
+    </div>
+</div>
+
+<div class="grid-3">
+    <a asp-action="Create" class="card" style="padding:24px;text-decoration:none;display:block;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:2rem;margin-bottom:10px">➕</div>
+        <div style="font-weight:600;margin-bottom:4px">新增書籍</div>
+        <div style="font-size:0.8rem;color:var(--text-muted)">新增館藏書籍資料</div>
+    </a>
+    <a asp-action="Edit" class="card" style="padding:24px;text-decoration:none;display:block;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:2rem;margin-bottom:10px">✏️</div>
+        <div style="font-weight:600;margin-bottom:4px">編輯書籍</div>
+        <div style="font-size:0.8rem;color:var(--text-muted)">更新書籍資料</div>
+    </a>
+    <a asp-action="Delete" class="card" style="padding:24px;text-decoration:none;display:block;transition:box-shadow 0.2s" onmouseover="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
+        <div style="font-size:2rem;margin-bottom:10px">🗑️</div>
+        <div style="font-weight:600;margin-bottom:4px">刪除書籍</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);color:var(--danger)">移除館藏書籍</div>
+    </a>
 </div>

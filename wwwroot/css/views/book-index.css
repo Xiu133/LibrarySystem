@@ -1,0 +1,25 @@
+.book-search-bar { display: flex; gap: 8px; margin-bottom: 24px; }
+.book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+.book-card { background: var(--card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: all 0.2s; cursor: pointer; color: inherit; }
+.book-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.book-card img { width: 100%; height: 220px; object-fit: cover; background: var(--surface); }
+.book-card-body { padding: 14px; }
+.book-card-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; line-height: 1.3; }
+.book-card-author { font-size: 0.8rem; color: var(--text-muted); }
+.book-card-qty { font-size: 0.75rem; margin-top: 6px; }
+
+/* Drawer */
+.drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.drawer-overlay.open { opacity: 1; pointer-events: all; }
+.drawer-panel { position: fixed; top: 0; right: -420px; width: 420px; max-width: 95vw; height: 100vh; background: var(--card); box-shadow: -4px 0 24px rgba(0,0,0,0.15); overflow-y: auto; transition: right 0.3s cubic-bezier(.4,0,.2,1); z-index: 1000; }
+.drawer-panel.open { right: 0; }
+.drawer-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); padding: 4px 8px; border-radius: 4px; }
+.drawer-close:hover { background: var(--surface); }
+.drawer-cover { width: 100%; height: 240px; object-fit: cover; background: var(--surface); display: block; }
+.drawer-body { padding: 20px; }
+.drawer-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+.drawer-author { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px; }
+.drawer-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.drawer-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; border-top: 1px solid var(--border); padding-top: 16px; }
+.drawer-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.drawer-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 200px; color: var(--text-muted); gap: 8px; }

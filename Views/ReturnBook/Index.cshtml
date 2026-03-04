@@ -1,64 +1,56 @@
-﻿@using Library.ViewModel
-@model List<BorrowRecordViewModel>
-<div class="overlay"></div>
+@{
+    ViewData["Title"] = "還書";
+}
 
-<div class="borrow-container mt-5">
-    <h2 class="text-center mb-4">還書管理</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/return-book-index.css" asp-append-version="true" />
+}
 
-    <!-- 查詢表單 -->
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-6">
-            <form method="get" action="@Url.Action("Index")" class="input-group">
-                <input type="text" name="userName" id="searchBox" class="form-control" placeholder="請輸入帳號名稱" required />
-                <button type="submit" class="btn btn-primary">查詢</button>
-            </form>
+<div id="app">
+    <div class="page-header">
+        <div>
+            <div class="page-title">還書管理</div>
+            <div class="page-subtitle">搜尋會員並處理還書手續</div>
+        </div>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-outline">返回後台</a>
+    </div>
+
+    <div class="return-search">
+        <input v-model="userName" class="search-input" placeholder="輸入會員帳號..."
+               @@keyup.enter="search" :disabled="loading" />
+        <button class="btn btn-primary" @@click="search" :disabled="loading || !userName.trim()">
+            {{ loading ? '查詢中...' : '查詢' }}
+        </button>
+    </div>
+
+    <div v-if="error" class="alert alert-danger">{{ error }}</div>
+
+    <div v-if="searched && !error">
+        <div style="margin-bottom:16px;display:flex;align-items:center;gap:10px">
+            <span class="badge badge-info">{{ userName }}</span>
+            <span style="font-size:0.875rem;color:var(--text-muted)">共 {{ records.length }} 筆借閱中</span>
         </div>
 
-        <div class="text-center mt-4">
-            <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">返回首頁</a>
+        <div v-if="records.length === 0" class="empty-state">
+            <div class="empty-state-icon">✅</div>
+            <div class="empty-state-text">此會員目前無借閱記錄</div>
+        </div>
+
+        <div v-for="item in records" :key="item.borrowRecordId" class="record-card">
+            <div class="record-info">
+                <div class="book-title">{{ item.title }}</div>
+                <div class="borrow-meta">作者：{{ item.author }} · 借閱日：{{ item.borrowDate }}</div>
+            </div>
+            <button class="btn btn-success btn-sm" @@click="returnBook(item)"
+                    :disabled="item.returning">
+                {{ item.returning ? '處理中...' : '✓ 歸還' }}
+            </button>
         </div>
     </div>
 
-    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-    {
-        <div class="alert alert-danger">
-            @ViewBag.ErrorMessage
-        </div>
-    }
-
-    <!-- 顯示借閱紀錄 -->
-    @if (Model?.Any() == true)
-    {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>書名</th>
-                    <th>作者</th>
-                    <th>借閱日期</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Title</td>
-                        <td>@item.Author</td>
-                        <td>@item.BorrowDate</td>
-                        <td>
-                            <form method="post" action="@Url.Action("ReturnBook")">
-                                <input type="hidden" name="borrowRecordId" value="@item.BorrowRecordId" />
-                                <input type="hidden" name="userName" value="@ViewBag.UserName" />
-                                <button type="submit" class="btn btn-danger">歸還</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p class="text-center">沒有找到任何借閱紀錄。</p>
-    }
+    <div v-if="msg" class="alert mt-2" :class="ok ? 'alert-success' : 'alert-danger'">{{ msg }}</div>
 </div>
+
+@section Scripts {
+    <script src="~/js/views/return-book-index.js" asp-append-version="true"></script>
+}

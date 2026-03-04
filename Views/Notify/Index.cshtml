@@ -1,30 +1,42 @@
-﻿@model List<Notify>
-
+@using Library.Models
+@model List<Notify>
 @{
-    ViewData["Title"] = "系統通知";
+    ViewData["Title"] = "通知中心";
 }
-<div class="overlay"></div>
 
-<link href="~/css/Notify.css" rel="stylesheet" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/notify-index.css" asp-append-version="true" />
+}
 
-<div class="container mt-5">
-    <div class="card shadow-lg rounded-4 border-0">
-        <div class="card-body">
-            <h2 class="card-title mb-4"><i class="bi bi-megaphone-fill me-2"></i>📢 系統通知</h2>
-            <ul class="list-group list-group-flush">
-                @foreach (var n in Model)
-                {
-                    <li class="list-group-item notification-item @(n.IsRead ? "" : "unread")">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>@n.Message</span>
-                            <small class="text-muted">@n.CreatedAt.ToString("g")</small>
-                        </div>
-                    </li>
-                }
-            </ul>
-            <div class="text-center mt-3">
-                <a href="/User/Index" class="btn btn-primary">🏠 返回首頁</a>
+<div class="page-header">
+    <div>
+        <div class="page-title">通知中心</div>
+        <div class="page-subtitle">您的借閱相關通知</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <div class="empty-state">
+                <div class="empty-state-icon">🔔</div>
+                <div class="empty-state-text">目前沒有通知</div>
+                <div class="empty-state-sub">您的借閱通知將顯示於此</div>
             </div>
-        </div>
+        }
+        else
+        {
+            @foreach (var n in Model)
+            {
+                <div class="notify-item">
+                    <div class="notify-dot @(n.IsRead ? "read" : "")"></div>
+                    <div class="notify-content">
+                        <div class="notify-message">@n.Message</div>
+                        <div class="notify-date">@n.CreatedAt.ToString("yyyy-MM-dd HH:mm")</div>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>

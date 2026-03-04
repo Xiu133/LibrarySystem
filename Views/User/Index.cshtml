@@ -1,39 +1,57 @@
-﻿ @model Library.Views.User.IndexModel
-
-
 @{
-    <div class="overlay"></div>
-
-    <div class="user-container">
-        <h2>📚 書香世家</h2>
-        <p>請選擇您的功能：</p>
-
-        <div class="button-group">
-
-            <a asp-controller="Book" asp-action="Index" class="btn-option">
-                瀏覽書籍
-            </a>
-            <a asp-controller="BorrowRecord" asp-action="Index" class="btn-option">
-                借閱紀錄
-            </a>
-            <a asp-controller="Borrow" asp-action="Index" class="btn-option">
-                我要借書
-            </a>
-
-            <a asp-controller="Reserve" asp-action="Index" class="btn-option">
-                預約通知
-            </a>
-
-            <a asp-controller="BookRank" asp-action="Index" class="btn-option">
-                借閱排行榜
-            </a>
-
-            <a asp-controller="Notify" asp-action="Index" class="btn-option">
-            系統通知
-            </a>
-            <a asp-controller="Account" asp-action="Logout" class="btn-option">
-                登出
-            </a>
-        </div>
-    </div>
+    ViewData["Title"] = "我的書房";
+    var userName = User.Identity?.Name ?? "讀者";
 }
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/home-index.css" asp-append-version="true" />
+}
+
+<div class="user-greeting">
+    <div class="user-greeting-name">歡迎回來，@userName 👋</div>
+    <div class="user-greeting-sub">今天想讀什麼好書？</div>
+</div>
+
+<div class="feature-grid">
+    <a asp-controller="Book" asp-action="Index" class="feature-card" style="--card-color:#3b82f6">
+        <div class="feature-card-icon">📚</div>
+        <div class="feature-card-title">瀏覽書籍</div>
+        <div class="feature-card-desc">探索館藏，搜尋你有興趣的書籍</div>
+        <span class="feature-card-arrow">→</span>
+    </a>
+
+    <a asp-controller="Borrow" asp-action="Index" class="feature-card" style="--card-color:#e94560">
+        <div class="feature-card-icon">📖</div>
+        <div class="feature-card-title">我要借書</div>
+        <div class="feature-card-desc">選擇書籍並快速完成借閱手續</div>
+        <span class="feature-card-arrow">→</span>
+    </a>
+
+    <a asp-controller="Reserve" asp-action="Index" class="feature-card" style="--card-color:#10b981">
+        <div class="feature-card-icon">🔖</div>
+        <div class="feature-card-title">預約書籍</div>
+        <div class="feature-card-desc">暫時無庫存？預約到貨自動通知</div>
+        <span class="feature-card-arrow">→</span>
+    </a>
+
+    <a asp-controller="BorrowRecord" asp-action="Index" class="feature-card" style="--card-color:#f59e0b">
+        <div class="feature-card-icon">📋</div>
+        <div class="feature-card-title">借閱紀錄</div>
+        <div class="feature-card-desc">查看所有歷史借閱與還書記錄</div>
+        <span class="feature-card-arrow">→</span>
+    </a>
+
+    <a asp-controller="BookRank" asp-action="Index" class="feature-card" style="--card-color:#8b5cf6">
+        <div class="feature-card-icon">🏆</div>
+        <div class="feature-card-title">借閱排行榜</div>
+        <div class="feature-card-desc">發掘最多人借閱的熱門好書</div>
+        <span class="feature-card-arrow">→</span>
+    </a>
+
+    <a asp-controller="Notify" asp-action="Index" class="feature-card" style="--card-color:#06b6d4">
+        <div class="feature-card-icon">🔔</div>
+        <div class="feature-card-title">系統通知</div>
+        <div class="feature-card-desc">預約到書、逾期提醒等最新消息</div>
+        <span class="feature-card-arrow">→</span>
+    </a>
+</div>

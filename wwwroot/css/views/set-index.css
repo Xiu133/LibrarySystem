@@ -1,0 +1,8 @@
+.config-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.config-item { background: var(--card); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+.config-key { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+.config-value { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); word-break: break-all; }
+.config-desc { font-size: 0.75rem; color: var(--text-light); margin-top: 6px; }
+.config-actions { margin-top: 12px; }
+.edit-input { width: 100%; padding: 7px 10px; border: 1.5px solid var(--border); border-radius: var(--radius-xs); font-size: 0.875rem; outline: none; font-family: inherit; }
+.edit-input:focus { border-color: var(--primary); }

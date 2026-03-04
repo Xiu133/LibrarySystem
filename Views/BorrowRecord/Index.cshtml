@@ -1,37 +1,40 @@
-﻿<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>借閱紀錄</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body class="book-body">
-    <div class="overlay"></div>
+@{
+    ViewData["Title"] = "借閱紀錄";
+}
 
-    <div class="borrow-container">
-        <h2 class="mb-4">📚 我的借閱紀錄</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/views/borrow-record-index.css" asp-append-version="true" />
+}
 
-        <table class="table table-hover">
+<div class="page-header">
+    <div>
+        <div class="page-title">我的借閱紀錄</div>
+        <div class="page-subtitle">查看您的完整借閱歷史</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table class="data-table">
             <thead>
                 <tr>
                     <th>書名</th>
                     <th>借閱日期</th>
-                     <th>歸還日期</th>
-                     <th>狀態</th>
+                    <th>歸還日期</th>
+                    <th>狀態</th>
                 </tr>
-            </thead> 
+            </thead>
             <tbody>
-                @foreach (var record in Model)
+                @foreach (dynamic record in Model)
                 {
                     <tr>
                         <td>@record.BookTitle</td>
                         <td>@record.BorrowRecord.BorrowDate.ToString("yyyy-MM-dd")</td>
-                        <td>@(record.BorrowRecord.ReturnDate?.ToString("yyyy-MM-dd") ?? "未歸還")</td>
+                        <td>@(record.BorrowRecord.ReturnDate?.ToString("yyyy-MM-dd") ?? "-")</td>
                         <td>
                             @if (record.ReturnDate == null)
                             {
-                                <span class="badge badge-danger">借閱中</span>
+                                <span class="badge badge-info">借閱中</span>
                             }
                             else
                             {
@@ -42,12 +45,5 @@
                 }
             </tbody>
         </table>
-
-        <div class="mt-4 d-flex justify-content-center gap-3">
-            <a href="/User/Index" class="btn btn-primary">🏠 返回首頁</a>
-        </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>

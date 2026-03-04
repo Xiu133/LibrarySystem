@@ -1,0 +1,9 @@
+.category-layout { display: grid; grid-template-columns: 340px 1fr; gap: 24px; align-items: start; }
+.category-form-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; position: sticky; top: 80px; }
+.category-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+.category-item:last-child { border-bottom: none; }
+.category-item:hover { background: var(--surface); }
+.category-name { font-weight: 500; font-size: 0.9rem; }
+.category-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+.category-actions { display: flex; gap: 6px; }
+@media (max-width: 768px) { .category-layout { grid-template-columns: 1fr; } }
