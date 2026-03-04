@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.Controllers.Books
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class BookRankController : Controller
     {
         private readonly LibrarydbContext _context;

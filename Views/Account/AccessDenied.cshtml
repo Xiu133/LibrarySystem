@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "存取遭拒";
+    Layout = "_Layout";
+}
+
+<div class="page-wrapper" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;">
+    <div style="font-size:3rem;margin-bottom:16px;">🔒</div>
+    <h1 style="font-size:1.5rem;font-weight:700;margin-bottom:8px;">您沒有權限存取此頁面</h1>
+    <p style="color:var(--text-muted);margin-bottom:24px;">此功能僅限管理員使用。</p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">返回首頁</a>
+</div>

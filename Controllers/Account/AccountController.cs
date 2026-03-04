@@ -104,5 +104,10 @@ namespace Library.Controllers.Account
             }
             return RedirectToAction("Index", "Admin");
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
