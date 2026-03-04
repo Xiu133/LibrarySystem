@@ -167,9 +167,15 @@ dotnet test
 
 ## 系統截圖
 
-| 首頁（未登入） | 管理後台 |
-|:-:|:-:|
-| ![首頁](docs/screenshot-home.png) | ![後台](docs/screenshot-admin.png) |
+### 首頁（未登入）
+![首頁](docs/screenshot-home.png)
+
+> 深色漸層 Hero 設計，提供「立即登入」與「免費註冊」快速入口，底部展示豐富館藏、便利借閱、預約服務、排行榜四大功能亮點。
+
+### 管理後台 Dashboard
+![管理後台](docs/screenshot-admin.png)
+
+> 一覽書籍總數、會員數、借閱中、逾期書籍、未繳罰款、總收入等 KPI 卡片，搭配近 6 個月借閱趨勢折線圖與最近活動列表。
 
 ---
 
