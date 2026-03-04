@@ -1,7 +1,7 @@
 using Library.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Controllers.Borrow
 {
     public class BorrowController : Controller
     {

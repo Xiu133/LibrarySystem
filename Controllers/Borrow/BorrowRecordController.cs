@@ -3,7 +3,7 @@ using Library.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Controllers
+namespace Library.Controllers.Borrow
 {
     public class BorrowRecordController : Controller
     {

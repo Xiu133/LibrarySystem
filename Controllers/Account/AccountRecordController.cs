@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Controllers
+namespace Library.Controllers.Account
 {
     public class AccountRecordController : Controller
     {

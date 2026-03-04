@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Controllers.Admin
 {
-    public class FinanceController : Controller
+    public class UserController : Controller
     {
         public IActionResult Index()
         {

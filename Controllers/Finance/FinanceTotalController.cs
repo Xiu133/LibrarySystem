@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Controllers
+namespace Library.Controllers.Finance
 {
     [Authorize(Roles = "Admin")]
     public class FinanceTotalController : Controller

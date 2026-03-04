@@ -1,7 +1,7 @@
 ﻿using Library.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Controllers.Finance
 {
     public class IncomeRecordController : Controller
     {

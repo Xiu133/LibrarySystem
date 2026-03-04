@@ -2,7 +2,7 @@ using Library.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Controllers.Admin
 {
     [Authorize(Roles = "Admin")]
     public class MemberManageController : Controller

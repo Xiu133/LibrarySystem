@@ -2,7 +2,7 @@ using Library.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Controllers.Account
 {
     public class AccountController : Controller
     {

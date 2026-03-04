@@ -1,8 +1,8 @@
 using Library.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using static Library.Controllers.BorrowController;
+using static Library.Controllers.Borrow.BorrowController;
 
-namespace Library.Controllers
+namespace Library.Controllers.Borrow
 {
     public class ReserveController : Controller
     {

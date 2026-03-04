@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Library.Controllers
+namespace Library.Controllers.Finance
 {
     public class IncomeController : Controller
     {

@@ -2,7 +2,7 @@ using Library.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Controllers.Books
 {
     [Authorize(Roles = "Admin")]
     public class CategoryController : Controller

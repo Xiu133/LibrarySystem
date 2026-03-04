@@ -3,7 +3,7 @@ using Library.Services.Interfaces;
 using Library.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Library.Controllers
+namespace Library.Controllers.Books
 {
     public class BookController : Controller
     {
