@@ -134,12 +134,6 @@ dotnet run
 }
 ```
 
-預設管理員帳號（由 Seeder 自動建立）：
-
-| 欄位 | 值 |
-|------|----|
-| Email | admin@library.com |
-| 密碼 | Admin@123 |
 
 ---
 
