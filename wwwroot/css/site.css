@@ -410,6 +410,50 @@ table.data-table {
 .gap-1 { gap: 8px; } .gap-2 { gap: 16px; }
 .w-full { width: 100%; }
 
+/* ===== PAGINATION ===== */
+nav[aria-label="分頁導覽"] { margin-top: 28px; }
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+.page-item .page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition);
+}
+.page-item .page-link:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.page-item.active .page-link {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.page-item.disabled .page-link {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: default;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .page-wrapper { padding: 20px 16px; }

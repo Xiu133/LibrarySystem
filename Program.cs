@@ -74,6 +74,9 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<ISystemConfigService, SystemConfigService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 
+// Background Services
+builder.Services.AddHostedService<FineBackgroundService>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

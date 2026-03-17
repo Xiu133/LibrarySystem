@@ -12,11 +12,18 @@ namespace Library.Controllers.Finance
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            var records = _context.incomeRecords
-                .OrderByDescending(x => x.PaymentDate)
-                .ToList();
+            const int pageSize = 10;
+            var query = _context.incomeRecords.OrderByDescending(x => x.PaymentDate);
+
+            var totalCount = query.Count();
+            var records = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewBag.Page = page;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+            ViewBag.PaginationAction = "Index";
+
             return View(records);
         }
     }

@@ -1,6 +1,7 @@
 using Library.Models;
 using Library.Services.Interfaces;
 using Library.ViewModel;
+using Library.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Controllers.Books
@@ -15,10 +16,24 @@ namespace Library.Controllers.Books
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var books = await _bookService.GetAllBooksAsync();
-            return View(books);
+            const int pageSize = 10;
+            var allBooks = (await _bookService.GetAllBooksAsync()).ToList();
+
+            var result = new PagedResult<Book>
+            {
+                Items = allBooks.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
+                TotalCount = allBooks.Count,
+                Page = page,
+                PageSize = pageSize
+            };
+
+            ViewBag.Page = page;
+            ViewBag.TotalPages = result.TotalPages;
+            ViewBag.PaginationAction = "Index";
+
+            return View(result);
         }
 
         [HttpGet]
@@ -143,9 +158,7 @@ namespace Library.Controllers.Books
                 publishedYear = book.PublishedYear,
                 quantity = book.Quantity,
                 description = book.Description,
-                imageFileName = book.ImageFileName,
-                isbn = book.ISBN,
-                location = book.Location
+                imageFileName = book.ImageFileName
             });
         }
 

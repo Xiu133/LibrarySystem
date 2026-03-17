@@ -1,10 +1,10 @@
 @using Library.ViewModels
-@model IEnumerable<FineViewModel>
+@model PagedResult<FineViewModel>
 @{
     ViewData["Title"] = "罰款管理";
-    var unpaid = Model.Where(f => !f.IsPaid).ToList();
-    var paid = Model.Where(f => f.IsPaid).ToList();
-    var totalUnpaid = unpaid.Sum(f => f.Amount);
+    var unpaidCount = (int)ViewBag.TotalUnpaidCount;
+    var totalUnpaid = (decimal)ViewBag.TotalUnpaidAmount;
+    var paidCount = (int)ViewBag.TotalPaidCount;
 }
 
 @section Styles {
@@ -27,7 +27,7 @@
     <div class="fine-stats">
         <div class="stat-card">
             <div class="stat-label">未繳款件數</div>
-            <div class="stat-value" style="color:var(--danger)">@unpaid.Count</div>
+            <div class="stat-value" style="color:var(--danger)">@unpaidCount</div>
         </div>
         <div class="stat-card">
             <div class="stat-label">未繳款金額</div>
@@ -35,7 +35,7 @@
         </div>
         <div class="stat-card">
             <div class="stat-label">已繳款件數</div>
-            <div class="stat-value" style="color:var(--success)">@paid.Count</div>
+            <div class="stat-value" style="color:var(--success)">@paidCount</div>
         </div>
     </div>
 
@@ -62,7 +62,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var f in Model)
+                    @foreach (var f in Model.Items)
                     {
                         <tr v-show="shouldShow('@f.IsPaid')">
                             <td>@f.UserName</td>
@@ -98,6 +98,8 @@
     </div>
 
     <div v-if="message" class="alert mt-2" :class="success ? 'alert-success' : 'alert-danger'">{{ message }}</div>
+
+    @await Html.PartialAsync("_Pagination")
 </div>
 
 @section Scripts {

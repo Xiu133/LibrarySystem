@@ -28,6 +28,7 @@
                 }
             </tbody>
         </table>
+    @await Html.PartialAsync("_Pagination")
     <div class="text-center mt-4">
         <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">返回首頁</a>
     </div>

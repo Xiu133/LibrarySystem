@@ -1,8 +1,9 @@
 @using Library.Models
-@model IEnumerable<Book>
+@using Library.ViewModels
+@model PagedResult<Book>
 @{
     ViewData["Title"] = "書籍瀏覽";
-    var booksJson = System.Text.Json.JsonSerializer.Serialize(Model.Select(b => new {
+    var booksJson = System.Text.Json.JsonSerializer.Serialize(Model.Items.Select(b => new {
         id = b.Id, title = b.Title, author = b.Author, imageFileName = b.ImageFileName, quantity = b.Quantity
     }));
     var isAdmin = User.IsInRole("Admin");
@@ -16,7 +17,7 @@
     <div class="page-header">
         <div>
             <div class="page-title">書籍瀏覽</div>
-            <div class="page-subtitle">館藏 @Model.Count() 本書籍</div>
+            <div class="page-subtitle">館藏 @Model.TotalCount 本書籍</div>
         </div>
         @if (isAdmin)
         {
@@ -72,10 +73,7 @@
                         <span class="badge" :class="drawerBook.quantity > 0 ? 'badge-success' : 'badge-danger'">
                             {{ drawerBook.quantity > 0 ? '庫存 ' + drawerBook.quantity + ' 本' : '無庫存' }}
                         </span>
-                        <span v-if="drawerBook.isbn" class="badge badge-gray">ISBN: {{ drawerBook.isbn }}</span>
-                        <span v-if="drawerBook.location && drawerBook.location !== '未分類'" class="badge badge-info">
-                            📍 {{ drawerBook.location }}
-                        </span>
+
                     </div>
                     <div v-if="drawerBook.description" class="drawer-desc">{{ drawerBook.description }}</div>
                     <div class="drawer-actions">
@@ -88,6 +86,8 @@
         </div>
     </div>
 </div>
+
+@await Html.PartialAsync("_Pagination")
 
 @section Scripts {
     <script>

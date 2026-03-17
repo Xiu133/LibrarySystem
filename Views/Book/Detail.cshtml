@@ -29,14 +29,7 @@
             {
                 <span class="badge badge-danger">無庫存</span>
             }
-            @if (!string.IsNullOrEmpty(Model.ISBN))
-            {
-                <span class="badge badge-gray">ISBN: @Model.ISBN</span>
-            }
-            @if (!string.IsNullOrEmpty(Model.Location) && Model.Location != "未分類")
-            {
-                <span class="badge badge-info">📍 @Model.Location</span>
-            }
+
         </div>
 
         @if (!string.IsNullOrEmpty(Model.Description))

@@ -33,6 +33,13 @@ namespace Library.Controllers.Account
             var result = await _SignInManager.PasswordSignInAsync(username, password, false, false);
             if (result.Succeeded)
             {
+                if (user.MemberStatus == "Suspended")
+                {
+                    await _SignInManager.SignOutAsync();
+                    ModelState.AddModelError("", "您的帳號已被停用，請聯絡管理員。");
+                    return View();
+                }
+
                 var roles = await _UserManager.GetRolesAsync(user);
 
                 if (roles.Contains("Admin"))
